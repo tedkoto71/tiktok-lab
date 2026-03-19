@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TikTok Lab — Your AI Growth Engine</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg2: #111111;
+  --bg3: #181818;
+  --bg4: #222222;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #f0ede8;
+  --text2: #888884;
+  --text3: #555552;
+  --accent: #fe2c55;
+  --accent2: #25f4ee;
+  --gold: #f5c518;
+  --green: #4ade80;
+  --orange: #fb923c;
+  --font-head: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --r: 10px;
+  --r2: 16px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* LAYOUT */
+.shell { display: flex; min-height: 100vh; }
+.sidebar {
+  width: 220px;
+  min-height: 100vh;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 100;
+}
+.main { margin-left: 220px; flex: 1; padding: 32px 40px; max-width: 1100px; }
+
+/* SIDEBAR */
+.logo {
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.logo-mark {
+  font-family: var(--font-head);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+.logo-mark span { color: var(--accent); }
+.logo-sub { font-size: 10px; color: var(--text3); font-family: var(--font-mono); letter-spacing: 0.08em; margin-top: 2px; }
+
+.nav { padding: 16px 12px; flex: 1; }
+.nav-section { font-size: 10px; color: var(--text3); font-family: var(--font-mono); letter-spacing: 0.1em; padding: 12px 8px 6px; }
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 10px;
+  border-radius: var(--r);
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text2);
+  transition: all 0.15s;
+  margin-bottom: 2px;
+  border: 1px solid transparent;
+}
+.nav-item:hover { background: var(--bg3); color: var(--text); }
+.nav-item.active { background: var(--bg3); color: var(--text); border-color: var(--border); }
+.nav-item.active .nav-dot { background: var(--accent); }
+.nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text3); flex-shrink: 0; transition: background 0.15s; }
+.nav-icon { font-size: 15px; width: 18px; text-align: center; }
+
+.sidebar-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--text3);
+  font-family: var(--font-mono);
+}
+.online-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--green); margin-right: 6px; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+/* PANELS */
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* PAGE HEADER */
+.page-header { margin-bottom: 32px; }
+.page-title { font-family: var(--font-head); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--text); }
+.page-sub { color: var(--text2); font-size: 13px; margin-top: 4px; }
+
+/* CARDS */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 20px 22px;
+  margin-bottom: 16px;
+}
+.card-title { font-family: var(--font-head); font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 14px; letter-spacing: 0.01em; }
+
+/* FORMS */
+label { display: block; font-size: 11px; color: var(--text3); font-family: var(--font-mono); letter-spacing: 0.06em; margin-bottom: 6px; }
+input[type=text], input[type=url], input[type=number], textarea, select {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 10px 13px;
+  font-size: 13px;
+  color: var(--text);
+  font-family: var(--font-body);
+  transition: border-color 0.15s;
+  outline: none;
+  margin-bottom: 14px;
+}
+input:focus, textarea:focus, select:focus { border-color: var(--border2); }
+select option { background: var(--bg3); }
+textarea { resize: vertical; min-height: 80px; }
+
+.field { margin-bottom: 14px; }
+.field label { margin-bottom: 6px; }
+.field input, .field textarea, .field select { margin-bottom: 0; }
+
+/* BUTTONS */
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 10px 18px;
+  border-radius: var(--r);
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 13px;
+  font-family: var(--font-body);
+  transition: all 0.15s;
+  font-weight: 500;
+}
+.btn:hover { background: var(--bg3); }
+.btn:active { transform: scale(0.98); }
+.btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn-primary:hover { background: #e0203e; }
+.btn-accent2 { background: transparent; border-color: var(--accent2); color: var(--accent2); }
+.btn-sm { padding: 6px 12px; font-size: 12px; }
+.btn-ghost { border-color: transparent; color: var(--text2); }
+.btn-ghost:hover { color: var(--text); background: var(--bg3); }
+
+/* BADGES */
+.badge {
+  display: inline-flex; align-items: center;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  border: 1px solid;
+}
+.badge-red { background: rgba(254,44,85,0.1); color: var(--accent); border-color: rgba(254,44,85,0.2); }
+.badge-cyan { background: rgba(37,244,238,0.08); color: var(--accent2); border-color: rgba(37,244,238,0.15); }
+.badge-gold { background: rgba(245,197,24,0.1); color: var(--gold); border-color: rgba(245,197,24,0.2); }
+.badge-green { background: rgba(74,222,128,0.08); color: var(--green); border-color: rgba(74,222,128,0.15); }
+.badge-gray { background: rgba(255,255,255,0.05); color: var(--text2); border-color: var(--border); }
+
+/* GRID */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+/* STAT CARDS */
+.stat-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  text-align: center;
+}
+.stat-num { font-family: var(--font-head); font-size: 28px; font-weight: 700; color: var(--text); line-height: 1; }
+.stat-label { font-size: 11px; color: var(--text3); margin-top: 4px; font-family: var(--font-mono); }
+
+/* OUTPUT */
+.output {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  font-size: 13px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  color: var(--text);
+  min-height: 60px;
+}
+
+/* SPINNER */
+.spinner {
+  display: inline-block;
+  width: 13px; height: 13px;
+  border: 2px solid rgba(255,255,255,0.2);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ALERT */
+.alert {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 12px 14px;
+  border-radius: var(--r);
+  border: 1px solid;
+  margin-bottom: 14px;
+  font-size: 13px;
+}
+.alert-info { background: rgba(37,244,238,0.05); border-color: rgba(37,244,238,0.15); color: var(--accent2); }
+.alert-warn { background: rgba(251,146,60,0.08); border-color: rgba(251,146,60,0.2); color: var(--orange); }
+.alert-success { background: rgba(74,222,128,0.07); border-color: rgba(74,222,128,0.15); color: var(--green); }
+
+/* CONTENT LOG ITEMS */
+.log-item {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  transition: border-color 0.15s;
+}
+.log-item:hover { border-color: var(--border2); }
+.log-item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.log-item-title { font-weight: 500; font-size: 13px; color: var(--text); }
+.log-item-meta { font-size: 11px; color: var(--text3); font-family: var(--font-mono); }
+.log-item-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+
+/* SCORE BAR */
+.score-bar { height: 4px; background: var(--bg4); border-radius: 2px; overflow: hidden; margin-top: 6px; }
+.score-fill { height: 100%; border-radius: 2px; transition: width 0.5s; }
+.score-fill.high { background: var(--green); }
+.score-fill.med { background: var(--gold); }
+.score-fill.low { background: var(--accent); }
+
+/* NICHE SELECTOR */
+.niche-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.niche-chip {
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--text2);
+  transition: all 0.15s;
+  font-family: var(--font-mono);
+}
+.niche-chip:hover { border-color: var(--border2); color: var(--text); }
+.niche-chip.active { border-color: var(--accent); color: var(--accent); background: rgba(254,44,85,0.08); }
+
+/* UPLOAD AREA */
+.upload-area {
+  border: 1px dashed var(--border2);
+  border-radius: var(--r);
+  padding: 28px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-bottom: 14px;
+}
+.upload-area:hover { border-color: var(--accent); background: rgba(254,44,85,0.03); }
+.upload-area.dragover { border-color: var(--accent); background: rgba(254,44,85,0.06); }
+.upload-icon { font-size: 28px; margin-bottom: 8px; }
+.upload-text { font-size: 13px; color: var(--text2); }
+.upload-sub { font-size: 11px; color: var(--text3); margin-top: 4px; }
+
+/* TABS */
+.tabs { display: flex; gap: 4px; background: var(--bg3); border-radius: var(--r); padding: 4px; margin-bottom: 20px; border: 1px solid var(--border); }
+.tab-btn {
+  flex: 1; padding: 8px; border-radius: 7px; border: none; background: transparent;
+  cursor: pointer; font-size: 12px; color: var(--text2); font-family: var(--font-body);
+  transition: all 0.15s;
+}
+.tab-btn.active { background: var(--bg2); color: var(--text); border: 1px solid var(--border); }
+
+/* DIVIDER */
+.divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+/* HOOK RESULT */
+.hook-result {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+}
+.hook-text { font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.4; font-family: var(--font-head); }
+.hook-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 10px; }
+.hook-why { font-size: 12px; color: var(--text2); margin-top: 6px; line-height: 1.5; }
+
+/* PATTERN INSIGHT */
+.insight-card {
+  border-left: 3px solid var(--accent2);
+  padding: 12px 16px;
+  background: rgba(37,244,238,0.04);
+  border-radius: 0 var(--r) var(--r) 0;
+  margin-bottom: 12px;
+}
+.insight-title { font-size: 12px; color: var(--accent2); font-family: var(--font-mono); margin-bottom: 4px; }
+.insight-body { font-size: 13px; color: var(--text); line-height: 1.5; }
+
+/* MUSIC CARD */
+.music-card {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 12px 14px;
+  margin-bottom: 8px;
+}
+.music-rank { font-family: var(--font-mono); font-size: 13px; color: var(--text3); min-width: 24px; }
+.music-info { flex: 1; }
+.music-name { font-weight: 500; font-size: 13px; }
+.music-meta { font-size: 11px; color: var(--text3); font-family: var(--font-mono); margin-top: 2px; }
+.music-trend { font-size: 12px; font-family: var(--font-mono); }
+.music-trend.up { color: var(--green); }
+.music-trend.hot { color: var(--accent); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .sidebar { width: 100%; min-height: auto; position: relative; }
+  .main { margin-left: 0; padding: 20px 16px; }
+  .grid2, .grid3 { grid-template-columns: 1fr; }
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.fadein { animation: fadeIn 0.3s ease forwards; }
+
+/* EMPTY STATE */
+.empty-state { text-align: center; padding: 48px 24px; }
+.empty-icon { font-size: 36px; margin-bottom: 12px; opacity: 0.4; }
+.empty-title { font-family: var(--font-head); font-size: 16px; color: var(--text2); }
+.empty-sub { font-size: 13px; color: var(--text3); margin-top: 6px; }
+
+/* TOGGLE */
+.toggle-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.toggle-label { font-size: 13px; color: var(--text2); }
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="logo">
+    <div class="logo-mark">Tik<span>Lab</span></div>
+    <div class="logo-sub">AI GROWTH ENGINE</div>
+  </div>
+  <nav class="nav">
+    <div class="nav-section">MAIN</div>
+    <div class="nav-item active" onclick="goTo('dashboard')"><span class="nav-dot"></span><span class="nav-icon">⬡</span> Dashboard</div>
+    <div class="nav-item" onclick="goTo('add')"><span class="nav-dot"></span><span class="nav-icon">+</span> Add Content</div>
+    <div class="nav-item" onclick="goTo('log')"><span class="nav-dot"></span><span class="nav-icon">≡</span> Content Log</div>
+
+    <div class="nav-section">TOOLS</div>
+    <div class="nav-item" onclick="goTo('hooks')"><span class="nav-dot"></span><span class="nav-icon">⚡</span> Hook Lab</div>
+    <div class="nav-item" onclick="goTo('angles')"><span class="nav-dot"></span><span class="nav-icon">◈</span> Angle Engine</div>
+    <div class="nav-item" onclick="goTo('music')"><span class="nav-dot"></span><span class="nav-icon">♪</span> Viral Music</div>
+
+    <div class="nav-section">INTEL</div>
+    <div class="nav-item" onclick="goTo('algorithm')"><span class="nav-dot"></span><span class="nav-icon">◎</span> Algorithm Intel</div>
+    <div class="nav-item" onclick="goTo('patterns')"><span class="nav-dot"></span><span class="nav-icon">◉</span> My Patterns</div>
+  </nav>
+  <div class="sidebar-footer">
+    <span class="online-dot"></span>AI ONLINE
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- ===== DASHBOARD ===== -->
+<div id="panel-dashboard" class="panel active">
+  <div class="page-header">
+    <div class="page-title">Dashboard</div>
+    <div class="page-sub">Your TikTok growth at a glance</div>
+  </div>
+
+  <div id="dash-alert"></div>
+
+  <div class="grid3" style="margin-bottom:20px;">
+    <div class="stat-card">
+      <div class="stat-num" id="stat-total">0</div>
+      <div class="stat-label">VIDEOS TRACKED</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-avg" style="color:var(--gold)">—</div>
+      <div class="stat-label">AVG VIEWS</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-best" style="color:var(--green)">—</div>
+      <div class="stat-label">BEST PERFORMER</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">TOP PERFORMING NICHES</div>
+      <div id="dash-niches">
+        <div class="empty-state" style="padding:24px;">
+          <div class="empty-icon">◈</div>
+          <div class="empty-title">No data yet</div>
+          <div class="empty-sub">Add content to start learning</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">RECENT ACTIVITY</div>
+      <div id="dash-recent">
+        <div class="empty-state" style="padding:24px;">
+          <div class="empty-icon">≡</div>
+          <div class="empty-title">No videos tracked</div>
+          <div class="empty-sub">Add your first video below</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">WHAT'S WORKING RIGHT NOW</div>
+    <div id="dash-insights">
+      <div class="empty-state" style="padding:20px;">
+        <div class="empty-title" style="font-size:13px;">Track 3+ videos to unlock AI pattern analysis</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ADD CONTENT ===== -->
+<div id="panel-add" class="panel">
+  <div class="page-header">
+    <div class="page-title">Add Content</div>
+    <div class="page-sub">Log a video — the AI will analyze and learn from it</div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchAddTab('url')">TikTok URL</button>
+    <button class="tab-btn" onclick="switchAddTab('upload')">Upload Video</button>
+    <button class="tab-btn" onclick="switchAddTab('manual')">Manual Entry</button>
+  </div>
+
+  <!-- URL TAB -->
+  <div id="add-url-tab">
+    <div class="card">
+      <div class="card-title">TIKTOK VIDEO URL</div>
+      <div class="field"><label>VIDEO URL</label><input type="url" id="url-input" placeholder="https://www.tiktok.com/@user/video/..."></div>
+      <div class="field"><label>YOUR NICHE</label>
+        <div class="niche-chips" id="url-niches">
+          <div class="niche-chip" onclick="toggleNiche(this,'fitness')">fitness</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'finance')">finance</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'mindset')">mindset</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'food')">food</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'beauty')">beauty</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'fashion')">fashion</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'tech')">tech</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'relationships')">relationships</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'gaming')">gaming</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'travel')">travel</div>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>VIEWS (if known)</label><input type="number" id="url-views" placeholder="e.g. 45000"></div>
+        <div class="field"><label>FOLLOWS FROM THIS</label><input type="number" id="url-follows" placeholder="e.g. 120"></div>
+      </div>
+      <div class="field"><label>WHAT WAS THE HOOK? (first line)</label><input type="text" id="url-hook" placeholder="e.g. Nobody talks about this..."></div>
+      <div class="field"><label>NOTES / WHAT YOU TRIED</label><textarea id="url-notes" placeholder="Format used, angle, music, anything you noticed..."></textarea></div>
+      <button class="btn btn-primary" id="url-analyze-btn" onclick="analyzeURL()"><span class="spinner" style="display:none" id="url-spin"></span> Analyze & Save ↗</button>
+    </div>
+    <div id="url-result"></div>
+  </div>
+
+  <!-- UPLOAD TAB -->
+  <div id="add-upload-tab" style="display:none">
+    <div class="card">
+      <div class="card-title">UPLOAD VIDEO FILE</div>
+      <div class="upload-area" id="upload-drop" onclick="document.getElementById('file-input').click()" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="handleDrop(event)">
+        <div class="upload-icon">⬆</div>
+        <div class="upload-text">Drop video or click to browse</div>
+        <div class="upload-sub">MP4, MOV — max 100MB</div>
+      </div>
+      <input type="file" id="file-input" accept="video/*,image/*" style="display:none" onchange="handleFileSelect(event)">
+      <div id="file-preview"></div>
+      <div class="field"><label>YOUR NICHE</label>
+        <div class="niche-chips" id="upload-niches">
+          <div class="niche-chip" onclick="toggleNiche(this,'fitness')">fitness</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'finance')">finance</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'mindset')">mindset</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'food')">food</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'beauty')">beauty</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'fashion')">fashion</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'tech')">tech</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'relationships')">relationships</div>
+        </div>
+      </div>
+      <div class="field"><label>DESCRIBE THE CONTENT</label><textarea id="upload-desc" placeholder="What is this video about? Hook, angle, format..."></textarea></div>
+      <div class="grid2">
+        <div class="field"><label>VIEWS (if posted)</label><input type="number" id="upload-views" placeholder="0 if not posted yet"></div>
+        <div class="field"><label>RESULT / PERFORMANCE</label>
+          <select id="upload-perf">
+            <option value="">Not posted yet</option>
+            <option value="flop">Flopped (< 1K)</option>
+            <option value="ok">OK (1K–10K)</option>
+            <option value="good">Good (10K–100K)</option>
+            <option value="viral">VIRAL (100K+)</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary" id="upload-analyze-btn" onclick="analyzeUpload()"><span class="spinner" style="display:none" id="upload-spin"></span> Analyze & Save ↗</button>
+    </div>
+    <div id="upload-result"></div>
+  </div>
+
+  <!-- MANUAL TAB -->
+  <div id="add-manual-tab" style="display:none">
+    <div class="card">
+      <div class="card-title">MANUAL ENTRY</div>
+      <div class="field"><label>CONTENT TITLE / CONCEPT</label><input type="text" id="manual-title" placeholder="e.g. 3 things nobody tells you about building muscle"></div>
+      <div class="field"><label>YOUR NICHE</label>
+        <div class="niche-chips" id="manual-niches">
+          <div class="niche-chip" onclick="toggleNiche(this,'fitness')">fitness</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'finance')">finance</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'mindset')">mindset</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'food')">food</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'beauty')">beauty</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'fashion')">fashion</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'tech')">tech</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'relationships')">relationships</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'gaming')">gaming</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'travel')">travel</div>
+        </div>
+      </div>
+      <div class="field"><label>HOOK (opening line)</label><input type="text" id="manual-hook" placeholder="First 1-2 seconds of the video..."></div>
+      <div class="field"><label>FULL SCRIPT / DESCRIPTION</label><textarea id="manual-script" rows="4" placeholder="Paste script or describe the video..."></textarea></div>
+      <div class="field"><label>FORMAT</label>
+        <select id="manual-format">
+          <option>Talking head</option><option>POV/Story</option><option>List/Tips</option>
+          <option>Reaction</option><option>Day in the life</option><option>Before/After</option>
+          <option>Tutorial</option><option>Trending sound/trend</option>
+        </select>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>VIEWS</label><input type="number" id="manual-views" placeholder="Leave blank if not posted"></div>
+        <div class="field"><label>PERFORMANCE</label>
+          <select id="manual-perf">
+            <option value="">Not posted yet</option>
+            <option value="flop">Flopped (< 1K)</option>
+            <option value="ok">OK (1K–10K)</option>
+            <option value="good">Good (10K–100K)</option>
+            <option value="viral">VIRAL (100K+)</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary" id="manual-btn" onclick="analyzeManual()"><span class="spinner" style="display:none" id="manual-spin"></span> Analyze & Save ↗</button>
+    </div>
+    <div id="manual-result"></div>
+  </div>
+</div>
+
+<!-- ===== CONTENT LOG ===== -->
+<div id="panel-log" class="panel">
+  <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-end;">
+    <div>
+      <div class="page-title">Content Log</div>
+      <div class="page-sub">All tracked videos and their performance</div>
+    </div>
+    <button class="btn btn-sm" onclick="clearLog()">Clear all</button>
+  </div>
+  <div id="log-list"></div>
+</div>
+
+<!-- ===== HOOK LAB ===== -->
+<div id="panel-hooks" class="panel">
+  <div class="page-header">
+    <div class="page-title">Hook Lab</div>
+    <div class="page-sub">Generate scroll-stopping hooks based on your niche history</div>
+  </div>
+  <div class="card">
+    <div class="field"><label>TOPIC / CONCEPT</label><input type="text" id="hook-topic" placeholder="e.g. losing weight, building wealth, morning routine..."></div>
+    <div class="field"><label>NICHE</label>
+      <div class="niche-chips" id="hook-niches">
+        <div class="niche-chip" onclick="toggleNiche(this,'fitness')">fitness</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'finance')">finance</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'mindset')">mindset</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'food')">food</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'beauty')">beauty</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'fashion')">fashion</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'tech')">tech</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'relationships')">relationships</div>
+      </div>
+    </div>
+    <div class="field"><label>HOOK STYLE</label>
+      <select id="hook-style">
+        <option value="curiosity">Curiosity gap</option>
+        <option value="controversy">Controversial take</option>
+        <option value="story">Story / POV</option>
+        <option value="stat">Shocking stat or number</option>
+        <option value="mistake">Common mistake</option>
+        <option value="secret">Secret / hidden truth</option>
+        <option value="relatable">Super relatable moment</option>
+        <option value="challenge">Challenge / dare</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" id="hook-gen-btn" onclick="generateHooks()"><span class="spinner" style="display:none" id="hook-spin"></span> Generate 5 Hooks ↗</button>
+  </div>
+  <div id="hooks-output"></div>
+</div>
+
+<!-- ===== ANGLE ENGINE ===== -->
+<div id="panel-angles" class="panel">
+  <div class="page-header">
+    <div class="page-title">Angle Engine</div>
+    <div class="page-sub">Fresh angles trained on what's working for you</div>
+  </div>
+  <div class="card">
+    <div class="field"><label>TOPIC</label><input type="text" id="angle-topic" placeholder="e.g. intermittent fasting, crypto, toxic relationships..."></div>
+    <div class="field"><label>YOUR NICHE</label>
+      <div class="niche-chips" id="angle-niches">
+        <div class="niche-chip" onclick="toggleNiche(this,'fitness')">fitness</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'finance')">finance</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'mindset')">mindset</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'food')">food</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'beauty')">beauty</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'fashion')">fashion</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'tech')">tech</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'relationships')">relationships</div>
+      </div>
+    </div>
+    <div class="field"><label>ANGLES ALREADY TRIED</label><textarea id="angle-tried" placeholder="e.g. motivational tips format, list videos, reaction content..."></textarea></div>
+    <button class="btn btn-primary" id="angle-btn" onclick="generateAngles()"><span class="spinner" style="display:none" id="angle-spin"></span> Find New Angles ↗</button>
+  </div>
+  <div id="angles-output"></div>
+</div>
+
+<!-- ===== VIRAL MUSIC ===== -->
+<div id="panel-music" class="panel">
+  <div class="page-header">
+    <div class="page-title">Viral Music</div>
+    <div class="page-sub">Trending sounds on TikTok USA right now</div>
+  </div>
+  <div class="card">
+    <div class="field"><label>NICHE / VIBE</label>
+      <div class="niche-chips" id="music-niches">
+        <div class="niche-chip" onclick="toggleNiche(this,'fitness')">fitness</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'finance')">finance</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'mindset')">mindset</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'food')">food</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'beauty')">beauty</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'fashion')">fashion</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'motivation')">motivation</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'chill')">chill vibes</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'hype')">hype energy</div>
+      </div>
+    </div>
+    <div class="field"><label>VIDEO FORMAT</label>
+      <select id="music-format">
+        <option>Talking head</option><option>Montage / B-roll</option>
+        <option>Tutorial</option><option>Emotional story</option>
+        <option>Hype / energy</option><option>Day in the life</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" id="music-btn" onclick="getMusic()"><span class="spinner" style="display:none" id="music-spin"></span> Get Trending Sounds ↗</button>
+  </div>
+  <div id="music-output"></div>
+</div>
+
+<!-- ===== ALGORITHM INTEL ===== -->
+<div id="panel-algorithm" class="panel">
+  <div class="page-header">
+    <div class="page-title">Algorithm Intel</div>
+    <div class="page-sub">Latest TikTok USA algorithm changes & what to do about them</div>
+  </div>
+  <div class="card">
+    <div class="field"><label>YOUR PRIMARY NICHE</label>
+      <div class="niche-chips" id="algo-niches">
+        <div class="niche-chip" onclick="toggleNiche(this,'fitness')">fitness</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'finance')">finance</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'mindset')">mindset</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'food')">food</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'beauty')">beauty</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'general')">general</div>
+      </div>
+    </div>
+    <div class="field"><label>SPECIFIC CONCERN (OPTIONAL)</label><input type="text" id="algo-concern" placeholder="e.g. my views dropped suddenly, shadow ban, low reach..."></div>
+    <button class="btn btn-primary" id="algo-btn" onclick="getAlgoIntel()"><span class="spinner" style="display:none" id="algo-spin"></span> Get Algorithm Intel ↗</button>
+  </div>
+  <div id="algo-output"></div>
+</div>
+
+<!-- ===== MY PATTERNS ===== -->
+<div id="panel-patterns" class="panel">
+  <div class="page-header">
+    <div class="page-title">My Patterns</div>
+    <div class="page-sub">AI analysis of what makes YOUR content work</div>
+  </div>
+  <div id="patterns-output">
+    <div class="empty-state">
+      <div class="empty-icon">◉</div>
+      <div class="empty-title">Not enough data yet</div>
+      <div class="empty-sub">Add at least 3 videos to unlock pattern analysis</div>
+    </div>
+  </div>
+  <div id="patterns-regen" style="display:none;margin-top:16px;">
+    <button class="btn btn-primary" onclick="analyzePatterns()"><span class="spinner" style="display:none" id="pattern-spin"></span> Re-analyze Patterns ↗</button>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+// ============================================================
+// STATE & STORAGE
+// ============================================================
+const STORAGE_KEY = 'tiklab_v2';
+
+function loadState() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { entries: [], patterns: null, lastPatternUpdate: null }; }
+  catch { return { entries: [], patterns: null, lastPatternUpdate: null }; }
+}
+
+function saveState(s) { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }
+
+let state = loadState();
+let selectedNiches = {};
+let uploadedFileData = null;
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function goTo(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  const items = document.querySelectorAll('.nav-item');
+  const map = ['dashboard','add','log','hooks','angles','music','algorithm','patterns'];
+  const idx = map.indexOf(name);
+  if (idx >= 0) items[idx].classList.add('active');
+  if (name === 'dashboard') refreshDashboard();
+  if (name === 'log') renderLog();
+  if (name === 'patterns') renderPatterns();
+}
+
+// ============================================================
+// NICHE CHIPS — one per group
+// ============================================================
+function toggleNiche(el, val) {
+  const group = el.closest('.niche-chips').id;
+  document.querySelectorAll('#' + group + ' .niche-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  selectedNiches[group] = val;
+}
+
+function getNiche(group) { return selectedNiches[group] || ''; }
+
+// ============================================================
+// ADD CONTENT TABS
+// ============================================================
+function switchAddTab(tab) {
+  ['url','upload','manual'].forEach(t => {
+    document.getElementById('add-' + t + '-tab').style.display = t === tab ? 'block' : 'none';
+  });
+  document.querySelectorAll('.tab-btn').forEach((b,i) => {
+    b.classList.toggle('active', ['url','upload','manual'][i] === tab);
+  });
+}
+
+// ============================================================
+// FILE UPLOAD
+// ============================================================
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('upload-drop').classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file) processFile(file);
+}
+function handleFileSelect(e) { if (e.target.files[0]) processFile(e.target.files[0]); }
+
+function processFile(file) {
+  const preview = document.getElementById('file-preview');
+  if (file.type.startsWith('video/')) {
+    const url = URL.createObjectURL(file);
+    preview.innerHTML = `<video src="${url}" controls style="width:100%;border-radius:8px;margin-bottom:14px;max-height:240px;background:#000;"></video><div class="badge badge-green" style="margin-bottom:14px;">${file.name} — ${(file.size/1024/1024).toFixed(1)}MB</div>`;
+    const reader = new FileReader();
+    reader.onload = r => { uploadedFileData = { name: file.name, type: file.type, size: file.size }; };
+    reader.readAsArrayBuffer(file);
+  } else if (file.type.startsWith('image/')) {
+    const reader = new FileReader();
+    reader.onload = r => {
+      preview.innerHTML = `<img src="${r.result}" style="width:100%;border-radius:8px;margin-bottom:14px;max-height:240px;object-fit:cover;">`;
+      uploadedFileData = { name: file.name, type: file.type, dataUrl: r.result };
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+// ============================================================
+// CLAUDE API
+// ============================================================
+async function callClaude(prompt, system = '') {
+  const body = { model: 'claude-sonnet-4-20250514', max_tokens: 1000 };
+  if (system) body.system = system;
+  body.messages = [{ role: 'user', content: prompt }];
+  const r = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  const d = await r.json();
+  return d.content[0].text;
+}
+
+async function callClaudeJSON(prompt, system = '') {
+  const text = await callClaude(prompt, system + ' Return ONLY valid JSON, no markdown, no backticks.');
+  try { return JSON.parse(text); }
+  catch { return JSON.parse(text.replace(/```json|```/g, '').trim()); }
+}
+
+function setLoading(btnId, spinId, on) {
+  const btn = document.getElementById(btnId);
+  const spin = document.getElementById(spinId);
+  btn.disabled = on;
+  spin.style.display = on ? 'inline-block' : 'none';
+}
+
+// ============================================================
+// ANALYZE URL
+// ============================================================
+async function analyzeURL() {
+  const url = document.getElementById('url-input').value.trim();
+  const niche = getNiche('url-niches');
+  const views = document.getElementById('url-views').value;
+  const hook = document.getElementById('url-hook').value.trim();
+  const notes = document.getElementById('url-notes').value.trim();
+  if (!url && !hook) { alert('Enter a URL or at least the hook'); return; }
+  setLoading('url-analyze-btn', 'url-spin', true);
+  const out = document.getElementById('url-result');
+  out.innerHTML = '';
+  try {
+    const data = await callClaudeJSON(`
+TikTok video to analyze:
+URL: ${url || 'not provided'}
+Niche: ${niche || 'general'}
+Hook used: ${hook || 'unknown'}
+Views: ${views || 'unknown'}
+Notes: ${notes || 'none'}
+
+Analyze this TikTok video for US algorithm performance. Return JSON:
+{"score":75,"hook_score":80,"hook_analysis":"...","strengths":["...","..."],"weaknesses":["..."],"next_angles":["angle1","angle2","angle3"],"music_rec":"type of music that would work","cta_rec":"best call to action","verdict":"one punchy sentence"}
+    `);
+    const entry = {
+      id: Date.now(), type: 'url', url, niche: niche || 'general',
+      hook, views: parseInt(views) || 0, notes, analysis: data,
+      date: new Date().toLocaleDateString(), score: data.score
+    };
+    state.entries.push(entry);
+    saveState(state);
+    out.innerHTML = renderAnalysis(data);
+  } catch(e) { out.innerHTML = `<div class="alert alert-warn">Error analyzing. Try again.</div>`; }
+  setLoading('url-analyze-btn', 'url-spin', false);
+}
+
+// ============================================================
+// ANALYZE UPLOAD
+// ============================================================
+async function analyzeUpload() {
+  const desc = document.getElementById('upload-desc').value.trim();
+  const niche = getNiche('upload-niches');
+  const views = document.getElementById('upload-views').value;
+  const perf = document.getElementById('upload-perf').value;
+  if (!desc && !uploadedFileData) { alert('Describe the video content'); return; }
+  setLoading('upload-analyze-btn', 'upload-spin', true);
+  const out = document.getElementById('upload-result');
+  out.innerHTML = '';
+  try {
+    let messages;
+    if (uploadedFileData && uploadedFileData.dataUrl) {
+      messages = [{ role: 'user', content: [
+        { type: 'image', source: { type: 'base64', media_type: uploadedFileData.type, data: uploadedFileData.dataUrl.split(',')[1] } },
+        { type: 'text', text: `Analyze this TikTok content for US algorithm performance.\nNiche: ${niche || 'general'}\nDescription: ${desc}\nViews: ${views || 'unknown'}\nPerformance: ${perf || 'not posted'}\n\nReturn JSON: {"score":75,"hook_score":80,"hook_analysis":"...","strengths":["..."],"weaknesses":["..."],"next_angles":["...","...","..."],"music_rec":"...","cta_rec":"...","verdict":"..."}` }
+      ]}];
+    } else {
+      const data = await callClaudeJSON(`Analyze TikTok content:\nNiche: ${niche}\nDescription: ${desc}\nViews: ${views || 'unknown'}\nPerformance: ${perf || 'not posted'}\n\nReturn JSON: {"score":75,"hook_score":80,"hook_analysis":"...","strengths":["..."],"weaknesses":["..."],"next_angles":["...","...","..."],"music_rec":"...","cta_rec":"...","verdict":"..."}`);
+      const entry = { id: Date.now(), type: 'upload', niche: niche || 'general', desc, views: parseInt(views) || 0, perf, analysis: data, date: new Date().toLocaleDateString(), score: data.score };
+      state.entries.push(entry); saveState(state);
+      out.innerHTML = renderAnalysis(data);
+      setLoading('upload-analyze-btn', 'upload-spin', false);
+      return;
+    }
+    const r = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, messages }) });
+    const d = await r.json();
+    const text = d.content[0].text;
+    const data = JSON.parse(text.replace(/```json|```/g,'').trim());
+    const entry = { id: Date.now(), type: 'upload', niche: niche || 'general', desc, views: parseInt(views) || 0, perf, analysis: data, date: new Date().toLocaleDateString(), score: data.score };
+    state.entries.push(entry); saveState(state);
+    out.innerHTML = renderAnalysis(data);
+  } catch(e) { out.innerHTML = `<div class="alert alert-warn">Error. Try again.</div>`; }
+  setLoading('upload-analyze-btn', 'upload-spin', false);
+}
+
+// ============================================================
+// ANALYZE MANUAL
+// ============================================================
+async function analyzeManual() {
+  const title = document.getElementById('manual-title').value.trim();
+  const hook = document.getElementById('manual-hook').value.trim();
+  const script = document.getElementById('manual-script').value.trim();
+  const format = document.getElementById('manual-format').value;
+  const niche = getNiche('manual-niches');
+  const views = document.getElementById('manual-views').value;
+  const perf = document.getElementById('manual-perf').value;
+  if (!title && !script) { alert('Enter a title or script'); return; }
+  setLoading('manual-btn', 'manual-spin', true);
+  const out = document.getElementById('manual-result');
+  out.innerHTML = '';
+  try {
+    const data = await callClaudeJSON(`
+TikTok content to analyze for US algorithm:
+Title/Concept: ${title}
+Hook: ${hook || 'not specified'}
+Script: ${script || 'not provided'}
+Format: ${format}
+Niche: ${niche || 'general'}
+Views: ${views || 'not posted yet'}
+Performance: ${perf || 'not posted'}
+
+Analyze and return JSON: {"score":75,"hook_score":80,"hook_analysis":"...","strengths":["...","..."],"weaknesses":["..."],"next_angles":["...","...","..."],"music_rec":"...","cta_rec":"...","verdict":"..."}
+    `);
+    const entry = { id: Date.now(), type: 'manual', title, hook, script, format, niche: niche || 'general', views: parseInt(views) || 0, perf, analysis: data, date: new Date().toLocaleDateString(), score: data.score };
+    state.entries.push(entry); saveState(state);
+    out.innerHTML = renderAnalysis(data);
+  } catch(e) { out.innerHTML = `<div class="alert alert-warn">Error. Try again.</div>`; }
+  setLoading('manual-btn', 'manual-spin', false);
+}
+
+// ============================================================
+// RENDER ANALYSIS
+// ============================================================
+function renderAnalysis(d) {
+  const sc = d.score >= 80 ? 'high' : d.score >= 60 ? 'med' : 'low';
+  const sc2 = d.hook_score >= 80 ? 'high' : d.hook_score >= 60 ? 'med' : 'low';
+  return `<div class="card fadein">
+    <div class="grid2" style="margin-bottom:16px;">
+      <div>
+        <div class="card-title">OVERALL SCORE</div>
+        <div style="font-family:var(--font-head);font-size:36px;font-weight:800;color:var(--text)">${d.score}<span style="font-size:16px;color:var(--text3)">/100</span></div>
+        <div class="score-bar" style="margin-top:8px;"><div class="score-fill ${sc}" style="width:${d.score}%"></div></div>
+      </div>
+      <div>
+        <div class="card-title">HOOK SCORE</div>
+        <div style="font-family:var(--font-head);font-size:36px;font-weight:800;color:var(--text)">${d.hook_score}<span style="font-size:16px;color:var(--text3)">/100</span></div>
+        <div class="score-bar" style="margin-top:8px;"><div class="score-fill ${sc2}" style="width:${d.hook_score}%"></div></div>
+      </div>
+    </div>
+    <div class="insight-card" style="margin-bottom:14px;">
+      <div class="insight-title">HOOK ANALYSIS</div>
+      <div class="insight-body">${d.hook_analysis}</div>
+    </div>
+    <div class="grid2" style="margin-bottom:16px;">
+      <div>
+        <div class="card-title" style="color:var(--green)">STRENGTHS</div>
+        ${(d.strengths||[]).map(s=>`<div style="font-size:13px;padding:4px 0;display:flex;gap:8px;align-items:flex-start;"><span style="color:var(--green);margin-top:1px;">+</span>${s}</div>`).join('')}
+      </div>
+      <div>
+        <div class="card-title" style="color:var(--accent)">WEAKNESSES</div>
+        ${(d.weaknesses||[]).map(w=>`<div style="font-size:13px;padding:4px 0;display:flex;gap:8px;align-items:flex-start;"><span style="color:var(--accent);margin-top:1px;">−</span>${w}</div>`).join('')}
+      </div>
+    </div>
+    <div style="margin-bottom:14px;">
+      <div class="card-title">NEXT ANGLES TO TEST</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        ${(d.next_angles||[]).map(a=>`<span class="badge badge-cyan">${a}</span>`).join('')}
+      </div>
+    </div>
+    <div class="grid2" style="margin-bottom:14px;">
+      <div class="stat-card"><div style="font-size:11px;color:var(--text3);font-family:var(--font-mono);margin-bottom:4px;">MUSIC REC</div><div style="font-size:13px;">${d.music_rec}</div></div>
+      <div class="stat-card"><div style="font-size:11px;color:var(--text3);font-family:var(--font-mono);margin-bottom:4px;">CTA REC</div><div style="font-size:13px;">${d.cta_rec}</div></div>
+    </div>
+    <div style="background:rgba(254,44,85,0.06);border:1px solid rgba(254,44,85,0.15);border-radius:var(--r);padding:12px 14px;font-size:13px;font-weight:500;color:var(--text);">
+      <span style="color:var(--accent);font-family:var(--font-mono);font-size:11px;">VERDICT — </span>${d.verdict}
+    </div>
+  </div>`;
+}
+
+// ============================================================
+// HOOK LAB
+// ============================================================
+async function generateHooks() {
+  const topic = document.getElementById('hook-topic').value.trim();
+  const niche = getNiche('hook-niches');
+  const style = document.getElementById('hook-style').value;
+  if (!topic) { alert('Enter a topic'); return; }
+  setLoading('hook-gen-btn', 'hook-spin', true);
+  const out = document.getElementById('hooks-output');
+  out.innerHTML = '';
+  const history = state.entries.filter(e => (!niche || e.niche === niche) && e.score >= 70).slice(-5);
+  const histCtx = history.length ? `\nUser's top performing content in this niche:\n${history.map(e => `- "${e.hook || e.title || e.desc || ''}" scored ${e.score}`).join('\n')}` : '';
+  try {
+    const hooks = await callClaudeJSON(`
+Generate 5 TikTok hooks for US algorithm.
+Topic: ${topic}
+Niche: ${niche || 'general'}
+Style: ${style}
+${histCtx}
+
+Return JSON array: [{"hook":"...","why":"1 sentence why this works","potential":"explosive/high/medium","format":"talking head/text on screen/voiceover","emotion":"core emotion"}]
+    `);
+    hooks.forEach(h => {
+      const pc = h.potential === 'explosive' ? 'badge-red' : h.potential === 'high' ? 'badge-green' : 'badge-gold';
+      out.innerHTML += `<div class="hook-result fadein">
+        <div class="hook-text">"${h.hook}"</div>
+        <div class="hook-meta">
+          <span class="badge ${pc}">${h.potential}</span>
+          <span class="badge badge-gray">${h.format}</span>
+          <span class="badge badge-cyan">${h.emotion}</span>
+        </div>
+        <div class="hook-why">${h.why}</div>
+      </div>`;
+    });
+  } catch(e) { out.innerHTML = '<div class="alert alert-warn">Error. Try again.</div>'; }
+  setLoading('hook-gen-btn', 'hook-spin', false);
+}
+
+// ============================================================
+// ANGLE ENGINE
+// ============================================================
+async function generateAngles() {
+  const topic = document.getElementById('angle-topic').value.trim();
+  const niche = getNiche('angle-niches');
+  const tried = document.getElementById('angle-tried').value.trim();
+  if (!topic) { alert('Enter a topic'); return; }
+  setLoading('angle-btn', 'angle-spin', true);
+  const out = document.getElementById('angles-output');
+  out.innerHTML = '';
+  const history = state.entries.filter(e => (!niche || e.niche === niche)).slice(-8);
+  const histCtx = history.length ? `\nUser's content history for context:\n${history.map(e => `- "${e.hook || e.title || e.desc || ''}" — score ${e.score || '?'}, performance: ${e.perf || 'unknown'}`).join('\n')}` : '';
+  try {
+    const angles = await callClaudeJSON(`
+Find 6 fresh, untapped TikTok content angles.
+Topic: ${topic}
+Niche: ${niche || 'general'}
+Already tried: ${tried || 'nothing specified'}
+${histCtx}
+
+Be counterintuitive. Think: unexpected audience, contrarian take, extreme specificity, emotional reframe, behind-the-scenes, failure story.
+Return JSON array: [{"angle":"name","concept":"1-line concept","hook_starter":"example opening line","emotion":"emotion triggered","competition":"low/medium/saturated","why_now":"why this angle works in 2025"}]
+    `);
+    out.innerHTML = `<div class="card-title" style="margin-bottom:14px;">6 FRESH ANGLES TO TEST</div>`;
+    angles.forEach((a, i) => {
+      const cc = a.competition === 'low' ? 'badge-green' : a.competition === 'saturated' ? 'badge-red' : 'badge-gold';
+      out.innerHTML += `<div class="log-item fadein" style="animation-delay:${i*0.05}s">
+        <div class="log-item-header">
+          <div>
+            <div class="log-item-title">${a.angle}</div>
+            <div style="font-size:13px;color:var(--text2);margin-top:4px;">${a.concept}</div>
+          </div>
+          <span class="badge ${cc}">${a.competition} competition</span>
+        </div>
+        <div style="background:var(--bg4);border-radius:var(--r);padding:10px 12px;margin:10px 0;font-size:13px;font-style:italic;color:var(--text2);">"${a.hook_starter}"</div>
+        <div class="log-item-tags">
+          <span class="badge badge-cyan">${a.emotion}</span>
+          <span style="font-size:12px;color:var(--text3);">${a.why_now}</span>
+        </div>
+      </div>`;
+    });
+  } catch(e) { out.innerHTML = '<div class="alert alert-warn">Error. Try again.</div>'; }
+  setLoading('angle-btn', 'angle-spin', false);
+}
+
+// ============================================================
+// VIRAL MUSIC
+// ============================================================
+async function getMusic() {
+  const niche = getNiche('music-niches');
+  const format = document.getElementById('music-format').value;
+  setLoading('music-btn', 'music-spin', true);
+  const out = document.getElementById('music-output');
+  out.innerHTML = '';
+  try {
+    const data = await callClaudeJSON(`
+Suggest 8 viral/trending sounds for TikTok USA in 2025.
+Niche: ${niche || 'general'}
+Video format: ${format}
+
+Think about what's currently trending on US TikTok: original sounds, popular songs being used, artist tracks, specific audio clips. Include variety: hype, emotional, background, trending memes.
+Return JSON: {"sounds":[{"name":"...","artist":"...","vibe":"...","use_case":"...","trend_status":"viral/rising/steady","niche_fit":"..."}],"pro_tip":"one key insight about music for this niche"}
+    `);
+    out.innerHTML = `<div class="card fadein">
+      <div class="card-title">TRENDING SOUNDS FOR ${(niche||'general').toUpperCase()}</div>
+      ${(data.sounds||[]).map((s,i) => {
+        const tc = s.trend_status === 'viral' ? 'music-trend hot' : 'music-trend up';
+        const ts = s.trend_status === 'viral' ? '🔥 VIRAL' : s.trend_status === 'rising' ? '↑ RISING' : '→ STEADY';
+        return `<div class="music-card">
+          <div class="music-rank">${String(i+1).padStart(2,'0')}</div>
+          <div class="music-info">
+            <div class="music-name">${s.name}</div>
+            <div class="music-meta">${s.artist} · ${s.vibe}</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:2px;">${s.use_case}</div>
+          </div>
+          <div>
+            <div class="${tc}">${ts}</div>
+            <div style="font-size:11px;color:var(--text3);text-align:right;margin-top:3px;">${s.niche_fit}</div>
+          </div>
+        </div>`;
+      }).join('')}
+      <div class="insight-card" style="margin-top:14px;margin-bottom:0;">
+        <div class="insight-title">PRO TIP</div>
+        <div class="insight-body">${data.pro_tip}</div>
+      </div>
+    </div>`;
+  } catch(e) { out.innerHTML = '<div class="alert alert-warn">Error. Try again.</div>'; }
+  setLoading('music-btn', 'music-spin', false);
+}
+
+// ============================================================
+// ALGORITHM INTEL
+// ============================================================
+async function getAlgoIntel() {
+  const niche = getNiche('algo-niches');
+  const concern = document.getElementById('algo-concern').value.trim();
+  setLoading('algo-btn', 'algo-spin', true);
+  const out = document.getElementById('algo-output');
+  out.innerHTML = '';
+  try {
+    const data = await callClaudeJSON(`
+Give TikTok USA algorithm intelligence report for 2025.
+Niche: ${niche || 'general'}
+User concern: ${concern || 'general update'}
+
+Cover: recent algorithm changes, what's being pushed, what's being suppressed, best practices right now, posting strategy, watch time signals.
+Return JSON: {
+  "status":"stable/changing/major_shift",
+  "summary":"2-sentence overview",
+  "updates":[{"change":"...","impact":"positive/negative/neutral","action":"what to do"}],
+  "what_tiktok_wants":["...","...","..."],
+  "avoid_now":["...","..."],
+  "posting_strategy":{"best_times":["...","..."],"frequency":"...","tip":"..."},
+  "concern_answer":"direct answer to user's specific concern if provided"
+}
+    `);
+    const statusColor = data.status === 'stable' ? 'badge-green' : data.status === 'changing' ? 'badge-gold' : 'badge-red';
+    out.innerHTML = `<div class="card fadein">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <div class="card-title" style="margin:0;">ALGORITHM STATUS</div>
+        <span class="badge ${statusColor}">${(data.status||'').toUpperCase().replace('_',' ')}</span>
+      </div>
+      <div class="alert alert-info" style="margin-bottom:16px;">${data.summary}</div>
+      ${concern && data.concern_answer ? `<div class="insight-card" style="margin-bottom:14px;"><div class="insight-title">YOUR CONCERN ANSWERED</div><div class="insight-body">${data.concern_answer}</div></div>` : ''}
+      <div class="card-title">RECENT CHANGES</div>
+      ${(data.updates||[]).map(u => {
+        const ic = u.impact === 'positive' ? 'badge-green' : u.impact === 'negative' ? 'badge-red' : 'badge-gray';
+        return `<div style="border:1px solid var(--border);border-radius:var(--r);padding:12px;margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+            <div style="font-size:13px;font-weight:500;flex:1;">${u.change}</div>
+            <span class="badge ${ic}" style="margin-left:8px;flex-shrink:0;">${u.impact}</span>
+          </div>
+          <div style="font-size:12px;color:var(--accent2);">→ ${u.action}</div>
+        </div>`;
+      }).join('')}
+      <div class="grid2" style="margin-top:16px;">
+        <div>
+          <div class="card-title" style="color:var(--green)">WHAT TIKTOK WANTS</div>
+          ${(data.what_tiktok_wants||[]).map(w=>`<div style="font-size:13px;padding:4px 0;display:flex;gap:8px;"><span style="color:var(--green);">✓</span>${w}</div>`).join('')}
+        </div>
+        <div>
+          <div class="card-title" style="color:var(--accent)">AVOID RIGHT NOW</div>
+          ${(data.avoid_now||[]).map(a=>`<div style="font-size:13px;padding:4px 0;display:flex;gap:8px;"><span style="color:var(--accent);">✕</span>${a}</div>`).join('')}
+        </div>
+      </div>
+      ${data.posting_strategy ? `<div class="stat-card" style="margin-top:16px;text-align:left;padding:14px 16px;">
+        <div class="card-title">POSTING STRATEGY</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+          ${(data.posting_strategy.best_times||[]).map(t=>`<span class="badge badge-cyan">${t}</span>`).join('')}
+          <span class="badge badge-gray">${data.posting_strategy.frequency}</span>
+        </div>
+        <div style="font-size:13px;color:var(--text2);">${data.posting_strategy.tip}</div>
+      </div>` : ''}
+    </div>`;
+  } catch(e) { out.innerHTML = '<div class="alert alert-warn">Error. Try again.</div>'; }
+  setLoading('algo-btn', 'algo-spin', false);
+}
+
+// ============================================================
+// PATTERNS
+// ============================================================
+async function analyzePatterns() {
+  if (state.entries.length < 3) return;
+  document.getElementById('pattern-spin').style.display = 'inline-block';
+  const out = document.getElementById('patterns-output');
+  out.innerHTML = '<div class="alert alert-info">Analyzing your content history...</div>';
+  try {
+    const context = state.entries.map(e => ({
+      type: e.type, niche: e.niche, hook: e.hook || e.title || e.desc || '',
+      format: e.format || '', score: e.score || 0, perf: e.perf || 'unknown', views: e.views || 0
+    }));
+    const data = await callClaudeJSON(`
+Analyze this creator's TikTok content history and find patterns.
+Content data: ${JSON.stringify(context)}
+
+Find what makes their best content work vs their worst. Be specific and actionable.
+Return JSON: {
+  "top_pattern":"the #1 thing that drives their performance",
+  "winning_formula":"describe their best content formula",
+  "niche_performance":[{"niche":"...","avg_score":75,"insight":"..."}],
+  "hook_patterns":{"working":"...","not_working":"..."},
+  "recommendations":["specific actionable rec 1","rec 2","rec 3"],
+  "next_video_idea":"specific video idea tailored to their history",
+  "growth_opportunity":"the biggest untapped opportunity for this creator"
+}
+    `);
+    state.patterns = data; state.lastPatternUpdate = new Date().toISOString(); saveState(state);
+    renderPatternData(data);
+  } catch(e) { out.innerHTML = '<div class="alert alert-warn">Error analyzing patterns. Try again.</div>'; }
+  document.getElementById('pattern-spin').style.display = 'none';
+}
+
+function renderPatternData(d) {
+  const out = document.getElementById('patterns-output');
+  out.innerHTML = `
+    <div class="insight-card" style="margin-bottom:16px;">
+      <div class="insight-title">#1 PATTERN</div>
+      <div class="insight-body" style="font-size:15px;font-weight:500;">${d.top_pattern}</div>
+    </div>
+    <div class="card">
+      <div class="card-title">YOUR WINNING FORMULA</div>
+      <div style="font-size:14px;color:var(--text2);line-height:1.6;">${d.winning_formula}</div>
+    </div>
+    ${d.niche_performance && d.niche_performance.length ? `<div class="card">
+      <div class="card-title">PERFORMANCE BY NICHE</div>
+      ${d.niche_performance.map(n => `<div style="margin-bottom:12px;">
+        <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;">
+          <span style="font-weight:500;">${n.niche}</span><span style="color:var(--text3);">${n.avg_score}/100</span>
+        </div>
+        <div class="score-bar"><div class="score-fill ${n.avg_score>=70?'high':n.avg_score>=50?'med':'low'}" style="width:${n.avg_score}%"></div></div>
+        <div style="font-size:12px;color:var(--text3);margin-top:3px;">${n.insight}</div>
+      </div>`).join('')}
+    </div>` : ''}
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title" style="color:var(--green)">HOOKS THAT WORK FOR YOU</div>
+        <div style="font-size:13px;color:var(--text2);">${d.hook_patterns && d.hook_patterns.working}</div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="color:var(--accent)">HOOKS TO AVOID</div>
+        <div style="font-size:13px;color:var(--text2);">${d.hook_patterns && d.hook_patterns.not_working}</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">PERSONALIZED RECOMMENDATIONS</div>
+      ${(d.recommendations||[]).map((r,i)=>`<div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);">
+        <span style="font-family:var(--font-mono);font-size:11px;color:var(--text3);min-width:20px;padding-top:2px;">${String(i+1).padStart(2,'0')}</span>
+        <div style="font-size:13px;">${r}</div>
+      </div>`).join('')}
+    </div>
+    <div class="insight-card">
+      <div class="insight-title">YOUR NEXT VIDEO IDEA</div>
+      <div class="insight-body" style="font-size:14px;">${d.next_video_idea}</div>
+    </div>
+    <div style="background:rgba(254,44,85,0.06);border:1px solid rgba(254,44,85,0.2);border-radius:var(--r);padding:16px;margin-top:14px;">
+      <div style="font-size:11px;color:var(--accent);font-family:var(--font-mono);margin-bottom:6px;">BIGGEST OPPORTUNITY</div>
+      <div style="font-size:14px;font-weight:500;">${d.growth_opportunity}</div>
+    </div>`;
+}
+
+function renderPatterns() {
+  const out = document.getElementById('patterns-output');
+  const regen = document.getElementById('patterns-regen');
+  if (state.entries.length < 3) {
+    out.innerHTML = `<div class="empty-state"><div class="empty-icon">◉</div><div class="empty-title">Track ${3 - state.entries.length} more video${3-state.entries.length!==1?'s':''} to unlock</div><div class="empty-sub">Pattern analysis needs at least 3 entries</div></div>`;
+    regen.style.display = 'none';
+  } else {
+    regen.style.display = 'block';
+    if (state.patterns) { renderPatternData(state.patterns); }
+    else { analyzePatterns(); }
+  }
+}
+
+// ============================================================
+// CONTENT LOG
+// ============================================================
+function renderLog() {
+  const list = document.getElementById('log-list');
+  if (!state.entries.length) {
+    list.innerHTML = `<div class="empty-state"><div class="empty-icon">≡</div><div class="empty-title">No videos tracked yet</div><div class="empty-sub">Add content to build your history</div></div>`;
+    return;
+  }
+  list.innerHTML = [...state.entries].reverse().map(e => {
+    const scoreColor = !e.score ? '' : e.score >= 70 ? 'style="color:var(--green)"' : e.score >= 50 ? 'style="color:var(--gold)"' : 'style="color:var(--accent)"';
+    const typeLabel = e.type === 'url' ? '🔗' : e.type === 'upload' ? '📹' : '✏️';
+    const title = e.hook || e.title || e.desc || 'Untitled';
+    return `<div class="log-item">
+      <div class="log-item-header">
+        <div style="flex:1;">
+          <div class="log-item-title">${typeLabel} ${title.slice(0,80)}${title.length>80?'…':''}</div>
+          <div class="log-item-meta">${e.date} · ${e.niche}</div>
+        </div>
+        ${e.score ? `<div style="font-family:var(--font-head);font-size:22px;font-weight:700;${scoreColor?scoreColor.slice(7,-1):''}">${e.score}</div>` : ''}
+      </div>
+      ${e.analysis && e.analysis.verdict ? `<div style="font-size:12px;color:var(--text3);margin-top:6px;">${e.analysis.verdict}</div>` : ''}
+      <div class="log-item-tags">
+        ${e.views ? `<span class="badge badge-gray">${e.views.toLocaleString()} views</span>` : ''}
+        ${e.perf ? `<span class="badge ${e.perf==='viral'?'badge-red':e.perf==='good'?'badge-green':'badge-gray'}">${e.perf}</span>` : ''}
+        ${e.format ? `<span class="badge badge-gray">${e.format}</span>` : ''}
+        <button class="btn btn-ghost btn-sm" onclick="deleteEntry(${e.id})" style="margin-left:auto;font-size:11px;color:var(--text3);">delete</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function deleteEntry(id) {
+  state.entries = state.entries.filter(e => e.id !== id);
+  state.patterns = null;
+  saveState(state);
+  renderLog();
+}
+
+function clearLog() {
+  if (!confirm('Delete all tracked content?')) return;
+  state = { entries: [], patterns: null };
+  saveState(state);
+  renderLog();
+}
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+function refreshDashboard() {
+  const total = state.entries.length;
+  document.getElementById('stat-total').textContent = total;
+  if (total) {
+    const withViews = state.entries.filter(e => e.views > 0);
+    const avgViews = withViews.length ? Math.round(withViews.reduce((s,e)=>s+e.views,0)/withViews.length) : 0;
+    const best = Math.max(...state.entries.map(e=>e.score||0));
+    document.getElementById('stat-avg').textContent = avgViews > 999 ? (avgViews/1000).toFixed(1)+'K' : avgViews || '—';
+    document.getElementById('stat-best').textContent = best || '—';
+  }
+  const alert = document.getElementById('dash-alert');
+  alert.innerHTML = total === 0 ? `<div class="alert alert-info">Welcome! Start by adding your first video in <strong>Add Content</strong>.</div>` :
+    total < 3 ? `<div class="alert alert-warn">Add ${3-total} more video${3-total!==1?'s':''} to unlock AI pattern analysis.</div>` :
+    `<div class="alert alert-success">Pattern engine active — ${total} videos tracked.</div>`;
+
+  const nicheMap = {};
+  state.entries.forEach(e => { nicheMap[e.niche] = (nicheMap[e.niche]||[]).concat(e.score||50); });
+  const nicheSorted = Object.entries(nicheMap).map(([n,scores])=>({ n, avg: Math.round(scores.reduce((a,b)=>a+b,0)/scores.length), cnt: scores.length })).sort((a,b)=>b.avg-a.avg);
+  const nicheEl = document.getElementById('dash-niches');
+  nicheEl.innerHTML = nicheSorted.length ? nicheSorted.map(n=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);">
+    <div><span style="font-size:13px;font-weight:500;">${n.n}</span><span style="font-size:11px;color:var(--text3);margin-left:8px;">${n.cnt} video${n.cnt!==1?'s':''}</span></div>
+    <span style="font-family:var(--font-head);font-size:16px;font-weight:700;color:${n.avg>=70?'var(--green)':n.avg>=50?'var(--gold)':'var(--accent)'};">${n.avg}</span>
+  </div>`).join('') : `<div class="empty-state" style="padding:24px;"><div class="empty-sub">No niche data yet</div></div>`;
+
+  const recentEl = document.getElementById('dash-recent');
+  recentEl.innerHTML = state.entries.length ? [...state.entries].reverse().slice(0,4).map(e=>`<div style="padding:8px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+    <div><div style="font-size:13px;">${(e.hook||e.title||e.desc||'Untitled').slice(0,40)}…</div><div style="font-size:11px;color:var(--text3);font-family:var(--font-mono);">${e.date} · ${e.niche}</div></div>
+    ${e.score?`<span style="font-family:var(--font-head);font-size:16px;font-weight:700;color:${e.score>=70?'var(--green)':e.score>=50?'var(--gold)':'var(--accent)'};">${e.score}</span>`:''}
+  </div>`).join('') : `<div class="empty-state" style="padding:24px;"><div class="empty-sub">No videos yet</div></div>`;
+
+  const insightsEl = document.getElementById('dash-insights');
+  if (state.patterns && state.entries.length >= 3) {
+    insightsEl.innerHTML = `
+      <div class="insight-card"><div class="insight-title">TOP PATTERN</div><div class="insight-body">${state.patterns.top_pattern}</div></div>
+      <div class="insight-card" style="border-color:var(--accent);background:rgba(254,44,85,0.04);">
+        <div class="insight-title" style="color:var(--accent)">NEXT VIDEO IDEA</div>
+        <div class="insight-body">${state.patterns.next_video_idea}</div>
+      </div>`;
+  } else if (state.entries.length >= 3) {
+    insightsEl.innerHTML = `<div style="text-align:center;padding:20px;"><button class="btn btn-primary" onclick="goTo('patterns')">Run Pattern Analysis ↗</button></div>`;
+  } else {
+    insightsEl.innerHTML = `<div class="empty-state" style="padding:20px;"><div class="empty-title" style="font-size:13px;">Track ${3-state.entries.length} more videos to unlock</div></div>`;
+  }
+}
+
+// Init
+refreshDashboard();
+</script>
+</body>
+</html>
