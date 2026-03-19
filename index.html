@@ -2,1412 +2,1399 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>TikTok Lab</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TikTok Lab — Your AI Growth Engine</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#080808;--s1:#0f0f0f;--s2:#171717;--s3:#1f1f1f;--b1:#222;--b2:#2e2e2e;--t1:#efefef;--t2:#666;--t3:#2e2e2e;--ac:#ff2d55;--gn:#00d68f;--bl:#0095ff;--yl:#ffd60a;--pp:#bf5af2;--or:#ff6b35;--r:12px;--rs:8px;}
-*{box-sizing:border-box;margin:0;padding:0;}
-html,body{height:100%;overflow-x:hidden;}
-body{background:var(--bg);color:var(--t1);font-family:'DM Mono',monospace;font-size:13px;line-height:1.6;}
-.shell{display:flex;height:100vh;overflow:hidden;}
-/* SIDEBAR */
-.sidebar{width:200px;min-width:200px;background:var(--s1);border-right:1px solid var(--b1);display:flex;flex-direction:column;height:100vh;overflow-y:auto;flex-shrink:0;transition:transform .25s;}
-.logo-area{padding:14px 13px 11px;border-bottom:1px solid var(--b1);}
-.logo{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;background:linear-gradient(135deg,var(--ac),var(--or));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.logo-sub{font-size:9px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;}
-.nav{padding:8px 6px;flex:1;}
-.nsec{margin-bottom:12px;}
-.nlbl{font-size:9px;color:var(--t3);letter-spacing:.12em;text-transform:uppercase;padding:0 6px;margin-bottom:3px;}
-.ni{display:flex;align-items:center;gap:6px;padding:7px 8px;border-radius:var(--rs);cursor:pointer;color:var(--t2);font-size:11px;transition:all .15s;border:1px solid transparent;user-select:none;}
-.ni:hover{color:var(--t1);background:var(--s2);}
-.ni.active{color:var(--t1);background:var(--s2);border-color:var(--b2);}
-.topic-area{padding:8px;border-top:1px solid var(--b1);}
-.tlbl{font-size:9px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px;}
-.tc{display:inline-block;padding:3px 8px;border-radius:20px;font-size:10px;border:1px solid var(--b2);color:var(--t2);cursor:pointer;margin:2px;transition:all .15s;background:transparent;font-family:'DM Mono',monospace;}
-.tc:hover{border-color:var(--ac);color:var(--ac);}
-.tc.active{background:var(--ac);border-color:var(--ac);color:#fff;}
-/* MAIN */
-.main{flex:1;overflow-y:auto;min-width:0;}
-.panel{display:none;padding:18px 20px 40px;}
-.panel.active{display:block;animation:fi .18s ease;}
-@keyframes fi{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-.ph{margin-bottom:16px;}
-.pt{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;letter-spacing:-.3px;}
-.ps{font-size:10px;color:var(--t2);margin-top:2px;}
-/* CARDS */
-.card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:14px;margin-bottom:11px;}
-.cl{font-size:9px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:9px;}
-/* INPUTS */
-.f{margin-bottom:10px;}
-.f label{display:block;font-size:9px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;}
-input[type=text],input[type=number],textarea,select{width:100%;background:var(--s2);border:1px solid var(--b2);border-radius:var(--rs);padding:8px 10px;color:var(--t1);font-family:'DM Mono',monospace;font-size:12px;outline:none;transition:border-color .15s;-webkit-appearance:none;resize:vertical;}
-input:focus,textarea:focus,select:focus{border-color:var(--ac);}
-select option{background:var(--s2);}
-/* BUTTONS */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:8px 13px;border-radius:var(--rs);border:1px solid var(--b2);background:transparent;color:var(--t1);font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;transition:all .15s;white-space:nowrap;}
-.btn:hover{background:var(--s2);}
-.btn:disabled{opacity:.3;cursor:not-allowed;}
-.bac{background:var(--ac) !important;border-color:var(--ac) !important;color:#fff !important;}
-.bac:hover{opacity:.88;}
-.bsm{padding:5px 9px;font-size:10px;}
-.bfull{width:100%;justify-content:center;}
-.bgh{background:transparent;border-color:var(--b2);color:var(--t2);}
-/* TAGS */
-.tag{display:inline-block;padding:2px 7px;border-radius:20px;font-size:9px;border:1px solid;}
-.tg{background:rgba(0,214,143,.1);color:var(--gn);border-color:rgba(0,214,143,.25);}
-.tr{background:rgba(255,45,85,.1);color:var(--ac);border-color:rgba(255,45,85,.25);}
-.tb{background:rgba(0,149,255,.1);color:var(--bl);border-color:rgba(0,149,255,.25);}
-.ty{background:rgba(255,214,10,.1);color:var(--yl);border-color:rgba(255,214,10,.25);}
-.tp{background:rgba(191,90,242,.1);color:var(--pp);border-color:rgba(191,90,242,.25);}
-.tor{background:rgba(255,107,53,.1);color:var(--or);border-color:rgba(255,107,53,.25);}
-/* RESULTS */
-.rc{background:var(--s2);border:1px solid var(--b1);border-radius:var(--rs);padding:12px 13px;margin-bottom:8px;position:relative;}
-.rc:hover{border-color:var(--b2);}
-.bigt{font-size:14px;font-weight:500;line-height:1.5;color:var(--t1);margin-bottom:7px;font-family:'Syne',sans-serif;}
-.subt{font-size:11px;color:var(--t2);line-height:1.6;}
-.mr{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:6px;}
-.savebtn{position:absolute;top:9px;right:9px;padding:3px 8px;font-size:9px;border-radius:20px;border:1px solid rgba(0,214,143,.3);background:rgba(0,214,143,.08);color:var(--gn);cursor:pointer;font-family:'DM Mono',monospace;}
-/* STATS */
-.sg4{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:10px;}
-.sb{background:var(--s2);border:1px solid var(--b1);border-radius:var(--rs);padding:11px;text-align:center;}
-.sv{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;}
-.sl{font-size:9px;color:var(--t3);margin-top:1px;text-transform:uppercase;letter-spacing:.05em;}
-/* LOADING */
-.ld{display:flex;align-items:center;gap:8px;color:var(--t2);padding:12px 0;font-size:11px;}
-.dp span{display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--ac);margin:0 1px;animation:dpa 1.2s infinite;}
-.dp span:nth-child(2){animation-delay:.2s;}.dp span:nth-child(3){animation-delay:.4s;}
-@keyframes dpa{0%,80%,100%{opacity:.2;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
-/* CHAT */
-.chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 140px);}
-.chat-msgs{flex:1;overflow-y:auto;padding:4px 0 8px;}
-.msg{margin-bottom:12px;display:flex;flex-direction:column;}
-.msg.user{align-items:flex-end;}.msg.ai{align-items:flex-start;}
-.bubble{max-width:88%;padding:10px 13px;border-radius:12px;font-size:12px;line-height:1.7;}
-.msg.user .bubble{background:var(--ac);color:#fff;border-radius:12px 12px 2px 12px;}
-.msg.ai .bubble{background:var(--s2);border:1px solid var(--b1);border-radius:2px 12px 12px 12px;}
-.msg-time{font-size:9px;color:var(--t3);margin-top:2px;padding:0 2px;}
-.chat-foot{flex-shrink:0;}
-.chat-toolbar{display:flex;gap:6px;margin-bottom:6px;align-items:center;flex-wrap:wrap;}
-.chat-row{display:flex;gap:7px;align-items:flex-end;}
-.chat-row textarea{flex:1;min-height:42px;max-height:100px;}
-.chat-attached{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:5px;}
-.att-item{display:flex;align-items:center;gap:4px;padding:3px 8px;background:var(--s2);border:1px solid var(--b2);border-radius:20px;font-size:9px;color:var(--t2);}
-.att-item button{background:none;border:none;color:var(--t3);cursor:pointer;font-size:9px;}
-/* UPLOAD */
-.uz{border:2px dashed var(--b2);border-radius:var(--r);padding:16px;text-align:center;cursor:pointer;transition:all .2s;color:var(--t2);}
-.uz:hover,.uz.over{border-color:var(--ac);color:var(--ac);background:rgba(255,45,85,.03);}
-.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(65px,1fr));gap:5px;margin-top:7px;}
-.pimg{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:5px;border:1px solid var(--b1);}
-/* INFO BOXES */
-.ins{border:1px solid rgba(255,214,10,.18);background:rgba(255,214,10,.04);border-radius:var(--rs);padding:9px 11px;margin-bottom:9px;font-size:11px;line-height:1.7;}
-.il{font-size:9px;color:var(--yl);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;}
-.abox{border:1px solid rgba(255,45,85,.2);background:rgba(255,45,85,.05);border-radius:var(--rs);padding:9px 11px;margin-bottom:9px;font-size:11px;line-height:1.6;}
-.si{background:var(--s2);border:1px solid var(--b1);border-radius:var(--rs);padding:10px 12px;margin-bottom:7px;}
-.sn{font-size:9px;color:var(--ac);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
-/* REGION TOGGLE */
-.rtog{display:flex;gap:5px;}
-.rbtn{padding:5px 12px;border-radius:20px;font-size:10px;border:1px solid var(--b2);color:var(--t2);cursor:pointer;background:transparent;font-family:'DM Mono',monospace;transition:all .15s;}
-.rbtn:hover{border-color:var(--ac);color:var(--ac);}
-.rbtn.rusa.act{background:#1a3080;border-color:#3a6df0;color:#fff;}
-.rbtn.ruk.act{background:#800010;border-color:#cc0000;color:#fff;}
-/* OFFERS */
-.og{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px;margin-top:10px;}
-.oc{background:var(--s2);border:1px solid var(--b1);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:border-color .15s,transform .15s;}
-.oc:hover{border-color:var(--b2);transform:translateY(-1px);}
-.oi{width:100%;height:76px;display:flex;align-items:center;justify-content:center;font-size:28px;}
-.ob{padding:9px 10px;}
-.on{font-size:11px;font-weight:500;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.os{font-size:9px;color:var(--t2);margin-top:1px;}
-.ot{display:flex;gap:3px;flex-wrap:wrap;margin-top:4px;}
-.fchip{padding:4px 10px;border-radius:20px;font-size:10px;border:1px solid var(--b2);color:var(--t2);cursor:pointer;transition:all .15s;background:transparent;font-family:'DM Mono',monospace;}
-.fchip:hover{border-color:var(--bl);color:var(--bl);}
-.fchip.act{background:var(--bl);border-color:var(--bl);color:#fff;}
-/* MODAL */
-.mbg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;align-items:center;justify-content:center;}
-.mbg.open{display:flex;}
-.mbox{background:var(--s1);border:1px solid var(--b2);border-radius:var(--r);padding:20px;max-width:450px;width:90%;max-height:85vh;overflow-y:auto;}
-.mcl{float:right;background:none;border:none;color:var(--t2);cursor:pointer;font-size:18px;line-height:1;}
-/* SETTINGS TOGGLE */
-.tog{position:relative;width:34px;height:19px;cursor:pointer;display:inline-block;}
-.tog input{opacity:0;width:0;height:0;}
-.tsl{position:absolute;inset:0;background:var(--b2);border-radius:10px;transition:.3s;}
-.tsl:before{content:'';position:absolute;width:13px;height:13px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s;}
-input:checked+.tsl{background:var(--ac);}
-input:checked+.tsl:before{transform:translateX(15px);}
-.srow{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--b1);}
-.srow:last-child{border-bottom:none;}
-/* SCROLLBAR */
-::-webkit-scrollbar{width:3px;height:3px;}
-::-webkit-scrollbar-track{background:transparent;}
-::-webkit-scrollbar-thumb{background:var(--b2);border-radius:2px;}
-/* MOBILE */
-.mob{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(8,8,8,.96);backdrop-filter:blur(10px);border-top:1px solid var(--b1);z-index:200;padding:6px 0 12px;}
-.mob-in{display:flex;justify-content:space-around;}
-.mb{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 6px;color:var(--t3);font-size:8px;letter-spacing:.04em;text-transform:uppercase;border:none;background:transparent;cursor:pointer;font-family:'DM Mono',monospace;transition:color .15s;}
-.mb.act,.mb:hover{color:var(--ac);}
-.mb .mi{font-size:16px;}
-.ham{display:none;position:fixed;top:11px;left:11px;z-index:300;background:var(--s1);border:1px solid var(--b1);border-radius:var(--rs);padding:6px 9px;cursor:pointer;font-size:14px;color:var(--t1);}
-.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:150;}
-.ov.open{display:block;}
-@media(max-width:800px){
-  .sidebar{position:fixed;left:0;top:0;bottom:0;z-index:200;transform:translateX(-100%);width:215px;}
-  .sidebar.open{transform:translateX(0);}
-  .panel{padding:13px 12px 90px;}
-  .mob{display:block;}
-  .ham{display:flex;}
-  .sg4{grid-template-columns:1fr 1fr;}
-  .og{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));}
-  .chat-wrap{height:calc(100vh - 110px);}
+:root {
+  --bg: #0a0a0a;
+  --bg2: #111111;
+  --bg3: #181818;
+  --bg4: #222222;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #f0ede8;
+  --text2: #888884;
+  --text3: #555552;
+  --accent: #fe2c55;
+  --accent2: #25f4ee;
+  --gold: #f5c518;
+  --green: #4ade80;
+  --orange: #fb923c;
+  --font-head: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --r: 10px;
+  --r2: 16px;
 }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* LAYOUT */
+.shell { display: flex; min-height: 100vh; }
+.sidebar {
+  width: 220px;
+  min-height: 100vh;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 100;
+}
+.main { margin-left: 220px; flex: 1; padding: 32px 40px; max-width: 1100px; }
+
+/* SIDEBAR */
+.logo {
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.logo-mark {
+  font-family: var(--font-head);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+.logo-mark span { color: var(--accent); }
+.logo-sub { font-size: 10px; color: var(--text3); font-family: var(--font-mono); letter-spacing: 0.08em; margin-top: 2px; }
+
+.nav { padding: 16px 12px; flex: 1; }
+.nav-section { font-size: 10px; color: var(--text3); font-family: var(--font-mono); letter-spacing: 0.1em; padding: 12px 8px 6px; }
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 10px;
+  border-radius: var(--r);
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text2);
+  transition: all 0.15s;
+  margin-bottom: 2px;
+  border: 1px solid transparent;
+}
+.nav-item:hover { background: var(--bg3); color: var(--text); }
+.nav-item.active { background: var(--bg3); color: var(--text); border-color: var(--border); }
+.nav-item.active .nav-dot { background: var(--accent); }
+.nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text3); flex-shrink: 0; transition: background 0.15s; }
+.nav-icon { font-size: 15px; width: 18px; text-align: center; }
+
+.sidebar-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--text3);
+  font-family: var(--font-mono);
+}
+.online-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--green); margin-right: 6px; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+/* PANELS */
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* PAGE HEADER */
+.page-header { margin-bottom: 32px; }
+.page-title { font-family: var(--font-head); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--text); }
+.page-sub { color: var(--text2); font-size: 13px; margin-top: 4px; }
+
+/* CARDS */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 20px 22px;
+  margin-bottom: 16px;
+}
+.card-title { font-family: var(--font-head); font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 14px; letter-spacing: 0.01em; }
+
+/* FORMS */
+label { display: block; font-size: 11px; color: var(--text3); font-family: var(--font-mono); letter-spacing: 0.06em; margin-bottom: 6px; }
+input[type=text], input[type=url], input[type=number], textarea, select {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 10px 13px;
+  font-size: 13px;
+  color: var(--text);
+  font-family: var(--font-body);
+  transition: border-color 0.15s;
+  outline: none;
+  margin-bottom: 14px;
+}
+input:focus, textarea:focus, select:focus { border-color: var(--border2); }
+select option { background: var(--bg3); }
+textarea { resize: vertical; min-height: 80px; }
+
+.field { margin-bottom: 14px; }
+.field label { margin-bottom: 6px; }
+.field input, .field textarea, .field select { margin-bottom: 0; }
+
+/* BUTTONS */
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 10px 18px;
+  border-radius: var(--r);
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 13px;
+  font-family: var(--font-body);
+  transition: all 0.15s;
+  font-weight: 500;
+}
+.btn:hover { background: var(--bg3); }
+.btn:active { transform: scale(0.98); }
+.btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn-primary:hover { background: #e0203e; }
+.btn-accent2 { background: transparent; border-color: var(--accent2); color: var(--accent2); }
+.btn-sm { padding: 6px 12px; font-size: 12px; }
+.btn-ghost { border-color: transparent; color: var(--text2); }
+.btn-ghost:hover { color: var(--text); background: var(--bg3); }
+
+/* BADGES */
+.badge {
+  display: inline-flex; align-items: center;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  border: 1px solid;
+}
+.badge-red { background: rgba(254,44,85,0.1); color: var(--accent); border-color: rgba(254,44,85,0.2); }
+.badge-cyan { background: rgba(37,244,238,0.08); color: var(--accent2); border-color: rgba(37,244,238,0.15); }
+.badge-gold { background: rgba(245,197,24,0.1); color: var(--gold); border-color: rgba(245,197,24,0.2); }
+.badge-green { background: rgba(74,222,128,0.08); color: var(--green); border-color: rgba(74,222,128,0.15); }
+.badge-gray { background: rgba(255,255,255,0.05); color: var(--text2); border-color: var(--border); }
+
+/* GRID */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+/* STAT CARDS */
+.stat-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  text-align: center;
+}
+.stat-num { font-family: var(--font-head); font-size: 28px; font-weight: 700; color: var(--text); line-height: 1; }
+.stat-label { font-size: 11px; color: var(--text3); margin-top: 4px; font-family: var(--font-mono); }
+
+/* OUTPUT */
+.output {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  font-size: 13px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  color: var(--text);
+  min-height: 60px;
+}
+
+/* SPINNER */
+.spinner {
+  display: inline-block;
+  width: 13px; height: 13px;
+  border: 2px solid rgba(255,255,255,0.2);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ALERT */
+.alert {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 12px 14px;
+  border-radius: var(--r);
+  border: 1px solid;
+  margin-bottom: 14px;
+  font-size: 13px;
+}
+.alert-info { background: rgba(37,244,238,0.05); border-color: rgba(37,244,238,0.15); color: var(--accent2); }
+.alert-warn { background: rgba(251,146,60,0.08); border-color: rgba(251,146,60,0.2); color: var(--orange); }
+.alert-success { background: rgba(74,222,128,0.07); border-color: rgba(74,222,128,0.15); color: var(--green); }
+
+/* CONTENT LOG ITEMS */
+.log-item {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  transition: border-color 0.15s;
+}
+.log-item:hover { border-color: var(--border2); }
+.log-item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.log-item-title { font-weight: 500; font-size: 13px; color: var(--text); }
+.log-item-meta { font-size: 11px; color: var(--text3); font-family: var(--font-mono); }
+.log-item-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+
+/* SCORE BAR */
+.score-bar { height: 4px; background: var(--bg4); border-radius: 2px; overflow: hidden; margin-top: 6px; }
+.score-fill { height: 100%; border-radius: 2px; transition: width 0.5s; }
+.score-fill.high { background: var(--green); }
+.score-fill.med { background: var(--gold); }
+.score-fill.low { background: var(--accent); }
+
+/* NICHE SELECTOR */
+.niche-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.niche-chip {
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--text2);
+  transition: all 0.15s;
+  font-family: var(--font-mono);
+}
+.niche-chip:hover { border-color: var(--border2); color: var(--text); }
+.niche-chip.active { border-color: var(--accent); color: var(--accent); background: rgba(254,44,85,0.08); }
+
+/* UPLOAD AREA */
+.upload-area {
+  border: 1px dashed var(--border2);
+  border-radius: var(--r);
+  padding: 28px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-bottom: 14px;
+}
+.upload-area:hover { border-color: var(--accent); background: rgba(254,44,85,0.03); }
+.upload-area.dragover { border-color: var(--accent); background: rgba(254,44,85,0.06); }
+.upload-icon { font-size: 28px; margin-bottom: 8px; }
+.upload-text { font-size: 13px; color: var(--text2); }
+.upload-sub { font-size: 11px; color: var(--text3); margin-top: 4px; }
+
+/* TABS */
+.tabs { display: flex; gap: 4px; background: var(--bg3); border-radius: var(--r); padding: 4px; margin-bottom: 20px; border: 1px solid var(--border); }
+.tab-btn {
+  flex: 1; padding: 8px; border-radius: 7px; border: none; background: transparent;
+  cursor: pointer; font-size: 12px; color: var(--text2); font-family: var(--font-body);
+  transition: all 0.15s;
+}
+.tab-btn.active { background: var(--bg2); color: var(--text); border: 1px solid var(--border); }
+
+/* DIVIDER */
+.divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+/* HOOK RESULT */
+.hook-result {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+}
+.hook-text { font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.4; font-family: var(--font-head); }
+.hook-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 10px; }
+.hook-why { font-size: 12px; color: var(--text2); margin-top: 6px; line-height: 1.5; }
+
+/* PATTERN INSIGHT */
+.insight-card {
+  border-left: 3px solid var(--accent2);
+  padding: 12px 16px;
+  background: rgba(37,244,238,0.04);
+  border-radius: 0 var(--r) var(--r) 0;
+  margin-bottom: 12px;
+}
+.insight-title { font-size: 12px; color: var(--accent2); font-family: var(--font-mono); margin-bottom: 4px; }
+.insight-body { font-size: 13px; color: var(--text); line-height: 1.5; }
+
+/* MUSIC CARD */
+.music-card {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 12px 14px;
+  margin-bottom: 8px;
+}
+.music-rank { font-family: var(--font-mono); font-size: 13px; color: var(--text3); min-width: 24px; }
+.music-info { flex: 1; }
+.music-name { font-weight: 500; font-size: 13px; }
+.music-meta { font-size: 11px; color: var(--text3); font-family: var(--font-mono); margin-top: 2px; }
+.music-trend { font-size: 12px; font-family: var(--font-mono); }
+.music-trend.up { color: var(--green); }
+.music-trend.hot { color: var(--accent); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .sidebar { width: 100%; min-height: auto; position: relative; }
+  .main { margin-left: 0; padding: 20px 16px; }
+  .grid2, .grid3 { grid-template-columns: 1fr; }
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.fadein { animation: fadeIn 0.3s ease forwards; }
+
+/* EMPTY STATE */
+.empty-state { text-align: center; padding: 48px 24px; }
+.empty-icon { font-size: 36px; margin-bottom: 12px; opacity: 0.4; }
+.empty-title { font-family: var(--font-head); font-size: 16px; color: var(--text2); }
+.empty-sub { font-size: 13px; color: var(--text3); margin-top: 6px; }
+
+/* TOGGLE */
+.toggle-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.toggle-label { font-size: 13px; color: var(--text2); }
 </style>
 </head>
 <body>
-<button class="ham" onclick="toggleSB()">☰</button>
-<div class="ov" id="ov" onclick="toggleSB()"></div>
-
-<!-- API KEY BANNER -->
-<div id="apiKeyBanner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:400;background:#ff2d55;color:#fff;padding:10px 16px;font-size:12px;font-family:'DM Mono',monospace;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap;">
-  <span>⚠ No API key set — go to <b>Settings</b> and enter your Anthropic API key</span>
-  <button onclick="go('settings');document.getElementById('apiKeyBanner').style.display='none';" style="padding:4px 12px;background:#fff;color:#ff2d55;border:none;border-radius:20px;cursor:pointer;font-family:'DM Mono',monospace;font-size:11px;font-weight:700;">Open Settings →</button>
-  <button onclick="this.parentElement.style.display='none'" style="padding:4px 8px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5);border-radius:20px;cursor:pointer;font-size:11px;">×</button>
-</div>
-<div class="mbg" id="offerModal" onclick="if(event.target===this)closeModal()">
-  <div class="mbox" id="offerModalContent"></div>
-</div>
-
 <div class="shell">
-<aside class="sidebar" id="sb">
-  <div class="logo-area">
-    <div class="logo">TikTok Lab</div>
-    <div class="logo-sub">v5 · AI Brain</div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="logo">
+    <div class="logo-mark">Tik<span>Lab</span></div>
+    <div class="logo-sub">AI GROWTH ENGINE</div>
   </div>
   <nav class="nav">
-    <div class="nsec">
-      <div class="nlbl">Create</div>
-      <div class="ni active" id="nav-angles" onclick="go('angles')">⟳ Angles</div>
-      <div class="ni" id="nav-chat" onclick="go('chat')">💬 AI Chat</div>
-      <div class="ni" id="nav-cta" onclick="go('cta')">✍ CTA Comments</div>
-      <div class="ni" id="nav-slides" onclick="go('slides')">▤ Slides</div>
-    </div>
-    <div class="nsec">
-      <div class="nlbl">Track</div>
-      <div class="ni" id="nav-accounts" onclick="go('accounts')">◉ Accounts</div>
-      <div class="ni" id="nav-stats" onclick="go('stats')">◈ Stats</div>
-    </div>
-    <div class="nsec">
-      <div class="nlbl">Discover</div>
-      <div class="ni" id="nav-offers" onclick="go('offers')">🎁 Offers</div>
-      <div class="ni" id="nav-find" onclick="go('find')">🔍 Find</div>
-      <div class="ni" id="nav-creative" onclick="go('creative')">✦ Creative</div>
-    </div>
-    <div class="ni" id="nav-settings" onclick="go('settings')">⚙ Settings</div>
+    <div class="nav-section">MAIN</div>
+    <div class="nav-item active" onclick="goTo('dashboard')"><span class="nav-dot"></span><span class="nav-icon">⬡</span> Dashboard</div>
+    <div class="nav-item" onclick="goTo('add')"><span class="nav-dot"></span><span class="nav-icon">+</span> Add Content</div>
+    <div class="nav-item" onclick="goTo('log')"><span class="nav-dot"></span><span class="nav-icon">≡</span> Content Log</div>
+
+    <div class="nav-section">TOOLS</div>
+    <div class="nav-item" onclick="goTo('hooks')"><span class="nav-dot"></span><span class="nav-icon">⚡</span> Hook Lab</div>
+    <div class="nav-item" onclick="goTo('angles')"><span class="nav-dot"></span><span class="nav-icon">◈</span> Angle Engine</div>
+    <div class="nav-item" onclick="goTo('music')"><span class="nav-dot"></span><span class="nav-icon">♪</span> Viral Music</div>
+
+    <div class="nav-section">INTEL</div>
+    <div class="nav-item" onclick="goTo('algorithm')"><span class="nav-dot"></span><span class="nav-icon">◎</span> Algorithm Intel</div>
+    <div class="nav-item" onclick="goTo('patterns')"><span class="nav-dot"></span><span class="nav-icon">◉</span> My Patterns</div>
   </nav>
-  <div class="topic-area">
-    <div class="tlbl">Topic (memory per topic)</div>
-    <div id="topicChips">
-      <button class="tc active" onclick="setTopic(this,'Student discount')">Student discount</button>
-      <button class="tc" onclick="setTopic(this,'Checkout')">Checkout</button>
-      <button class="tc" onclick="setTopic(this,'Checkout PC')">Checkout PC</button>
-      <button class="tc" onclick="setTopic(this,'Beauty deal')">Beauty deal</button>
-      <button class="tc" onclick="setTopic(this,'Tech review')">Tech review</button>
-    </div>
-    <div style="display:flex;gap:5px;margin-top:6px;">
-      <input type="text" id="newTopicInp" placeholder="Add topic..." style="flex:1;font-size:10px;padding:4px 7px;">
-      <button class="btn bsm" onclick="addTopic()">+</button>
-    </div>
+  <div class="sidebar-footer">
+    <span class="online-dot"></span>AI ONLINE
   </div>
 </aside>
 
-<main class="main" id="mainArea">
+<!-- MAIN -->
+<main class="main">
 
-<!-- ANGLES -->
-<div id="panel-angles" class="panel active">
-  <div class="ph">
-    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;">
-      <div class="pt">Angles</div>
-      <div class="rtog">
-        <button class="rbtn rusa act" id="angRegUSA" onclick="setAngRegion('USA')">🇺🇸 USA</button>
-        <button class="rbtn ruk" id="angRegUK" onclick="setAngRegion('UK')">🇬🇧 UK</button>
+<!-- ===== DASHBOARD ===== -->
+<div id="panel-dashboard" class="panel active">
+  <div class="page-header">
+    <div class="page-title">Dashboard</div>
+    <div class="page-sub">Your TikTok growth at a glance</div>
+  </div>
+
+  <div id="dash-alert"></div>
+
+  <div class="grid3" style="margin-bottom:20px;">
+    <div class="stat-card">
+      <div class="stat-num" id="stat-total">0</div>
+      <div class="stat-label">VIDEOS TRACKED</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-avg" style="color:var(--gold)">—</div>
+      <div class="stat-label">AVG VIEWS</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-best" style="color:var(--green)">—</div>
+      <div class="stat-label">BEST PERFORMER</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">TOP PERFORMING NICHES</div>
+      <div id="dash-niches">
+        <div class="empty-state" style="padding:24px;">
+          <div class="empty-icon">◈</div>
+          <div class="empty-title">No data yet</div>
+          <div class="empty-sub">Add content to start learning</div>
+        </div>
       </div>
     </div>
-    <div class="ps">Topic: <span id="topicLabel" style="color:var(--ac)">Student discount</span> · <span id="regionLabel" style="color:var(--bl)">USA audience</span></div>
+    <div class="card">
+      <div class="card-title">RECENT ACTIVITY</div>
+      <div id="dash-recent">
+        <div class="empty-state" style="padding:24px;">
+          <div class="empty-icon">≡</div>
+          <div class="empty-title">No videos tracked</div>
+          <div class="empty-sub">Add your first video below</div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div id="savedWrap"></div>
+
   <div class="card">
-    <div class="cl">Generate angles</div>
-    <div class="f">
-      <label>Reference angles (paste your examples)</label>
-      <textarea id="refInp" rows="3" placeholder="Paste your best angles as style reference...&#10;e.g. not me still using my college email 3 years after graduating&#10;pov: treating my student discount like a part time job"></textarea>
-    </div>
-    <div class="f">
-      <label>Your CTA site (optional)</label>
-      <input type="text" id="ctaInp" placeholder="e.g. taroffers.com, editwinter.com, bucksgift.com">
-    </div>
-    <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;">
-      <button class="btn bsm" id="g2btn" onclick="genAngles(2)">Generate 2</button>
-      <button class="btn bsm bac" id="g4btn" onclick="genAngles(4)">Generate 4</button>
-      <button class="btn bsm" id="g8btn" onclick="genAngles(8)">Generate 8</button>
-    </div>
-    <div class="f" style="margin:0;">
-      <label>Learn from TikTok screenshot</label>
-      <div class="uz" id="learnUz" onclick="document.getElementById('learnFile').click()" ondragover="event.preventDefault();this.classList.add('over')" ondragleave="this.classList.remove('over')" ondrop="handleLearnDrop(event)">
-        <input type="file" id="learnFile" accept="image/*" style="display:none" onchange="handleLearnFile(event)">
-        <div style="font-size:18px;margin-bottom:3px;">📱</div>
-        <div style="font-size:11px;">Drop screenshot · AI extracts the angle</div>
-      </div>
-      <div id="learnPrev" style="display:none;margin-top:6px;"></div>
-    </div>
-  </div>
-  <div id="anglesOut"></div>
-</div>
-
-<!-- AI CHAT -->
-<div id="panel-chat" class="panel">
-  <div class="ph"><div class="pt">AI Chat</div><div class="ps">Bulgarian / English · Upload images · Paste TikTok URLs</div></div>
-  <div class="chat-wrap">
-    <div class="chat-msgs" id="chatMsgs">
-      <div class="msg ai">
-        <div class="bubble">Здравей! 👋 Пиши на <b>BG или EN</b>. Качвай снимки или paste TikTok URL.<br><br>Примери: "направи нещо подобно", "подобри този хук", "generate hooks for Target student discount"</div>
-        <div class="msg-time">AI Lab</div>
-      </div>
-    </div>
-    <div class="chat-foot">
-      <div id="chatAttached" class="chat-attached"></div>
-      <div class="chat-toolbar">
-        <button class="btn bsm bgh" onclick="document.getElementById('chatFileInp').click()">📎 Image</button>
-        <input type="file" id="chatFileInp" accept="image/*,video/*" style="display:none" onchange="handleChatFile(event)">
-        <button class="btn bsm bgh" onclick="addChatURL()">🔗 URL</button>
-        <span style="font-size:9px;color:var(--t3);margin-left:auto;">Enter=send · Shift+Enter=new line</span>
-      </div>
-      <div class="chat-row">
-        <textarea id="chatInp" placeholder="Type in Bulgarian or English..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"></textarea>
-        <button class="btn bac" id="chatSendBtn" onclick="sendChat()" style="padding:11px 14px;align-self:flex-end;">↑</button>
+    <div class="card-title">WHAT'S WORKING RIGHT NOW</div>
+    <div id="dash-insights">
+      <div class="empty-state" style="padding:20px;">
+        <div class="empty-title" style="font-size:13px;">Track 3+ videos to unlock AI pattern analysis</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- CTA COMMENTS -->
-<div id="panel-cta" class="panel">
-  <div class="ph"><div class="pt">CTA Comments</div><div class="ps">Human-sounding comments · AI learns from your examples</div></div>
-  <div class="card">
-    <div class="ins"><div class="il">How it works</div>Paste your angle + CTA site. AI generates comments that sound like real humans — people organically ask "which site?", "how?"</div>
-    <div class="f"><label>Your viral angle / concept</label><textarea id="ctaAngle" rows="2" placeholder="e.g. not me still using my college email 3 years after graduating..."></textarea></div>
-    <div class="f"><label>CTA site</label><input type="text" id="ctaLink" placeholder="taroffers.com, bucksgift.com..."></div>
-    <div class="f"><label>Your example comments (AI learns from these)</label><textarea id="ctaExamples" rows="3" placeholder="Paste 5-20 examples that worked for you...&#10;e.g. omg i literally did this last week and saved $40"></textarea></div>
-    <div class="f"><label>Type</label>
-      <select id="ctaType">
-        <option value="curious">Curious / "which site?" trigger</option>
-        <option value="social_proof">Social proof ("it worked for me")</option>
-        <option value="question">Question leading to CTA</option>
-        <option value="reaction">Genuine reaction + organic mention</option>
-        <option value="mix">Mix of all types</option>
-      </select>
-    </div>
-    <div style="display:flex;gap:6px;flex-wrap:wrap;">
-      <button class="btn bsm bac" id="cta5btn" onclick="genCTA(5)">Generate 5</button>
-      <button class="btn bsm" id="cta10btn" onclick="genCTA(10)">Generate 10</button>
-      <button class="btn bsm" id="cta20btn" onclick="genCTA(20)">Generate 20</button>
-    </div>
+<!-- ===== ADD CONTENT ===== -->
+<div id="panel-add" class="panel">
+  <div class="page-header">
+    <div class="page-title">Add Content</div>
+    <div class="page-sub">Log a video — the AI will analyze and learn from it</div>
   </div>
-  <div id="ctaOut"></div>
-</div>
 
-<!-- SLIDES -->
-<div id="panel-slides" class="panel">
-  <div class="ph"><div class="pt">Slides</div><div class="ps">Smart CTA injection · Organic brand drops</div></div>
-  <div class="card">
-    <div class="ins"><div class="il">How it works</div>Upload photos → add your site → AI builds a story where your site appears naturally on slide 3-4. People comment "which site?" organically.</div>
-    <div class="f">
-      <label>Upload images (2-8)</label>
-      <div class="uz" id="slideUz" onclick="document.getElementById('slideFiles').click()" ondragover="event.preventDefault();this.classList.add('over')" ondragleave="this.classList.remove('over')" ondrop="handleSlideDrop(event)">
-        <input type="file" id="slideFiles" accept="image/*" multiple style="display:none" onchange="handleSlideFiles(event)">
-        <div style="font-size:18px;margin-bottom:3px;">🖼️</div>
-        <div style="font-size:11px;">Click or drag images</div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchAddTab('url')">TikTok URL</button>
+    <button class="tab-btn" onclick="switchAddTab('upload')">Upload Video</button>
+    <button class="tab-btn" onclick="switchAddTab('manual')">Manual Entry</button>
+  </div>
+
+  <!-- URL TAB -->
+  <div id="add-url-tab">
+    <div class="card">
+      <div class="card-title">TIKTOK VIDEO URL</div>
+      <div class="field"><label>VIDEO URL</label><input type="url" id="url-input" placeholder="https://www.tiktok.com/@user/video/..."></div>
+      <div class="field"><label>YOUR NICHE</label>
+        <div class="niche-chips" id="url-niches">
+          <div class="niche-chip" onclick="toggleNiche(this,'fitness')">fitness</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'finance')">finance</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'mindset')">mindset</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'food')">food</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'beauty')">beauty</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'fashion')">fashion</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'tech')">tech</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'relationships')">relationships</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'gaming')">gaming</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'travel')">travel</div>
+        </div>
       </div>
-      <div class="pg" id="slidePG"></div>
-    </div>
-    <div class="f"><label>Topic / Hook</label><input type="text" id="slideTopic" placeholder='e.g. "5 things I didn&apos;t expect about the new MacBook"'></div>
-    <div class="f"><label>CTA Site</label><input type="text" id="slideCTA" placeholder="taroffers.com, editwinter.com, bucksgift.com"></div>
-    <div class="f"><label>CTA Style</label>
-      <select id="slideCTAStyle">
-        <option value="organic">Organic drop — "I found this on [site]" naturally</option>
-        <option value="question">Question hook — make audience ask "which site?"</option>
-        <option value="tutorial">Tutorial reference — "full guide on [site]"</option>
-        <option value="pinned">Pinned comment reveal</option>
-      </select>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;">
-      <div class="f" style="margin:0;"><label>Slides</label><select id="slideCount"><option value="4">4</option><option value="5" selected>5</option><option value="6">6</option><option value="7">7</option></select></div>
-      <div class="f" style="margin:0;"><label>Format</label><select id="slideFormat"><option>Storytelling</option><option>Review / opinion</option><option>Tutorial</option><option>Day in the life</option></select></div>
-    </div>
-    <button class="btn bac bfull" id="slideBuildBtn" style="margin-top:10px;" onclick="buildSlides()">Build slideshow ↗</button>
-  </div>
-  <div id="slideOut"></div>
-  <div class="card">
-    <div class="cl">Find slideshows by domain / keyword</div>
-    <div class="f"><label>Domain or keyword</label><input type="text" id="ssKW" placeholder="bucksgift.com, taroffers.com, pinned tutorial..."></div>
-    <div class="f"><label>Niche</label><input type="text" id="ssNiche" placeholder="beauty, tech, student..."></div>
-    <button class="btn bac bfull" id="ssFindBtn" onclick="findSlides()">Find slideshows ↗</button>
-  </div>
-  <div id="ssOut"></div>
-</div>
-
-<!-- ACCOUNTS -->
-<div id="panel-accounts" class="panel">
-  <div class="ph"><div class="pt">Accounts</div><div class="ps">Track any TikTok account · Auto-refreshes · Click to view on TikTok</div></div>
-  <div class="card">
-    <div class="cl">Add account</div>
-    <div style="display:flex;gap:8px;">
-      <input type="text" id="acctInp" placeholder="@username or tiktok.com/@username" onkeydown="if(event.key==='Enter')addAcct()" style="flex:1;">
-      <button class="btn bac bsm" onclick="addAcct()">Track ↗</button>
-    </div>
-    <div style="font-size:10px;color:var(--t2);margin-top:5px;">Works best with public accounts. Paste @username or full profile URL.</div>
-  </div>
-  <div id="acctsList"></div>
-</div>
-
-<!-- STATS -->
-<div id="panel-stats" class="panel">
-  <div class="ph"><div class="pt">Stats & Patterns</div><div class="ps">Log videos · Track performance · AI learns patterns</div></div>
-  <div id="statsSummary"></div>
-  <div class="card">
-    <div class="cl">Log a video</div>
-    <div class="f"><label>Hook / opening line</label><input type="text" id="logHook" placeholder="Opening line or text on screen..."></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
-      <div><label style="font-size:9px;color:var(--t3);text-transform:uppercase;display:block;margin-bottom:3px;">Views</label><input type="number" id="logViews" placeholder="52000"></div>
-      <div><label style="font-size:9px;color:var(--t3);text-transform:uppercase;display:block;margin-bottom:3px;">Follows</label><input type="number" id="logFollows" placeholder="120"></div>
-      <div><label style="font-size:9px;color:var(--t3);text-transform:uppercase;display:block;margin-bottom:3px;">Likes</label><input type="number" id="logLikes" placeholder="3400"></div>
-      <div><label style="font-size:9px;color:var(--t3);text-transform:uppercase;display:block;margin-bottom:3px;">Comments</label><input type="number" id="logComments" placeholder="89"></div>
-    </div>
-    <div class="f"><label>Topic</label><input type="text" id="logTopic" placeholder="Student discount, Checkout PC..."></div>
-    <button class="btn bac bfull" onclick="logVid()">Save ↗</button>
-  </div>
-  <div id="logListWrap"></div>
-  <div class="card">
-    <div class="cl">Pattern analysis</div>
-    <button class="btn bfull" id="patBtn" onclick="runPatterns()">Analyze what's working ↗</button>
-    <div id="patOut" style="margin-top:10px;"></div>
-  </div>
-</div>
-
-<!-- OFFERS -->
-<div id="panel-offers" class="panel">
-  <div class="ph">
-    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;">
-      <div class="pt">Offers</div>
-      <div class="rtog">
-        <button class="rbtn rusa act" id="offRegUSA" onclick="setOffRegion('USA')">🇺🇸 USA</button>
-        <button class="rbtn ruk" id="offRegUK" onclick="setOffRegion('UK')">🇬🇧 UK</button>
+      <div class="grid2">
+        <div class="field"><label>VIEWS (if known)</label><input type="number" id="url-views" placeholder="e.g. 45000"></div>
+        <div class="field"><label>FOLLOWS FROM THIS</label><input type="number" id="url-follows" placeholder="e.g. 120"></div>
       </div>
+      <div class="field"><label>WHAT WAS THE HOOK? (first line)</label><input type="text" id="url-hook" placeholder="e.g. Nobody talks about this..."></div>
+      <div class="field"><label>NOTES / WHAT YOU TRIED</label><textarea id="url-notes" placeholder="Format used, angle, music, anything you noticed..."></textarea></div>
+      <button class="btn btn-primary" id="url-analyze-btn" onclick="analyzeURL()"><span class="spinner" style="display:none" id="url-spin"></span> Analyze & Save ↗</button>
     </div>
-    <div class="ps">Popular brands for TikTok content · Click any offer for angles</div>
+    <div id="url-result"></div>
   </div>
-  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;" id="offFilters">
-    <button class="fchip act" onclick="filterOffers('all',this)">All</button>
-    <button class="fchip" onclick="filterOffers('trending',this)">🔥 Trending</button>
-    <button class="fchip" onclick="filterOffers('sweepstakes',this)">Sweepstakes</button>
-    <button class="fchip" onclick="filterOffers('ecommerce',this)">E-Commerce</button>
-    <button class="fchip" onclick="filterOffers('beauty',this)">Beauty</button>
-    <button class="fchip" onclick="filterOffers('tech',this)">Tech</button>
-    <button class="fchip" onclick="filterOffers('food',this)">Food</button>
-    <button class="fchip" onclick="filterOffers('fashion',this)">Fashion</button>
-    <button class="fchip" onclick="filterOffers('gaming',this)">Gaming</button>
-    <button class="fchip" onclick="filterOffers('student',this)">Student</button>
-  </div>
-  <input type="text" id="offSearch" placeholder="Search offers..." oninput="renderOffers()" style="margin-bottom:10px;">
-  <div id="offersGrid"></div>
-</div>
 
-<!-- FIND -->
-<div id="panel-find" class="panel">
-  <div class="ph"><div class="pt">Find</div><div class="ps">Search by keyword or domain · Finds TikTok videos mentioning it</div></div>
-  <div class="card">
-    <div class="ins"><div class="il">Domain / keyword search</div>Enter a domain like <b>bucksgift.com</b> or keywords like <b>starbucks employee</b> — finds videos where it's mentioned.</div>
-    <div class="f"><label>Keyword, domain or site</label>
-      <input type="text" id="kwInp" placeholder="bucksgift.com, starbucks employee, walmart vlog..." onkeydown="if(event.key==='Enter')findVids()">
+  <!-- UPLOAD TAB -->
+  <div id="add-upload-tab" style="display:none">
+    <div class="card">
+      <div class="card-title">UPLOAD VIDEO FILE</div>
+      <div class="upload-area" id="upload-drop" onclick="document.getElementById('file-input').click()" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="handleDrop(event)">
+        <div class="upload-icon">⬆</div>
+        <div class="upload-text">Drop video or click to browse</div>
+        <div class="upload-sub">MP4, MOV — max 100MB</div>
+      </div>
+      <input type="file" id="file-input" accept="video/*,image/*" style="display:none" onchange="handleFileSelect(event)">
+      <div id="file-preview"></div>
+      <div class="field"><label>YOUR NICHE</label>
+        <div class="niche-chips" id="upload-niches">
+          <div class="niche-chip" onclick="toggleNiche(this,'fitness')">fitness</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'finance')">finance</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'mindset')">mindset</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'food')">food</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'beauty')">beauty</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'fashion')">fashion</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'tech')">tech</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'relationships')">relationships</div>
+        </div>
+      </div>
+      <div class="field"><label>DESCRIBE THE CONTENT</label><textarea id="upload-desc" placeholder="What is this video about? Hook, angle, format..."></textarea></div>
+      <div class="grid2">
+        <div class="field"><label>VIEWS (if posted)</label><input type="number" id="upload-views" placeholder="0 if not posted yet"></div>
+        <div class="field"><label>RESULT / PERFORMANCE</label>
+          <select id="upload-perf">
+            <option value="">Not posted yet</option>
+            <option value="flop">Flopped (< 1K)</option>
+            <option value="ok">OK (1K–10K)</option>
+            <option value="good">Good (10K–100K)</option>
+            <option value="viral">VIRAL (100K+)</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary" id="upload-analyze-btn" onclick="analyzeUpload()"><span class="spinner" style="display:none" id="upload-spin"></span> Analyze & Save ↗</button>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
-      <div class="f" style="margin:0;"><label>Search in</label>
-        <select id="kwScope">
-          <option value="anywhere">Anywhere (caption, comments, video)</option>
-          <option value="caption">Caption / description only</option>
-          <option value="comments">Comments only</option>
-          <option value="video">Video text / slideshow</option>
+    <div id="upload-result"></div>
+  </div>
+
+  <!-- MANUAL TAB -->
+  <div id="add-manual-tab" style="display:none">
+    <div class="card">
+      <div class="card-title">MANUAL ENTRY</div>
+      <div class="field"><label>CONTENT TITLE / CONCEPT</label><input type="text" id="manual-title" placeholder="e.g. 3 things nobody tells you about building muscle"></div>
+      <div class="field"><label>YOUR NICHE</label>
+        <div class="niche-chips" id="manual-niches">
+          <div class="niche-chip" onclick="toggleNiche(this,'fitness')">fitness</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'finance')">finance</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'mindset')">mindset</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'food')">food</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'beauty')">beauty</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'fashion')">fashion</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'tech')">tech</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'relationships')">relationships</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'gaming')">gaming</div>
+          <div class="niche-chip" onclick="toggleNiche(this,'travel')">travel</div>
+        </div>
+      </div>
+      <div class="field"><label>HOOK (opening line)</label><input type="text" id="manual-hook" placeholder="First 1-2 seconds of the video..."></div>
+      <div class="field"><label>FULL SCRIPT / DESCRIPTION</label><textarea id="manual-script" rows="4" placeholder="Paste script or describe the video..."></textarea></div>
+      <div class="field"><label>FORMAT</label>
+        <select id="manual-format">
+          <option>Talking head</option><option>POV/Story</option><option>List/Tips</option>
+          <option>Reaction</option><option>Day in the life</option><option>Before/After</option>
+          <option>Tutorial</option><option>Trending sound/trend</option>
         </select>
       </div>
-      <div class="f" style="margin:0;"><label>Sort</label>
-        <select id="kwSort"><option>Most viral</option><option>Most recent</option><option>Most comments</option></select>
+      <div class="grid2">
+        <div class="field"><label>VIEWS</label><input type="number" id="manual-views" placeholder="Leave blank if not posted"></div>
+        <div class="field"><label>PERFORMANCE</label>
+          <select id="manual-perf">
+            <option value="">Not posted yet</option>
+            <option value="flop">Flopped (< 1K)</option>
+            <option value="ok">OK (1K–10K)</option>
+            <option value="good">Good (10K–100K)</option>
+            <option value="viral">VIRAL (100K+)</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary" id="manual-btn" onclick="analyzeManual()"><span class="spinner" style="display:none" id="manual-spin"></span> Analyze & Save ↗</button>
+    </div>
+    <div id="manual-result"></div>
+  </div>
+</div>
+
+<!-- ===== CONTENT LOG ===== -->
+<div id="panel-log" class="panel">
+  <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-end;">
+    <div>
+      <div class="page-title">Content Log</div>
+      <div class="page-sub">All tracked videos and their performance</div>
+    </div>
+    <button class="btn btn-sm" onclick="clearLog()">Clear all</button>
+  </div>
+  <div id="log-list"></div>
+</div>
+
+<!-- ===== HOOK LAB ===== -->
+<div id="panel-hooks" class="panel">
+  <div class="page-header">
+    <div class="page-title">Hook Lab</div>
+    <div class="page-sub">Generate scroll-stopping hooks based on your niche history</div>
+  </div>
+  <div class="card">
+    <div class="field"><label>TOPIC / CONCEPT</label><input type="text" id="hook-topic" placeholder="e.g. losing weight, building wealth, morning routine..."></div>
+    <div class="field"><label>NICHE</label>
+      <div class="niche-chips" id="hook-niches">
+        <div class="niche-chip" onclick="toggleNiche(this,'fitness')">fitness</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'finance')">finance</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'mindset')">mindset</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'food')">food</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'beauty')">beauty</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'fashion')">fashion</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'tech')">tech</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'relationships')">relationships</div>
       </div>
     </div>
-    <button class="btn bac bfull" id="kwBtn" onclick="findVids()">Search ↗</button>
-  </div>
-  <div class="card">
-    <div class="cl">Trending caption keywords today</div>
-    <div class="f"><label>Niche / topic</label><input type="text" id="trendNiche" placeholder="student discount, beauty, checkout..."></div>
-    <button class="btn bfull" id="trendBtn" onclick="findTrending()">Find trending keywords ↗</button>
-    <div id="trendOut" style="margin-top:8px;"></div>
-  </div>
-  <div id="kwWatches"></div>
-  <div id="kwOut"></div>
-</div>
-
-<!-- CREATIVE -->
-<div id="panel-creative" class="panel">
-  <div class="ph"><div class="pt">Creative Mode</div><div class="ps">No rules · Thinks like Claude + GPT + Gemini</div></div>
-  <div class="card">
-    <div class="ins"><div class="il">No limits</div>Give it anything — word, concept, image. Thinks across every creative angle simultaneously.</div>
-    <div class="f"><label>What do you want?</label>
-      <textarea id="crInp" rows="3" placeholder="Напиши каквото искаш BG или EN...&#10;e.g. 'направи нещо за student discount в Target'&#10;e.g. 'surprise me with checkout angles'"></textarea>
-    </div>
-    <div class="uz" style="padding:12px;margin-bottom:10px;" onclick="document.getElementById('crFile').click()">
-      <input type="file" id="crFile" accept="image/*" style="display:none" onchange="handleCreativeFile(event)">
-      <div style="font-size:15px;">🎨 Add visual reference (optional)</div>
-    </div>
-    <div id="crPrev" style="display:none;margin-bottom:10px;"></div>
-    <div class="f"><label>Mode</label>
-      <select id="crMode">
-        <option value="angles">Viral angles</option>
-        <option value="hooks">Scroll-stopping hooks</option>
-        <option value="concepts">Full video concepts</option>
-        <option value="chaos">Chaos mode — anything goes</option>
+    <div class="field"><label>HOOK STYLE</label>
+      <select id="hook-style">
+        <option value="curiosity">Curiosity gap</option>
+        <option value="controversy">Controversial take</option>
+        <option value="story">Story / POV</option>
+        <option value="stat">Shocking stat or number</option>
+        <option value="mistake">Common mistake</option>
+        <option value="secret">Secret / hidden truth</option>
+        <option value="relatable">Super relatable moment</option>
+        <option value="challenge">Challenge / dare</option>
       </select>
     </div>
-    <button class="btn bac bfull" id="crBtn" onclick="runCreative()">Unleash ↗</button>
+    <button class="btn btn-primary" id="hook-gen-btn" onclick="generateHooks()"><span class="spinner" style="display:none" id="hook-spin"></span> Generate 5 Hooks ↗</button>
   </div>
-  <div id="crOut"></div>
+  <div id="hooks-output"></div>
 </div>
 
-<!-- SETTINGS -->
-<div id="panel-settings" class="panel">
-  <div class="ph"><div class="pt">Settings</div></div>
-  <div class="card" style="border-color:rgba(255,45,85,.3);background:rgba(255,45,85,.04);">
-    <div class="cl" style="color:var(--ac);">Anthropic API Key</div>
-    <div style="font-size:11px;color:var(--t2);margin-bottom:8px;">Enter your API key from <a href="https://console.anthropic.com" target="_blank" style="color:var(--bl);">console.anthropic.com</a>. Saved locally in your browser — never sent anywhere else.</div>
-    <div style="display:flex;gap:7px;margin-bottom:6px;">
-      <input type="password" id="apiKeyInp" placeholder="sk-ant-api03-..." style="flex:1;" oninput="checkKeyStatus()">
-      <button class="btn bsm bac" onclick="saveApiKey()">Save Key</button>
+<!-- ===== ANGLE ENGINE ===== -->
+<div id="panel-angles" class="panel">
+  <div class="page-header">
+    <div class="page-title">Angle Engine</div>
+    <div class="page-sub">Fresh angles trained on what's working for you</div>
+  </div>
+  <div class="card">
+    <div class="field"><label>TOPIC</label><input type="text" id="angle-topic" placeholder="e.g. intermittent fasting, crypto, toxic relationships..."></div>
+    <div class="field"><label>YOUR NICHE</label>
+      <div class="niche-chips" id="angle-niches">
+        <div class="niche-chip" onclick="toggleNiche(this,'fitness')">fitness</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'finance')">finance</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'mindset')">mindset</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'food')">food</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'beauty')">beauty</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'fashion')">fashion</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'tech')">tech</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'relationships')">relationships</div>
+      </div>
     </div>
-    <div id="apiKeyStatus" style="font-size:10px;margin-top:4px;"></div>
+    <div class="field"><label>ANGLES ALREADY TRIED</label><textarea id="angle-tried" placeholder="e.g. motivational tips format, list videos, reaction content..."></textarea></div>
+    <button class="btn btn-primary" id="angle-btn" onclick="generateAngles()"><span class="spinner" style="display:none" id="angle-spin"></span> Find New Angles ↗</button>
+  </div>
+  <div id="angles-output"></div>
+</div>
+
+<!-- ===== VIRAL MUSIC ===== -->
+<div id="panel-music" class="panel">
+  <div class="page-header">
+    <div class="page-title">Viral Music</div>
+    <div class="page-sub">Trending sounds on TikTok USA right now</div>
   </div>
   <div class="card">
-    <div class="cl">Preferences</div>
-    <div class="srow"><div style="font-size:12px;font-weight:500;">Auto-save generated angles</div><label class="tog"><input type="checkbox" id="setAutosave" onchange="saveSettings()"><span class="tsl"></span></label></div>
-    <div class="srow"><div style="font-size:12px;font-weight:500;">Learn from every save</div><label class="tog"><input type="checkbox" id="setLearn" checked onchange="saveSettings()"><span class="tsl"></span></label></div>
-    <div class="srow"><div style="font-size:12px;font-weight:500;">Respond in Bulgarian</div><label class="tog"><input type="checkbox" id="setBG" onchange="saveSettings()"><span class="tsl"></span></label></div>
-  </div>
-  <div class="card">
-    <div class="cl">Saved CTA Sites</div>
-    <div style="display:flex;gap:7px;margin-bottom:8px;"><input type="text" id="siteInp" placeholder="e.g. bucksgift.com" style="flex:1;"><button class="btn bsm bac" onclick="addSite()">+ Add</button></div>
-    <div id="sitesList"></div>
-  </div>
-  <div class="card">
-    <div class="cl">Memory</div>
-    <div id="memStats"></div>
-    <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;">
-      <button class="btn bfull bgh" onclick="exportAngles()">Export angles (JSON)</button>
-      <button class="btn bfull bgh" onclick="if(confirm('Clear ALL data?'))clearAll()">Clear all data</button>
+    <div class="field"><label>NICHE / VIBE</label>
+      <div class="niche-chips" id="music-niches">
+        <div class="niche-chip" onclick="toggleNiche(this,'fitness')">fitness</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'finance')">finance</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'mindset')">mindset</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'food')">food</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'beauty')">beauty</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'fashion')">fashion</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'motivation')">motivation</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'chill')">chill vibes</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'hype')">hype energy</div>
+      </div>
     </div>
+    <div class="field"><label>VIDEO FORMAT</label>
+      <select id="music-format">
+        <option>Talking head</option><option>Montage / B-roll</option>
+        <option>Tutorial</option><option>Emotional story</option>
+        <option>Hype / energy</option><option>Day in the life</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" id="music-btn" onclick="getMusic()"><span class="spinner" style="display:none" id="music-spin"></span> Get Trending Sounds ↗</button>
+  </div>
+  <div id="music-output"></div>
+</div>
+
+<!-- ===== ALGORITHM INTEL ===== -->
+<div id="panel-algorithm" class="panel">
+  <div class="page-header">
+    <div class="page-title">Algorithm Intel</div>
+    <div class="page-sub">Latest TikTok USA algorithm changes & what to do about them</div>
+  </div>
+  <div class="card">
+    <div class="field"><label>YOUR PRIMARY NICHE</label>
+      <div class="niche-chips" id="algo-niches">
+        <div class="niche-chip" onclick="toggleNiche(this,'fitness')">fitness</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'finance')">finance</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'mindset')">mindset</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'food')">food</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'beauty')">beauty</div>
+        <div class="niche-chip" onclick="toggleNiche(this,'general')">general</div>
+      </div>
+    </div>
+    <div class="field"><label>SPECIFIC CONCERN (OPTIONAL)</label><input type="text" id="algo-concern" placeholder="e.g. my views dropped suddenly, shadow ban, low reach..."></div>
+    <button class="btn btn-primary" id="algo-btn" onclick="getAlgoIntel()"><span class="spinner" style="display:none" id="algo-spin"></span> Get Algorithm Intel ↗</button>
+  </div>
+  <div id="algo-output"></div>
+</div>
+
+<!-- ===== MY PATTERNS ===== -->
+<div id="panel-patterns" class="panel">
+  <div class="page-header">
+    <div class="page-title">My Patterns</div>
+    <div class="page-sub">AI analysis of what makes YOUR content work</div>
+  </div>
+  <div id="patterns-output">
+    <div class="empty-state">
+      <div class="empty-icon">◉</div>
+      <div class="empty-title">Not enough data yet</div>
+      <div class="empty-sub">Add at least 3 videos to unlock pattern analysis</div>
+    </div>
+  </div>
+  <div id="patterns-regen" style="display:none;margin-top:16px;">
+    <button class="btn btn-primary" onclick="analyzePatterns()"><span class="spinner" style="display:none" id="pattern-spin"></span> Re-analyze Patterns ↗</button>
   </div>
 </div>
 
 </main>
 </div>
 
-<!-- MOBILE NAV -->
-<div class="mob">
-  <div class="mob-in">
-    <button class="mb act" onclick="go('angles');setMobAct(this)"><span class="mi">⟳</span>Angles</button>
-    <button class="mb" onclick="go('chat');setMobAct(this)"><span class="mi">💬</span>Chat</button>
-    <button class="mb" onclick="go('offers');setMobAct(this)"><span class="mi">🎁</span>Offers</button>
-    <button class="mb" onclick="go('accounts');setMobAct(this)"><span class="mi">◉</span>Accts</button>
-    <button class="mb" onclick="go('find');setMobAct(this)"><span class="mi">🔍</span>Find</button>
-    <button class="mb" onclick="go('creative');setMobAct(this)"><span class="mi">✦</span>Create</button>
-    <button class="mb" onclick="go('slides');setMobAct(this)"><span class="mi">▤</span>More</button>
-  </div>
-</div>
-
 <script>
 // ============================================================
-// TIKTOK LAB v5 — All functions in one clean block
+// STATE & STORAGE
 // ============================================================
-var STORE = 'ttlv5';
-var curTopic = 'Student discount';
-var curAngRegion = 'USA';
-var curOffRegion = 'USA';
-var curOffFilter = 'all';
-var learnImg = null;
-var slideImgs = [];
-var creativeImg = null;
-var chatHistory = [];
-var chatAtts = [];
-var filteredOffers = [];
+const STORAGE_KEY = 'tiklab_v2';
 
-// ---- STORAGE ----
-function dbGet() { try { return JSON.parse(localStorage.getItem(STORE) || '{}'); } catch(e) { return {}; } }
-function dbSet(d) { try { localStorage.setItem(STORE, JSON.stringify(d)); } catch(e) { console.warn('Storage full'); } }
-function gg(k, def) { var d = dbGet(); return d[k] !== undefined ? d[k] : (def !== undefined ? def : null); }
-function gs(k, v) { var d = dbGet(); d[k] = v; dbSet(d); }
-function getSaved() { return gg('saved_' + curTopic, []); }
-function setSaved(a) { gs('saved_' + curTopic, a); }
-function getMemory() { return gg('mem_' + curTopic, []); }
-function setMemory(m) { gs('mem_' + curTopic, m); }
-function getLog() { return gg('log', []); }
-function setLog(l) { gs('log', l); }
-function getAccts() { return gg('accts', []); }
-function setAccts(a) { gs('accts', a); }
-function getWatches() { return gg('watches', []); }
-function setWatches(w) { gs('watches', w); }
-function getSites() { return gg('sites', []); }
-function setSites(s) { gs('sites', s); }
-function getSettings() { return gg('settings', { autosave: false, learn: true, bg: false }); }
-function saveSettings() { gs('settings', { autosave: document.getElementById('setAutosave').checked, learn: document.getElementById('setLearn').checked, bg: document.getElementById('setBG').checked }); }
-function getCTAEx() { return gg('cta_ex', []); }
-function setCTAEx(e) { gs('cta_ex', e); }
+function loadState() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { entries: [], patterns: null, lastPatternUpdate: null }; }
+  catch { return { entries: [], patterns: null, lastPatternUpdate: null }; }
+}
 
-// ---- NAV ----
-function go(name) {
-  document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
+function saveState(s) { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }
+
+let state = loadState();
+let selectedNiches = {};
+let uploadedFileData = null;
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function goTo(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('panel-' + name).classList.add('active');
-  document.querySelectorAll('.ni').forEach(function(n) { n.classList.remove('active'); });
-  var nav = document.getElementById('nav-' + name);
-  if (nav) nav.classList.add('active');
-  if (name === 'angles') renderSaved();
-  if (name === 'stats') { renderStats(); renderLogList(); }
-  if (name === 'accounts') renderAccts();
-  if (name === 'find') renderWatches();
-  if (name === 'settings') renderSettings();
-  if (name === 'offers') renderOffers();
-  if (window.innerWidth <= 800) {
-    document.getElementById('sb').classList.remove('open');
-    document.getElementById('ov').classList.remove('open');
-  }
+  const items = document.querySelectorAll('.nav-item');
+  const map = ['dashboard','add','log','hooks','angles','music','algorithm','patterns'];
+  const idx = map.indexOf(name);
+  if (idx >= 0) items[idx].classList.add('active');
+  if (name === 'dashboard') refreshDashboard();
+  if (name === 'log') renderLog();
+  if (name === 'patterns') renderPatterns();
 }
-function setMobAct(el) { document.querySelectorAll('.mb').forEach(function(b) { b.classList.remove('act'); }); el.classList.add('act'); }
-function toggleSB() { document.getElementById('sb').classList.toggle('open'); document.getElementById('ov').classList.toggle('open'); }
-function setTopic(el, t) {
-  curTopic = t;
-  document.querySelectorAll('.tc').forEach(function(c) { c.classList.remove('active'); });
+
+// ============================================================
+// NICHE CHIPS — one per group
+// ============================================================
+function toggleNiche(el, val) {
+  const group = el.closest('.niche-chips').id;
+  document.querySelectorAll('#' + group + ' .niche-chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
-  document.getElementById('topicLabel').textContent = t;
-  renderSaved();
-}
-function addTopic() {
-  var v = document.getElementById('newTopicInp').value.trim(); if (!v) return;
-  var chips = document.getElementById('topicChips');
-  var btn = document.createElement('button'); btn.className = 'tc'; btn.textContent = v;
-  btn.setAttribute('onclick', 'setTopic(this,"' + v.replace(/"/g, '\\"') + '")');
-  chips.appendChild(btn);
-  document.getElementById('newTopicInp').value = '';
-  setTopic(btn, v);
-}
-function setAngRegion(r) {
-  curAngRegion = r;
-  document.getElementById('angRegUSA').classList.toggle('act', r === 'USA');
-  document.getElementById('angRegUK').classList.toggle('act', r === 'UK');
-  document.getElementById('regionLabel').textContent = r + ' audience';
-}
-function setOffRegion(r) {
-  curOffRegion = r;
-  document.getElementById('offRegUSA').classList.toggle('act', r === 'USA');
-  document.getElementById('offRegUK').classList.toggle('act', r === 'UK');
-  renderOffers();
+  selectedNiches[group] = val;
 }
 
-// ---- API KEY ----
-function getApiKey() { return gg('api_key', ''); }
-function setApiKey(k) { gs('api_key', k.trim()); }
-function checkApiKey() {
-  var k = getApiKey();
-  if (!k) {
-    var el = document.getElementById('apiKeyBanner');
-    if (el) el.style.display = 'flex';
-    throw new Error('No API key set. Go to Settings and enter your Anthropic API key.');
-  }
-  return k;
-}
+function getNiche(group) { return selectedNiches[group] || ''; }
 
-// ---- AI CALL ----
-function aiCall(sys, usr, imgs, maxTok) {
-  var key = checkApiKey();
-  var content;
-  if (imgs && imgs.length) {
-    content = imgs.filter(function(i) { return i && i.base64 && i.type; }).map(function(i) {
-      return { type: 'image', source: { type: 'base64', media_type: i.type.startsWith('image/') ? i.type : 'image/jpeg', data: i.base64 } };
-    });
-    content.push({ type: 'text', text: usr });
-  } else { content = usr; }
-  return fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': key,
-      'anthropic-version': '2023-06-01',
-      'anthropic-dangerous-direct-browser-access': 'true'
-    },
-    body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: maxTok || 1200, system: sys, messages: [{ role: 'user', content: content }] })
-  }).then(function(r) { return r.json(); }).then(function(data) {
-    if (data.error) throw new Error(data.error.message || 'API error');
-    return data.content.map(function(c) { return c.text || ''; }).join('');
+// ============================================================
+// ADD CONTENT TABS
+// ============================================================
+function switchAddTab(tab) {
+  ['url','upload','manual'].forEach(t => {
+    document.getElementById('add-' + t + '-tab').style.display = t === tab ? 'block' : 'none';
+  });
+  document.querySelectorAll('.tab-btn').forEach((b,i) => {
+    b.classList.toggle('active', ['url','upload','manual'][i] === tab);
   });
 }
 
-// ---- ROBUST JSON PARSER ----
-function parseJ(raw) {
-  if (!raw) throw new Error('Empty response');
-  // direct
-  try { return JSON.parse(raw); } catch(e) {}
-  // strip fences
-  var s = raw.replace(/```json\s*/gi, '').replace(/```\s*/gi, '').trim();
-  try { return JSON.parse(s); } catch(e) {}
-  // find balanced JSON
-  var starts = [s.indexOf('['), s.indexOf('{')].filter(function(i) { return i >= 0; });
-  if (!starts.length) throw new Error('No JSON in response');
-  var si = Math.min.apply(null, starts);
-  var openCh = s[si], closeCh = openCh === '[' ? ']' : '}';
-  var depth = 0, inStr = false, esc = false;
-  for (var i = si; i < s.length; i++) {
-    var c = s[i];
-    if (esc) { esc = false; continue; }
-    if (c === '\\' && inStr) { esc = true; continue; }
-    if (c === '"') { inStr = !inStr; continue; }
-    if (inStr) continue;
-    if (c === '[' || c === '{') depth++;
-    if (c === ']' || c === '}') depth--;
-    if (depth === 0) {
-      var sub = s.substring(si, i + 1);
-      try { return JSON.parse(sub); } catch(e) {}
-      sub = sub.replace(/,(\s*[}\]])/g, '$1').replace(/([{,]\s*)(\w+)\s*:/g, '$1"$2":');
-      try { return JSON.parse(sub); } catch(e) {}
-      break;
+// ============================================================
+// FILE UPLOAD
+// ============================================================
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('upload-drop').classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file) processFile(file);
+}
+function handleFileSelect(e) { if (e.target.files[0]) processFile(e.target.files[0]); }
+
+function processFile(file) {
+  const preview = document.getElementById('file-preview');
+  if (file.type.startsWith('video/')) {
+    const url = URL.createObjectURL(file);
+    preview.innerHTML = `<video src="${url}" controls style="width:100%;border-radius:8px;margin-bottom:14px;max-height:240px;background:#000;"></video><div class="badge badge-green" style="margin-bottom:14px;">${file.name} — ${(file.size/1024/1024).toFixed(1)}MB</div>`;
+    const reader = new FileReader();
+    reader.onload = r => { uploadedFileData = { name: file.name, type: file.type, size: file.size }; };
+    reader.readAsArrayBuffer(file);
+  } else if (file.type.startsWith('image/')) {
+    const reader = new FileReader();
+    reader.onload = r => {
+      preview.innerHTML = `<img src="${r.result}" style="width:100%;border-radius:8px;margin-bottom:14px;max-height:240px;object-fit:cover;">`;
+      uploadedFileData = { name: file.name, type: file.type, dataUrl: r.result };
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+// ============================================================
+// CLAUDE API
+// ============================================================
+async function callClaude(prompt, system = '') {
+  const body = { model: 'claude-sonnet-4-20250514', max_tokens: 1000 };
+  if (system) body.system = system;
+  body.messages = [{ role: 'user', content: prompt }];
+  const r = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  const d = await r.json();
+  return d.content[0].text;
+}
+
+async function callClaudeJSON(prompt, system = '') {
+  const text = await callClaude(prompt, system + ' Return ONLY valid JSON, no markdown, no backticks.');
+  try { return JSON.parse(text); }
+  catch { return JSON.parse(text.replace(/```json|```/g, '').trim()); }
+}
+
+function setLoading(btnId, spinId, on) {
+  const btn = document.getElementById(btnId);
+  const spin = document.getElementById(spinId);
+  btn.disabled = on;
+  spin.style.display = on ? 'inline-block' : 'none';
+}
+
+// ============================================================
+// ANALYZE URL
+// ============================================================
+async function analyzeURL() {
+  const url = document.getElementById('url-input').value.trim();
+  const niche = getNiche('url-niches');
+  const views = document.getElementById('url-views').value;
+  const hook = document.getElementById('url-hook').value.trim();
+  const notes = document.getElementById('url-notes').value.trim();
+  if (!url && !hook) { alert('Enter a URL or at least the hook'); return; }
+  setLoading('url-analyze-btn', 'url-spin', true);
+  const out = document.getElementById('url-result');
+  out.innerHTML = '';
+  try {
+    const data = await callClaudeJSON(`
+TikTok video to analyze:
+URL: ${url || 'not provided'}
+Niche: ${niche || 'general'}
+Hook used: ${hook || 'unknown'}
+Views: ${views || 'unknown'}
+Notes: ${notes || 'none'}
+
+Analyze this TikTok video for US algorithm performance. Return JSON:
+{"score":75,"hook_score":80,"hook_analysis":"...","strengths":["...","..."],"weaknesses":["..."],"next_angles":["angle1","angle2","angle3"],"music_rec":"type of music that would work","cta_rec":"best call to action","verdict":"one punchy sentence"}
+    `);
+    const entry = {
+      id: Date.now(), type: 'url', url, niche: niche || 'general',
+      hook, views: parseInt(views) || 0, notes, analysis: data,
+      date: new Date().toLocaleDateString(), score: data.score
+    };
+    state.entries.push(entry);
+    saveState(state);
+    out.innerHTML = renderAnalysis(data);
+  } catch(e) { out.innerHTML = `<div class="alert alert-warn">Error analyzing. Try again.</div>`; }
+  setLoading('url-analyze-btn', 'url-spin', false);
+}
+
+// ============================================================
+// ANALYZE UPLOAD
+// ============================================================
+async function analyzeUpload() {
+  const desc = document.getElementById('upload-desc').value.trim();
+  const niche = getNiche('upload-niches');
+  const views = document.getElementById('upload-views').value;
+  const perf = document.getElementById('upload-perf').value;
+  if (!desc && !uploadedFileData) { alert('Describe the video content'); return; }
+  setLoading('upload-analyze-btn', 'upload-spin', true);
+  const out = document.getElementById('upload-result');
+  out.innerHTML = '';
+  try {
+    let messages;
+    if (uploadedFileData && uploadedFileData.dataUrl) {
+      messages = [{ role: 'user', content: [
+        { type: 'image', source: { type: 'base64', media_type: uploadedFileData.type, data: uploadedFileData.dataUrl.split(',')[1] } },
+        { type: 'text', text: `Analyze this TikTok content for US algorithm performance.\nNiche: ${niche || 'general'}\nDescription: ${desc}\nViews: ${views || 'unknown'}\nPerformance: ${perf || 'not posted'}\n\nReturn JSON: {"score":75,"hook_score":80,"hook_analysis":"...","strengths":["..."],"weaknesses":["..."],"next_angles":["...","...","..."],"music_rec":"...","cta_rec":"...","verdict":"..."}` }
+      ]}];
+    } else {
+      const data = await callClaudeJSON(`Analyze TikTok content:\nNiche: ${niche}\nDescription: ${desc}\nViews: ${views || 'unknown'}\nPerformance: ${perf || 'not posted'}\n\nReturn JSON: {"score":75,"hook_score":80,"hook_analysis":"...","strengths":["..."],"weaknesses":["..."],"next_angles":["...","...","..."],"music_rec":"...","cta_rec":"...","verdict":"..."}`);
+      const entry = { id: Date.now(), type: 'upload', niche: niche || 'general', desc, views: parseInt(views) || 0, perf, analysis: data, date: new Date().toLocaleDateString(), score: data.score };
+      state.entries.push(entry); saveState(state);
+      out.innerHTML = renderAnalysis(data);
+      setLoading('upload-analyze-btn', 'upload-spin', false);
+      return;
     }
-  }
-  throw new Error('Could not parse AI response — please try again');
+    const r = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, messages }) });
+    const d = await r.json();
+    const text = d.content[0].text;
+    const data = JSON.parse(text.replace(/```json|```/g,'').trim());
+    const entry = { id: Date.now(), type: 'upload', niche: niche || 'general', desc, views: parseInt(views) || 0, perf, analysis: data, date: new Date().toLocaleDateString(), score: data.score };
+    state.entries.push(entry); saveState(state);
+    out.innerHTML = renderAnalysis(data);
+  } catch(e) { out.innerHTML = `<div class="alert alert-warn">Error. Try again.</div>`; }
+  setLoading('upload-analyze-btn', 'upload-spin', false);
 }
 
-function ld(m) { return '<div class="ld"><div class="dp"><span></span><span></span><span></span></div><span>' + m + '</span></div>'; }
-function sb(id, on, lb) {
-  var b = document.getElementById(id); if (!b) return;
-  b.disabled = on;
-  b.innerHTML = on ? '<span style="display:inline-block;width:10px;height:10px;border:2px solid transparent;border-top-color:currentColor;border-radius:50%;animation:dpa .6s linear infinite;margin-right:4px;vertical-align:middle;"></span>Working...' : lb;
-}
-function esc(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function buildCtx() {
-  var saved = getSaved(), mem = getMemory();
-  var wins = getLog().filter(function(v) { return (+v.views || 0) >= 10000; }).map(function(v) { return v.hook; }).filter(Boolean).slice(-5);
-  var parts = [];
-  if (saved.length) parts.push('Saved angles: ' + saved.slice(0, 5).map(function(a) { return '"' + a.angle + '"'; }).join(', '));
-  if (wins.length) parts.push('Winning hooks: ' + wins.join(' | '));
-  if (mem.length) parts.push('Style memory: ' + mem.slice(-4).join('; '));
-  return parts.join('\n');
+// ============================================================
+// ANALYZE MANUAL
+// ============================================================
+async function analyzeManual() {
+  const title = document.getElementById('manual-title').value.trim();
+  const hook = document.getElementById('manual-hook').value.trim();
+  const script = document.getElementById('manual-script').value.trim();
+  const format = document.getElementById('manual-format').value;
+  const niche = getNiche('manual-niches');
+  const views = document.getElementById('manual-views').value;
+  const perf = document.getElementById('manual-perf').value;
+  if (!title && !script) { alert('Enter a title or script'); return; }
+  setLoading('manual-btn', 'manual-spin', true);
+  const out = document.getElementById('manual-result');
+  out.innerHTML = '';
+  try {
+    const data = await callClaudeJSON(`
+TikTok content to analyze for US algorithm:
+Title/Concept: ${title}
+Hook: ${hook || 'not specified'}
+Script: ${script || 'not provided'}
+Format: ${format}
+Niche: ${niche || 'general'}
+Views: ${views || 'not posted yet'}
+Performance: ${perf || 'not posted'}
+
+Analyze and return JSON: {"score":75,"hook_score":80,"hook_analysis":"...","strengths":["...","..."],"weaknesses":["..."],"next_angles":["...","...","..."],"music_rec":"...","cta_rec":"...","verdict":"..."}
+    `);
+    const entry = { id: Date.now(), type: 'manual', title, hook, script, format, niche: niche || 'general', views: parseInt(views) || 0, perf, analysis: data, date: new Date().toLocaleDateString(), score: data.score };
+    state.entries.push(entry); saveState(state);
+    out.innerHTML = renderAnalysis(data);
+  } catch(e) { out.innerHTML = `<div class="alert alert-warn">Error. Try again.</div>`; }
+  setLoading('manual-btn', 'manual-spin', false);
 }
 
-// ---- TOPIC CONFIGS ----
-var TCFG = {
-  'Student discount': { style: 'Casual, max 12 words. Formats: "not me...", "pov:", "still using my uni email...", "treating my student discount like...". If user specifies a brand in reference, ALL angles must be about THAT brand only. No .edu no .ac.uk references.', len: 'short' },
-  'Checkout': { style: '10-16 words ok. Impulse buy / deal energy. Shopping addiction vibes. Brand-specific when given.', len: 'medium' },
-  'Checkout PC': { style: '12-18 words. PC/tech shopping. Specific: "configuring a PC at midnight", deal-hunter energy. More detail allowed.', len: 'medium-long' },
-  'Beauty deal': { style: 'Soft, aspirational. "not me finding a dupe for...", "$10 vs $100" energy. Brand-specific.', len: 'medium' },
-  'Tech review': { style: 'Opinion-based, 15-22 words ok. Contrarian takes. "things nobody told me about...", "hot take:", specific product names.', len: 'longer' }
-};
-function getTCfg() { return TCFG[curTopic] || TCFG['Checkout']; }
+// ============================================================
+// RENDER ANALYSIS
+// ============================================================
+function renderAnalysis(d) {
+  const sc = d.score >= 80 ? 'high' : d.score >= 60 ? 'med' : 'low';
+  const sc2 = d.hook_score >= 80 ? 'high' : d.hook_score >= 60 ? 'med' : 'low';
+  return `<div class="card fadein">
+    <div class="grid2" style="margin-bottom:16px;">
+      <div>
+        <div class="card-title">OVERALL SCORE</div>
+        <div style="font-family:var(--font-head);font-size:36px;font-weight:800;color:var(--text)">${d.score}<span style="font-size:16px;color:var(--text3)">/100</span></div>
+        <div class="score-bar" style="margin-top:8px;"><div class="score-fill ${sc}" style="width:${d.score}%"></div></div>
+      </div>
+      <div>
+        <div class="card-title">HOOK SCORE</div>
+        <div style="font-family:var(--font-head);font-size:36px;font-weight:800;color:var(--text)">${d.hook_score}<span style="font-size:16px;color:var(--text3)">/100</span></div>
+        <div class="score-bar" style="margin-top:8px;"><div class="score-fill ${sc2}" style="width:${d.hook_score}%"></div></div>
+      </div>
+    </div>
+    <div class="insight-card" style="margin-bottom:14px;">
+      <div class="insight-title">HOOK ANALYSIS</div>
+      <div class="insight-body">${d.hook_analysis}</div>
+    </div>
+    <div class="grid2" style="margin-bottom:16px;">
+      <div>
+        <div class="card-title" style="color:var(--green)">STRENGTHS</div>
+        ${(d.strengths||[]).map(s=>`<div style="font-size:13px;padding:4px 0;display:flex;gap:8px;align-items:flex-start;"><span style="color:var(--green);margin-top:1px;">+</span>${s}</div>`).join('')}
+      </div>
+      <div>
+        <div class="card-title" style="color:var(--accent)">WEAKNESSES</div>
+        ${(d.weaknesses||[]).map(w=>`<div style="font-size:13px;padding:4px 0;display:flex;gap:8px;align-items:flex-start;"><span style="color:var(--accent);margin-top:1px;">−</span>${w}</div>`).join('')}
+      </div>
+    </div>
+    <div style="margin-bottom:14px;">
+      <div class="card-title">NEXT ANGLES TO TEST</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        ${(d.next_angles||[]).map(a=>`<span class="badge badge-cyan">${a}</span>`).join('')}
+      </div>
+    </div>
+    <div class="grid2" style="margin-bottom:14px;">
+      <div class="stat-card"><div style="font-size:11px;color:var(--text3);font-family:var(--font-mono);margin-bottom:4px;">MUSIC REC</div><div style="font-size:13px;">${d.music_rec}</div></div>
+      <div class="stat-card"><div style="font-size:11px;color:var(--text3);font-family:var(--font-mono);margin-bottom:4px;">CTA REC</div><div style="font-size:13px;">${d.cta_rec}</div></div>
+    </div>
+    <div style="background:rgba(254,44,85,0.06);border:1px solid rgba(254,44,85,0.15);border-radius:var(--r);padding:12px 14px;font-size:13px;font-weight:500;color:var(--text);">
+      <span style="color:var(--accent);font-family:var(--font-mono);font-size:11px;">VERDICT — </span>${d.verdict}
+    </div>
+  </div>`;
+}
 
-// ---- SAVED ANGLES ----
-function renderSaved() {
-  var saved = getSaved();
-  var wrap = document.getElementById('savedWrap');
-  if (!saved.length) { wrap.innerHTML = ''; return; }
-  var html = '<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><div class="cl" style="margin:0;">Saved — ' + esc(curTopic) + ' (' + saved.length + ')</div><button class="btn bsm bgh" onclick="clearSaved()">Clear all</button></div>';
-  saved.forEach(function(a, i) {
-    html += '<div class="rc"><button class="savebtn" onclick="rmSaved(' + i + ')" style="background:rgba(255,45,85,.08);border-color:rgba(255,45,85,.25);color:var(--ac);">× Remove</button>';
-    html += '<div class="bigt">"' + esc(a.angle) + '"</div>';
-    html += '<div class="mr"><span class="tag tp">' + esc(a.emotion || '') + '</span>';
-    if (a.competition) html += '<span class="tag ' + (a.competition === 'low' ? 'tg' : 'ty') + '">' + esc(a.competition) + '</span>';
-    html += '<button class="btn bsm" style="padding:2px 7px;font-size:9px;margin-left:auto;" onclick="chatWithAngle(\'' + esc(a.angle).replace(/'/g, '&#39;') + '\')">Chat →</button></div></div>';
-  });
-  html += '</div>';
-  wrap.innerHTML = html;
-}
-function clearSaved() { if (confirm('Clear saved for ' + curTopic + '?')) { setSaved([]); renderSaved(); } }
-function rmSaved(i) { var a = getSaved(); a.splice(i, 1); setSaved(a); renderSaved(); }
-function saveAngle(obj) {
-  var arr = getSaved();
-  if (arr.find(function(x) { return x.angle === obj.angle; })) return;
-  arr.unshift(obj);
-  setSaved(arr);
-  var mem = getMemory(); mem.push(obj.angle); if (mem.length > 40) mem.shift(); setMemory(mem);
-  renderSaved();
-}
-function chatWithAngle(angle) {
-  document.getElementById('chatInp').value = 'Improve or make 5 similar: "' + angle + '"';
-  go('chat');
-}
+// ============================================================
+// HOOK LAB
+// ============================================================
+async function generateHooks() {
+  const topic = document.getElementById('hook-topic').value.trim();
+  const niche = getNiche('hook-niches');
+  const style = document.getElementById('hook-style').value;
+  if (!topic) { alert('Enter a topic'); return; }
+  setLoading('hook-gen-btn', 'hook-spin', true);
+  const out = document.getElementById('hooks-output');
+  out.innerHTML = '';
+  const history = state.entries.filter(e => (!niche || e.niche === niche) && e.score >= 70).slice(-5);
+  const histCtx = history.length ? `\nUser's top performing content in this niche:\n${history.map(e => `- "${e.hook || e.title || e.desc || ''}" scored ${e.score}`).join('\n')}` : '';
+  try {
+    const hooks = await callClaudeJSON(`
+Generate 5 TikTok hooks for US algorithm.
+Topic: ${topic}
+Niche: ${niche || 'general'}
+Style: ${style}
+${histCtx}
 
-// ---- GENERATE ANGLES ----
-function genAngles(count) {
-  var btnId = 'g' + count + 'btn';
-  sb(btnId, true, 'Generate ' + count);
-  var out = document.getElementById('anglesOut');
-  out.innerHTML = ld('Generating ' + count + ' angles...');
-  var ref = document.getElementById('refInp').value.trim();
-  var cta = document.getElementById('ctaInp').value.trim() || getSites()[0] || '';
-  var cfg = getTCfg();
-  var ctx = buildCtx();
-  var BANNED = 'NEVER use these words: broke, money, cash, poor, rich, side hustle, income, .edu, .ac.uk';
-  var regionNote = curAngRegion === 'UK' ? 'UK audience: British spelling, UK brands, UK slang, natural UK TikTok energy.' : 'USA audience: US brands, US slang, American TikTok energy.';
-  var brandMatch = ref.match(/\b(target|walmart|amazon|starbucks|apple|netflix|spotify|nike|adidas|zara|shein|asos|h&m|primark|tesco|sainsbury|boots|superdrug|aritzia|urban outfitters|topshop|deliveroo|uber|costco|chipotle|sephora|ulta|gymshark|lululemon)\b/i);
-  var brandNote = brandMatch ? 'CRITICAL: ALL angles must be specifically about "' + brandMatch[0] + '". Do not switch to other brands.' : '';
-  var imgs = learnImg ? [learnImg] : [];
-  var sys = 'You are a viral TikTok content creator for ' + curAngRegion + ' audience. Return ONLY a valid JSON array. Nothing before or after the array. Start with [ and end with ].';
-  var usr = 'Topic: "' + curTopic + '"\nRegion: ' + curAngRegion + ' — ' + regionNote + '\nStyle: ' + cfg.style + '\n' + BANNED + '\n' + brandNote + '\nReference style (match energy, do NOT copy): ' + (ref || 'not me still using my college email 3 years after graduating') + '\nCTA site: "' + (cta || 'none') + '" — embed in 1-2 angles only if given\nCreator memory:\n' + (ctx || '(fresh)') + '\n\nRules:\n- NEVER repeat from memory bank\n- Each angle completely different style/approach\n- Vary length: some short (8 words), some longer (15+ words)\n- Specific details beat generic\n- If brand specified, ALL angles about that brand\n\nGenerate exactly ' + count + ' unique angles.\nReturn ONLY this JSON array:\n[{"angle":"...","emotion":"relatable/fomo/humor/shock/curiosity/flex","format":"talking head/text on screen/voiceover","competition":"low/medium","why":"1 sentence","has_cta":false,"score":8}]';
-  aiCall(sys, usr, imgs, 1200).then(function(raw) {
-    var angles = parseJ(raw);
-    if (getSettings().autosave) angles.forEach(function(a) { saveAngle(a); });
-    learnImg = null; document.getElementById('learnPrev').style.display = 'none';
-    var html = '<div style="display:flex;flex-direction:column;gap:8px;">';
-    var vc = { low: 'tg', medium: 'ty' };
-    angles.forEach(function(a) {
-      var safeObj = JSON.stringify(a).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-      html += '<div class="rc"><button class="savebtn" onclick=\'saveAngle(' + JSON.stringify(a).replace(/'/g, '&#39;').replace(/</g, '\\u003c') + ')\'>+ Save</button>';
-      html += '<div class="bigt">"' + esc(a.angle) + '"</div>';
-      html += '<div class="mr"><span class="tag ' + (vc[a.competition] || 'ty') + '">' + esc(a.competition || 'medium') + '</span><span class="tag tp">' + esc(a.emotion) + '</span><span class="tag tb">' + esc(a.format) + '</span>';
-      if (a.has_cta) html += '<span class="tag ty">CTA ✓</span>';
-      html += '<span class="tag tor">' + (a.score || 7) + '/10</span></div>';
-      html += '<div class="subt" style="margin-top:5px;">' + esc(a.why) + '</div></div>';
+Return JSON array: [{"hook":"...","why":"1 sentence why this works","potential":"explosive/high/medium","format":"talking head/text on screen/voiceover","emotion":"core emotion"}]
+    `);
+    hooks.forEach(h => {
+      const pc = h.potential === 'explosive' ? 'badge-red' : h.potential === 'high' ? 'badge-green' : 'badge-gold';
+      out.innerHTML += `<div class="hook-result fadein">
+        <div class="hook-text">"${h.hook}"</div>
+        <div class="hook-meta">
+          <span class="badge ${pc}">${h.potential}</span>
+          <span class="badge badge-gray">${h.format}</span>
+          <span class="badge badge-cyan">${h.emotion}</span>
+        </div>
+        <div class="hook-why">${h.why}</div>
+      </div>`;
     });
-    html += '</div>';
-    out.innerHTML = html;
-  }).catch(function(e) {
-    out.innerHTML = '<div class="abox">Error: ' + esc(e.message) + '</div>';
-  }).finally(function() { sb(btnId, false, 'Generate ' + count); });
+  } catch(e) { out.innerHTML = '<div class="alert alert-warn">Error. Try again.</div>'; }
+  setLoading('hook-gen-btn', 'hook-spin', false);
 }
 
-function handleLearnFile(e) { var f = e.target.files[0]; if (f) loadLearnFile(f); }
-function handleLearnDrop(e) { e.preventDefault(); document.getElementById('learnUz').classList.remove('over'); var f = e.dataTransfer.files[0]; if (f && f.type.startsWith('image/')) loadLearnFile(f); }
-function loadLearnFile(file) {
-  var r = new FileReader();
-  r.onload = function(ev) {
-    learnImg = { base64: ev.target.result.split(',')[1], type: file.type };
-    var el = document.getElementById('learnPrev');
-    el.innerHTML = '<img src="' + ev.target.result + '" style="width:100%;max-height:140px;object-fit:cover;border-radius:8px;border:1px solid var(--b1);"><div style="font-size:10px;color:var(--gn);margin-top:3px;">✓ Screenshot loaded</div>';
-    el.style.display = 'block';
-  };
-  r.readAsDataURL(file);
+// ============================================================
+// ANGLE ENGINE
+// ============================================================
+async function generateAngles() {
+  const topic = document.getElementById('angle-topic').value.trim();
+  const niche = getNiche('angle-niches');
+  const tried = document.getElementById('angle-tried').value.trim();
+  if (!topic) { alert('Enter a topic'); return; }
+  setLoading('angle-btn', 'angle-spin', true);
+  const out = document.getElementById('angles-output');
+  out.innerHTML = '';
+  const history = state.entries.filter(e => (!niche || e.niche === niche)).slice(-8);
+  const histCtx = history.length ? `\nUser's content history for context:\n${history.map(e => `- "${e.hook || e.title || e.desc || ''}" — score ${e.score || '?'}, performance: ${e.perf || 'unknown'}`).join('\n')}` : '';
+  try {
+    const angles = await callClaudeJSON(`
+Find 6 fresh, untapped TikTok content angles.
+Topic: ${topic}
+Niche: ${niche || 'general'}
+Already tried: ${tried || 'nothing specified'}
+${histCtx}
+
+Be counterintuitive. Think: unexpected audience, contrarian take, extreme specificity, emotional reframe, behind-the-scenes, failure story.
+Return JSON array: [{"angle":"name","concept":"1-line concept","hook_starter":"example opening line","emotion":"emotion triggered","competition":"low/medium/saturated","why_now":"why this angle works in 2025"}]
+    `);
+    out.innerHTML = `<div class="card-title" style="margin-bottom:14px;">6 FRESH ANGLES TO TEST</div>`;
+    angles.forEach((a, i) => {
+      const cc = a.competition === 'low' ? 'badge-green' : a.competition === 'saturated' ? 'badge-red' : 'badge-gold';
+      out.innerHTML += `<div class="log-item fadein" style="animation-delay:${i*0.05}s">
+        <div class="log-item-header">
+          <div>
+            <div class="log-item-title">${a.angle}</div>
+            <div style="font-size:13px;color:var(--text2);margin-top:4px;">${a.concept}</div>
+          </div>
+          <span class="badge ${cc}">${a.competition} competition</span>
+        </div>
+        <div style="background:var(--bg4);border-radius:var(--r);padding:10px 12px;margin:10px 0;font-size:13px;font-style:italic;color:var(--text2);">"${a.hook_starter}"</div>
+        <div class="log-item-tags">
+          <span class="badge badge-cyan">${a.emotion}</span>
+          <span style="font-size:12px;color:var(--text3);">${a.why_now}</span>
+        </div>
+      </div>`;
+    });
+  } catch(e) { out.innerHTML = '<div class="alert alert-warn">Error. Try again.</div>'; }
+  setLoading('angle-btn', 'angle-spin', false);
 }
 
-// ---- CHAT ----
-function handleChatFile(e) {
-  var file = e.target.files[0]; if (!file) return;
-  var r = new FileReader();
-  r.onload = function(ev) {
-    chatAtts.push({ base64: ev.target.result.split(',')[1], type: file.type.startsWith('video/') ? 'image/jpeg' : file.type, name: file.name, isImg: true });
-    renderChatAtts();
-  };
-  r.readAsDataURL(file);
-  e.target.value = '';
-}
-function addChatURL() { var url = prompt('Paste TikTok URL:'); if (!url || !url.trim()) return; chatAtts.push({ url: url.trim(), name: url.trim(), isURL: true }); renderChatAtts(); }
-function renderChatAtts() {
-  var html = '';
-  chatAtts.forEach(function(a, i) {
-    html += '<div class="att-item"><span>' + (a.isURL ? '🔗' : '🖼️') + ' ' + esc((a.name || '').substring(0, 30)) + '</span><button onclick="rmAtt(' + i + ')">×</button></div>';
-  });
-  document.getElementById('chatAttached').innerHTML = html;
-}
-function rmAtt(i) { chatAtts.splice(i, 1); renderChatAtts(); }
+// ============================================================
+// VIRAL MUSIC
+// ============================================================
+async function getMusic() {
+  const niche = getNiche('music-niches');
+  const format = document.getElementById('music-format').value;
+  setLoading('music-btn', 'music-spin', true);
+  const out = document.getElementById('music-output');
+  out.innerHTML = '';
+  try {
+    const data = await callClaudeJSON(`
+Suggest 8 viral/trending sounds for TikTok USA in 2025.
+Niche: ${niche || 'general'}
+Video format: ${format}
 
-function sendChat() {
-  var inp = document.getElementById('chatInp');
-  var msg = inp.value.trim(); if (!msg) return;
-  inp.value = '';
-  var atts = chatAtts.slice(); chatAtts = []; renderChatAtts();
-  var displayMsg = esc(msg);
-  atts.forEach(function(a) { displayMsg += a.isURL ? '<br><span style="color:var(--bl);font-size:9px;">🔗 ' + esc(a.url) + '</span>' : '<br><span style="font-size:9px;color:var(--t2);">🖼️ ' + esc(a.name) + '</span>'; });
-  appendMsg('user', displayMsg);
-  var userContent = msg;
-  var urlAtts = atts.filter(function(a) { return a.isURL; });
-  var imgAtts = atts.filter(function(a) { return a.isImg; });
-  if (urlAtts.length) userContent += '\n\nReferenced TikTok URLs:\n' + urlAtts.map(function(a) { return '- ' + a.url; }).join('\n');
-  chatHistory.push({ role: 'user', content: userContent });
-  sb('chatSendBtn', true, '↑');
-  appendMsg('ai', ld('Thinking...'), 'typingInd');
-  var settings = getSettings();
-  var ctx = buildCtx();
-  var sys = 'You are a TikTok content AI for ' + curAngRegion + ' audience. Expert in UK/USA TikTok 2025.\nTopic: "' + curTopic + '"\nStyle: ' + getTCfg().style + '\n' + (ctx ? 'Creator data:\n' + ctx : '') + '\n' + (settings.bg ? 'Respond in Bulgarian.' : 'Respond in same language as user (BG or EN).') + '\nWhen generating angles: quote them as "example". Never use: broke, money, .edu, .ac.uk\nAlways write angles in UK/USA casual English.';
-  var msgs = chatHistory.slice(-12).map(function(m) { return { role: m.role, content: m.content }; });
-  var body;
-  if (imgAtts.length) {
-    var imgContent = imgAtts.map(function(i) { return { type: 'image', source: { type: 'base64', media_type: i.type, data: i.base64 } }; });
-    imgContent.push({ type: 'text', text: userContent });
-    var msgsWithImg = msgs.slice(0, -1).concat([{ role: 'user', content: imgContent }]);
-    body = JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 900, system: sys, messages: msgsWithImg });
+Think about what's currently trending on US TikTok: original sounds, popular songs being used, artist tracks, specific audio clips. Include variety: hype, emotional, background, trending memes.
+Return JSON: {"sounds":[{"name":"...","artist":"...","vibe":"...","use_case":"...","trend_status":"viral/rising/steady","niche_fit":"..."}],"pro_tip":"one key insight about music for this niche"}
+    `);
+    out.innerHTML = `<div class="card fadein">
+      <div class="card-title">TRENDING SOUNDS FOR ${(niche||'general').toUpperCase()}</div>
+      ${(data.sounds||[]).map((s,i) => {
+        const tc = s.trend_status === 'viral' ? 'music-trend hot' : 'music-trend up';
+        const ts = s.trend_status === 'viral' ? '🔥 VIRAL' : s.trend_status === 'rising' ? '↑ RISING' : '→ STEADY';
+        return `<div class="music-card">
+          <div class="music-rank">${String(i+1).padStart(2,'0')}</div>
+          <div class="music-info">
+            <div class="music-name">${s.name}</div>
+            <div class="music-meta">${s.artist} · ${s.vibe}</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:2px;">${s.use_case}</div>
+          </div>
+          <div>
+            <div class="${tc}">${ts}</div>
+            <div style="font-size:11px;color:var(--text3);text-align:right;margin-top:3px;">${s.niche_fit}</div>
+          </div>
+        </div>`;
+      }).join('')}
+      <div class="insight-card" style="margin-top:14px;margin-bottom:0;">
+        <div class="insight-title">PRO TIP</div>
+        <div class="insight-body">${data.pro_tip}</div>
+      </div>
+    </div>`;
+  } catch(e) { out.innerHTML = '<div class="alert alert-warn">Error. Try again.</div>'; }
+  setLoading('music-btn', 'music-spin', false);
+}
+
+// ============================================================
+// ALGORITHM INTEL
+// ============================================================
+async function getAlgoIntel() {
+  const niche = getNiche('algo-niches');
+  const concern = document.getElementById('algo-concern').value.trim();
+  setLoading('algo-btn', 'algo-spin', true);
+  const out = document.getElementById('algo-output');
+  out.innerHTML = '';
+  try {
+    const data = await callClaudeJSON(`
+Give TikTok USA algorithm intelligence report for 2025.
+Niche: ${niche || 'general'}
+User concern: ${concern || 'general update'}
+
+Cover: recent algorithm changes, what's being pushed, what's being suppressed, best practices right now, posting strategy, watch time signals.
+Return JSON: {
+  "status":"stable/changing/major_shift",
+  "summary":"2-sentence overview",
+  "updates":[{"change":"...","impact":"positive/negative/neutral","action":"what to do"}],
+  "what_tiktok_wants":["...","...","..."],
+  "avoid_now":["...","..."],
+  "posting_strategy":{"best_times":["...","..."],"frequency":"...","tip":"..."},
+  "concern_answer":"direct answer to user's specific concern if provided"
+}
+    `);
+    const statusColor = data.status === 'stable' ? 'badge-green' : data.status === 'changing' ? 'badge-gold' : 'badge-red';
+    out.innerHTML = `<div class="card fadein">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <div class="card-title" style="margin:0;">ALGORITHM STATUS</div>
+        <span class="badge ${statusColor}">${(data.status||'').toUpperCase().replace('_',' ')}</span>
+      </div>
+      <div class="alert alert-info" style="margin-bottom:16px;">${data.summary}</div>
+      ${concern && data.concern_answer ? `<div class="insight-card" style="margin-bottom:14px;"><div class="insight-title">YOUR CONCERN ANSWERED</div><div class="insight-body">${data.concern_answer}</div></div>` : ''}
+      <div class="card-title">RECENT CHANGES</div>
+      ${(data.updates||[]).map(u => {
+        const ic = u.impact === 'positive' ? 'badge-green' : u.impact === 'negative' ? 'badge-red' : 'badge-gray';
+        return `<div style="border:1px solid var(--border);border-radius:var(--r);padding:12px;margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+            <div style="font-size:13px;font-weight:500;flex:1;">${u.change}</div>
+            <span class="badge ${ic}" style="margin-left:8px;flex-shrink:0;">${u.impact}</span>
+          </div>
+          <div style="font-size:12px;color:var(--accent2);">→ ${u.action}</div>
+        </div>`;
+      }).join('')}
+      <div class="grid2" style="margin-top:16px;">
+        <div>
+          <div class="card-title" style="color:var(--green)">WHAT TIKTOK WANTS</div>
+          ${(data.what_tiktok_wants||[]).map(w=>`<div style="font-size:13px;padding:4px 0;display:flex;gap:8px;"><span style="color:var(--green);">✓</span>${w}</div>`).join('')}
+        </div>
+        <div>
+          <div class="card-title" style="color:var(--accent)">AVOID RIGHT NOW</div>
+          ${(data.avoid_now||[]).map(a=>`<div style="font-size:13px;padding:4px 0;display:flex;gap:8px;"><span style="color:var(--accent);">✕</span>${a}</div>`).join('')}
+        </div>
+      </div>
+      ${data.posting_strategy ? `<div class="stat-card" style="margin-top:16px;text-align:left;padding:14px 16px;">
+        <div class="card-title">POSTING STRATEGY</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+          ${(data.posting_strategy.best_times||[]).map(t=>`<span class="badge badge-cyan">${t}</span>`).join('')}
+          <span class="badge badge-gray">${data.posting_strategy.frequency}</span>
+        </div>
+        <div style="font-size:13px;color:var(--text2);">${data.posting_strategy.tip}</div>
+      </div>` : ''}
+    </div>`;
+  } catch(e) { out.innerHTML = '<div class="alert alert-warn">Error. Try again.</div>'; }
+  setLoading('algo-btn', 'algo-spin', false);
+}
+
+// ============================================================
+// PATTERNS
+// ============================================================
+async function analyzePatterns() {
+  if (state.entries.length < 3) return;
+  document.getElementById('pattern-spin').style.display = 'inline-block';
+  const out = document.getElementById('patterns-output');
+  out.innerHTML = '<div class="alert alert-info">Analyzing your content history...</div>';
+  try {
+    const context = state.entries.map(e => ({
+      type: e.type, niche: e.niche, hook: e.hook || e.title || e.desc || '',
+      format: e.format || '', score: e.score || 0, perf: e.perf || 'unknown', views: e.views || 0
+    }));
+    const data = await callClaudeJSON(`
+Analyze this creator's TikTok content history and find patterns.
+Content data: ${JSON.stringify(context)}
+
+Find what makes their best content work vs their worst. Be specific and actionable.
+Return JSON: {
+  "top_pattern":"the #1 thing that drives their performance",
+  "winning_formula":"describe their best content formula",
+  "niche_performance":[{"niche":"...","avg_score":75,"insight":"..."}],
+  "hook_patterns":{"working":"...","not_working":"..."},
+  "recommendations":["specific actionable rec 1","rec 2","rec 3"],
+  "next_video_idea":"specific video idea tailored to their history",
+  "growth_opportunity":"the biggest untapped opportunity for this creator"
+}
+    `);
+    state.patterns = data; state.lastPatternUpdate = new Date().toISOString(); saveState(state);
+    renderPatternData(data);
+  } catch(e) { out.innerHTML = '<div class="alert alert-warn">Error analyzing patterns. Try again.</div>'; }
+  document.getElementById('pattern-spin').style.display = 'none';
+}
+
+function renderPatternData(d) {
+  const out = document.getElementById('patterns-output');
+  out.innerHTML = `
+    <div class="insight-card" style="margin-bottom:16px;">
+      <div class="insight-title">#1 PATTERN</div>
+      <div class="insight-body" style="font-size:15px;font-weight:500;">${d.top_pattern}</div>
+    </div>
+    <div class="card">
+      <div class="card-title">YOUR WINNING FORMULA</div>
+      <div style="font-size:14px;color:var(--text2);line-height:1.6;">${d.winning_formula}</div>
+    </div>
+    ${d.niche_performance && d.niche_performance.length ? `<div class="card">
+      <div class="card-title">PERFORMANCE BY NICHE</div>
+      ${d.niche_performance.map(n => `<div style="margin-bottom:12px;">
+        <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;">
+          <span style="font-weight:500;">${n.niche}</span><span style="color:var(--text3);">${n.avg_score}/100</span>
+        </div>
+        <div class="score-bar"><div class="score-fill ${n.avg_score>=70?'high':n.avg_score>=50?'med':'low'}" style="width:${n.avg_score}%"></div></div>
+        <div style="font-size:12px;color:var(--text3);margin-top:3px;">${n.insight}</div>
+      </div>`).join('')}
+    </div>` : ''}
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title" style="color:var(--green)">HOOKS THAT WORK FOR YOU</div>
+        <div style="font-size:13px;color:var(--text2);">${d.hook_patterns && d.hook_patterns.working}</div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="color:var(--accent)">HOOKS TO AVOID</div>
+        <div style="font-size:13px;color:var(--text2);">${d.hook_patterns && d.hook_patterns.not_working}</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">PERSONALIZED RECOMMENDATIONS</div>
+      ${(d.recommendations||[]).map((r,i)=>`<div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);">
+        <span style="font-family:var(--font-mono);font-size:11px;color:var(--text3);min-width:20px;padding-top:2px;">${String(i+1).padStart(2,'0')}</span>
+        <div style="font-size:13px;">${r}</div>
+      </div>`).join('')}
+    </div>
+    <div class="insight-card">
+      <div class="insight-title">YOUR NEXT VIDEO IDEA</div>
+      <div class="insight-body" style="font-size:14px;">${d.next_video_idea}</div>
+    </div>
+    <div style="background:rgba(254,44,85,0.06);border:1px solid rgba(254,44,85,0.2);border-radius:var(--r);padding:16px;margin-top:14px;">
+      <div style="font-size:11px;color:var(--accent);font-family:var(--font-mono);margin-bottom:6px;">BIGGEST OPPORTUNITY</div>
+      <div style="font-size:14px;font-weight:500;">${d.growth_opportunity}</div>
+    </div>`;
+}
+
+function renderPatterns() {
+  const out = document.getElementById('patterns-output');
+  const regen = document.getElementById('patterns-regen');
+  if (state.entries.length < 3) {
+    out.innerHTML = `<div class="empty-state"><div class="empty-icon">◉</div><div class="empty-title">Track ${3 - state.entries.length} more video${3-state.entries.length!==1?'s':''} to unlock</div><div class="empty-sub">Pattern analysis needs at least 3 entries</div></div>`;
+    regen.style.display = 'none';
   } else {
-    body = JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 900, system: sys, messages: msgs });
-  }
-  var chatKey = checkApiKey();
-  fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-api-key': chatKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' }, body: body })
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      if (data.error) throw new Error(data.error.message);
-      var reply = data.content[0].text;
-      removeTyping(); appendMsg('ai', formatReply(reply));
-      chatHistory.push({ role: 'assistant', content: reply });
-      if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
-    }).catch(function(e) { removeTyping(); appendMsg('ai', 'Error: ' + esc(e.message)); })
-    .finally(function() { sb('chatSendBtn', false, '↑'); });
-}
-function formatReply(text) {
-  return esc(text).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/"([^"<>]{3,80})"/g, '<span style="color:var(--ac);font-weight:500;">"$1"</span>').replace(/\n/g, '<br>');
-}
-function appendMsg(role, content, id) {
-  var msgs = document.getElementById('chatMsgs');
-  var div = document.createElement('div'); div.className = 'msg ' + role;
-  if (id) div.id = id;
-  var t = new Date().toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit' });
-  div.innerHTML = '<div class="bubble">' + content + '</div><div class="msg-time">' + (role === 'user' ? 'You' : 'AI Lab') + ' · ' + t + '</div>';
-  msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
-}
-function removeTyping() { var el = document.getElementById('typingInd'); if (el) el.remove(); }
-
-// ---- CTA COMMENTS ----
-function genCTA(count) {
-  var bmap = { 5: 'cta5btn', 10: 'cta10btn', 20: 'cta20btn' };
-  var bid = bmap[count]; sb(bid, true, 'Generate ' + count);
-  document.getElementById('ctaOut').innerHTML = ld('Generating ' + count + ' comments...');
-  var angle = document.getElementById('ctaAngle').value.trim();
-  var link = document.getElementById('ctaLink').value.trim() || getSites()[0] || '';
-  var examples = document.getElementById('ctaExamples').value.trim();
-  var type = document.getElementById('ctaType').value;
-  if (examples) {
-    var saved = getCTAEx();
-    examples.split('\n').forEach(function(l) { if (l.trim() && !saved.includes(l.trim())) saved.push(l.trim()); });
-    setCTAEx(saved.slice(-50));
-  }
-  var prevEx = getCTAEx().slice(-10);
-  var typeMap = { curious: 'Make people ask "which site?" or "how?" — never reveal directly', social_proof: 'Real people who tried it: "omg I literally did this last week and...", "was skeptical but..."', question: 'Natural questions leading to CTA', reaction: 'Genuine reactions that organically mention the site', mix: 'Mix: curious, social proof, questions, reactions' };
-  var sys = 'Expert at writing TikTok comments that are 100% human. Return ONLY valid JSON array. Start with [ and end with ].';
-  var usr = 'Angle: "' + (angle || 'student discount content') + '"\nCTA: "' + (link || 'the site in bio') + '"\nType: ' + (typeMap[type] || typeMap.mix) + '\n' + (prevEx.length ? 'Learn from examples:\n' + prevEx.join('\n') : '') + '\n\nWrite ' + count + ' comments. Rules:\n- Sound like real humans aged 18-28\n- Each different length and style\n- Casual: ur, lol, omg, ngl, fr fr, lowkey\n- NEVER sound like marketing\n- Mix: some reveal site, some dont\n- Reference the video content to seem genuine\n\nReturn ONLY JSON array:\n[{"comment":"...","type":"curious/social_proof/question/reaction","human_score":9,"note":"why this works"}]';
-  aiCall(sys, usr, null, 1500).then(function(raw) {
-    var comments = parseJ(raw);
-    var html = '<div style="display:flex;flex-direction:column;gap:8px;">';
-    comments.forEach(function(c) {
-      html += '<div class="rc"><div class="bigt" style="font-size:13px;">' + esc(c.comment) + '</div>';
-      html += '<div class="mr"><span class="tag tg">human: ' + (c.human_score || '?') + '/10</span><span class="tag tb">' + esc(c.type || '') + '</span>';
-      html += '<button class="btn bsm" data-comment="' + esc(c.comment) + '" onclick="copyComment(this)" style="margin-left:auto;font-size:9px;">Copy</button></div>';
-      html += '<div class="subt" style="margin-top:4px;">' + esc(c.note || '') + '</div></div>';
-    });
-    html += '</div>';
-    document.getElementById('ctaOut').innerHTML = html;
-  }).catch(function(e) { document.getElementById('ctaOut').innerHTML = '<div class="abox">Error: ' + esc(e.message) + '</div>'; })
-    .finally(function() { sb(bid, false, 'Generate ' + count); });
-}
-function copyComment(btn) {
-  var text = btn.getAttribute('data-comment');
-  navigator.clipboard.writeText(text).then(function() { btn.textContent = '✓ Copied!'; setTimeout(function() { btn.textContent = 'Copy'; }, 2000); });
-}
-
-// ---- SLIDES ----
-function handleSlideFiles(e) { processSlideFiles(Array.from(e.target.files)); }
-function handleSlideDrop(e) { e.preventDefault(); document.getElementById('slideUz').classList.remove('over'); processSlideFiles(Array.from(e.dataTransfer.files).filter(function(f) { return f.type.startsWith('image/'); })); }
-function processSlideFiles(files) {
-  files.slice(0, 8).forEach(function(file) {
-    var r = new FileReader();
-    r.onload = function(ev) { slideImgs.push({ base64: ev.target.result.split(',')[1], type: file.type, dataUrl: ev.target.result }); renderSlidePG(); };
-    r.readAsDataURL(file);
-  });
-}
-function renderSlidePG() {
-  var html = '';
-  slideImgs.forEach(function(img, i) {
-    html += '<div style="position:relative;"><img src="' + img.dataUrl + '" class="pimg"><div style="position:absolute;top:2px;left:2px;background:rgba(0,0,0,.8);color:#fff;font-size:8px;padding:1px 4px;border-radius:3px;">' + (i + 1) + '</div><button onclick="rmSlide(' + i + ')" style="position:absolute;top:2px;right:2px;background:rgba(0,0,0,.8);color:#fff;border:none;border-radius:50%;width:14px;height:14px;font-size:9px;cursor:pointer;">×</button></div>';
-  });
-  document.getElementById('slidePG').innerHTML = html;
-}
-function rmSlide(i) { slideImgs.splice(i, 1); renderSlidePG(); }
-
-function buildSlides() {
-  var topic = document.getElementById('slideTopic').value.trim();
-  var cta = document.getElementById('slideCTA').value.trim() || getSites()[0] || '';
-  if (!topic) { alert('Add a topic first'); return; }
-  sb('slideBuildBtn', true, 'Build slideshow ↗');
-  document.getElementById('slideOut').innerHTML = ld('Building slideshow...');
-  var csMap = { organic: 'Natural mention — sounds like sharing a secret: "only found this on ' + cta + '" — zero ad energy', question: "Don't name site — describe outcome, force 'which site?' comments", tutorial: 'Resource reference: "full breakdown on ' + cta + '"', pinned: '"link in first comment" energy' };
-  var cs = csMap[document.getElementById('slideCTAStyle').value] || csMap.organic;
-  var count = parseInt(document.getElementById('slideCount').value);
-  var imgs = slideImgs.slice(0, 4);
-  var sys = 'Expert TikTok slideshow creator. Natural CTAs. Return ONLY valid JSON object. Start with { and end with }.';
-  var usr = 'Topic: "' + topic + '"\nCTA: "' + (cta || 'none') + '"\nCTA style: ' + cs + '\nSlides: ' + count + '\nFormat: ' + document.getElementById('slideFormat').value + '\n' + (imgs.length ? imgs.length + ' images uploaded as reference.' : '') + '\n\nCreate viral slideshow. Rules:\n- Slide 1: scroll-stopping hook\n- Build through middle\n- Slide 3 or 4: natural CTA if given\n- Last: payoff + comment prompt\n- MAX 20 words per slide. Real person tone.\n\nReturn ONLY JSON:\n{"hook":"...","slides":[{"num":1,"text":"...","visual_tip":"...","is_cta":false}],"caption":"...with hashtags","pinned_comment":"ready to paste","engagement_trick":"..."}';
-  aiCall(sys, usr, imgs, 1200).then(function(raw) {
-    var d = parseJ(raw);
-    var html = '<div class="card"><div style="font-size:15px;font-weight:700;font-family:Syne,sans-serif;color:var(--ac);margin-bottom:12px;">"' + esc(d.hook) + '"</div>';
-    (d.slides || []).forEach(function(s) {
-      html += '<div class="si"><div class="sn">Slide ' + s.num + (s.is_cta ? ' <span class="tag ty" style="margin-left:4px;">CTA</span>' : '') + '</div><div style="font-size:12px;line-height:1.7;">' + esc(s.text) + '</div><div style="font-size:10px;color:var(--t3);margin-top:3px;">📸 ' + esc(s.visual_tip) + '</div></div>';
-    });
-    html += '<div style="background:rgba(0,149,255,.05);border:1px solid rgba(0,149,255,.12);border-radius:var(--rs);padding:9px 11px;margin-top:8px;"><div style="font-size:9px;color:var(--bl);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Caption</div><div style="font-size:11px;">' + esc(d.caption) + '</div></div>';
-    html += '<div style="background:rgba(255,214,10,.05);border:1px solid rgba(255,214,10,.12);border-radius:var(--rs);padding:9px 11px;margin-top:7px;"><div style="font-size:9px;color:var(--yl);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Pin as first comment</div><div style="font-size:11px;">' + esc(d.pinned_comment) + '</div></div>';
-    html += '<div style="background:rgba(191,90,242,.05);border:1px solid rgba(191,90,242,.12);border-radius:var(--rs);padding:9px 11px;margin-top:7px;"><div style="font-size:9px;color:var(--pp);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Engagement trick</div><div style="font-size:11px;">' + esc(d.engagement_trick) + '</div></div></div>';
-    document.getElementById('slideOut').innerHTML = html;
-  }).catch(function(e) { document.getElementById('slideOut').innerHTML = '<div class="abox">Error: ' + esc(e.message) + '</div>'; })
-    .finally(function() { sb('slideBuildBtn', false, 'Build slideshow ↗'); });
-}
-
-function findSlides() {
-  var kw = document.getElementById('ssKW').value.trim(); if (!kw) { alert('Enter keyword'); return; }
-  sb('ssFindBtn', true, 'Find slideshows ↗');
-  document.getElementById('ssOut').innerHTML = ld('Searching...');
-  var sys = 'TikTok content researcher. Return ONLY valid JSON object. Start with { end with }.';
-  var usr = 'Find TikTok slideshows using "' + kw + '" in "' + (document.getElementById('ssNiche').value || 'general') + '" niche.\nReturn ONLY JSON:\n{"top_tip":"...","search_url":"https://www.tiktok.com/search?q=' + encodeURIComponent(kw) + '","results":[{"concept":"...","hook":"...","cta_placement":"how CTA appears","slide_structure":"e.g. intro-story-CTA-payoff","why_works":"...","angle":"..."}]}';
-  aiCall(sys, usr, null, 900).then(function(raw) {
-    var d = parseJ(raw);
-    var html = '<div class="card"><div class="ins"><div class="il">Top tip</div>' + esc(d.top_tip) + '</div>';
-    html += '<a href="' + (d.search_url || 'https://tiktok.com') + '" target="_blank" class="btn bfull" style="color:var(--bl);border-color:rgba(0,149,255,.25);background:rgba(0,149,255,.06);margin-bottom:10px;">Search "' + esc(kw) + '" on TikTok →</a>';
-    (d.results || []).forEach(function(r) {
-      html += '<div class="rc"><div class="bigt">' + esc(r.concept) + '</div><div style="font-size:11px;color:var(--yl);margin-bottom:4px;">CTA: ' + esc(r.cta_placement) + '</div><div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Structure: ' + esc(r.slide_structure) + '</div><div class="subt">' + esc(r.why_works) + '</div><div class="mr"><span class="tag tp">' + esc(r.angle) + '</span></div></div>';
-    });
-    html += '</div>';
-    document.getElementById('ssOut').innerHTML = html;
-  }).catch(function(e) { document.getElementById('ssOut').innerHTML = '<div class="abox">Error: ' + esc(e.message) + '</div>'; })
-    .finally(function() { sb('ssFindBtn', false, 'Find slideshows ↗'); });
-}
-
-// ---- ACCOUNTS ----
-function addAcct() {
-  var raw = document.getElementById('acctInp').value.trim();
-  var urlMatch = raw.match(/tiktok\.com\/@([^/?]+)/); if (urlMatch) raw = urlMatch[1];
-  raw = raw.replace('@', '').trim(); if (!raw) return;
-  var accts = getAccts();
-  if (accts.find(function(a) { return a.h === raw; })) { alert('Already tracking @' + raw); return; }
-  accts.unshift({ h: raw, added: new Date().toLocaleDateString(), status: 'analyzing', d: {}, lastUpdate: null });
-  setAccts(accts); document.getElementById('acctInp').value = '';
-  renderAccts(); analyzeAcct(raw);
-}
-function analyzeAcct(h) {
-  var accts = getAccts(); var idx = accts.findIndex(function(a) { return a.h === h; }); if (idx < 0) return;
-  accts[idx].status = 'analyzing'; setAccts(accts); renderAccts();
-  var sys = 'TikTok account analyst. Provide detailed specific analysis. Return ONLY valid JSON object. Start with { end with }.';
-  var usr = 'Analyze TikTok @' + h + '. Realistic 2025 estimates.\nReturn ONLY JSON:\n{"display_name":"...","niche":"...","content_style":"...","est_followers":"e.g. 45K","est_avg_views":"e.g. 8K-25K","est_likes_per_post":"e.g. 500-2K","est_comments_per_post":"e.g. 30-120","eng_rate":"e.g. 4-7%","posting_freq":"e.g. 3x/week","growth":"growing/stable/declining","growth_rate":"e.g. +500 followers/week","best_format":"...","best_hook_types":["...","..."],"peak_post_times":["...","..."],"audience":"...","winning_formula":"3 sentences on what makes this account work","steal_this":"1 very specific tactic to copy TODAY","weaknesses":"what they do wrong","verdict":"1 honest sentence"}';
-  aiCall(sys, usr, null, 1400).then(function(raw) {
-    var d = parseJ(raw);
-    var accts2 = getAccts(); var idx2 = accts2.findIndex(function(a) { return a.h === h; });
-    if (idx2 < 0) return;
-    accts2[idx2].status = 'done'; accts2[idx2].d = d; accts2[idx2].lastUpdate = new Date().toLocaleString();
-    setAccts(accts2); renderAccts();
-  }).catch(function(e) {
-    var accts2 = getAccts(); var idx2 = accts2.findIndex(function(a) { return a.h === h; });
-    if (idx2 >= 0) { accts2[idx2].status = 'error'; accts2[idx2].errorMsg = e.message; setAccts(accts2); renderAccts(); }
-  });
-}
-function rmAcct(h) { setAccts(getAccts().filter(function(a) { return a.h !== h; })); renderAccts(); }
-function renderAccts() {
-  var accts = getAccts(); var el = document.getElementById('acctsList');
-  if (!accts.length) { el.innerHTML = '<div class="card" style="text-align:center;color:var(--t2);padding:24px;font-size:12px;">No accounts tracked yet.<br><span style="font-size:10px;">Add a @username above</span></div>'; return; }
-  var html = '';
-  accts.forEach(function(a) {
-    if (a.status === 'analyzing') {
-      html += '<div class="acct-card" style="background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:13px;margin-bottom:10px;"><div style="display:flex;align-items:center;gap:10px;"><div style="width:36px;height:36px;border-radius:50%;background:rgba(255,45,85,.12);border:1px solid rgba(255,45,85,.25);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--ac);">@</div><div style="flex:1;"><div style="font-size:12px;font-weight:500;">@' + esc(a.h) + '</div>' + ld('Analyzing...') + '</div></div></div>';
-      return;
-    }
-    if (a.status === 'error') {
-      html += '<div class="acct-card" style="background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:13px;margin-bottom:10px;"><div style="display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:8px;"><div style="width:36px;height:36px;border-radius:50%;background:rgba(255,45,85,.12);border:1px solid rgba(255,45,85,.25);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--ac);">!</div><div><div style="font-size:12px;">@' + esc(a.h) + '</div><div style="font-size:10px;color:var(--ac);">' + esc(a.errorMsg || 'Analysis failed') + '</div></div></div><div style="display:flex;gap:5px;"><button class="btn bsm" onclick="analyzeAcct(\'' + esc(a.h) + '\')">Retry</button><button class="btn bsm bgh" onclick="rmAcct(\'' + esc(a.h) + '\')">×</button></div></div></div>';
-      return;
-    }
-    var d = a.d || {};
-    var gc = d.growth === 'growing' ? 'var(--gn)' : d.growth === 'declining' ? 'var(--ac)' : 'var(--yl)';
-    html += '<div style="background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);padding:13px;margin-bottom:10px;">';
-    html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;"><div style="width:36px;height:36px;border-radius:50%;background:rgba(255,45,85,.12);border:1px solid rgba(255,45,85,.25);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--ac);">@</div><div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:500;">@' + esc(a.h) + (d.display_name ? ' <span style="font-size:10px;color:var(--t2);font-weight:400;">· ' + esc(d.display_name) + '</span>' : '') + '</div><div style="font-size:10px;color:var(--t2);">' + esc(d.niche || '') + ' · ' + esc(a.lastUpdate || '—') + '</div></div><div style="display:flex;gap:5px;flex-shrink:0;"><button class="btn bsm" onclick="analyzeAcct(\'' + esc(a.h) + '\')">↻</button><button class="btn bsm bgh" onclick="rmAcct(\'' + esc(a.h) + '\')">×</button></div></div>';
-    html += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px;"><div class="sb"><div class="sv" style="font-size:14px;color:var(--ac);">' + esc(d.est_followers || '—') + '</div><div class="sl">Followers</div></div><div class="sb"><div class="sv" style="font-size:14px;color:var(--bl);">' + esc(d.est_avg_views || '—') + '</div><div class="sl">Avg views</div></div><div class="sb"><div class="sv" style="font-size:14px;color:var(--gn);">' + esc(d.eng_rate || '—') + '</div><div class="sl">Eng. rate</div></div></div>';
-    html += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px;"><div class="sb"><div class="sv" style="font-size:12px;color:var(--yl);">' + esc(d.est_likes_per_post || '—') + '</div><div class="sl">Likes/post</div></div><div class="sb"><div class="sv" style="font-size:12px;color:var(--pp);">' + esc(d.est_comments_per_post || '—') + '</div><div class="sl">Comments</div></div><div class="sb"><div class="sv" style="font-size:12px;color:' + gc + ';">' + esc(d.growth || '—') + '</div><div class="sl">Trend</div></div></div>';
-    html += '<div style="font-size:11px;color:var(--t2);margin-bottom:8px;line-height:1.6;">' + esc(d.winning_formula || '') + '</div>';
-    html += '<div style="background:rgba(0,149,255,.05);border:1px solid rgba(0,149,255,.12);border-radius:var(--rs);padding:8px 10px;margin-bottom:6px;"><div style="font-size:9px;color:var(--bl);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px;">Steal this tactic</div><div style="font-size:11px;">' + esc(d.steal_this || '—') + '</div></div>';
-    if (d.weaknesses) html += '<div style="background:rgba(255,45,85,.05);border:1px solid rgba(255,45,85,.12);border-radius:var(--rs);padding:8px 10px;margin-bottom:6px;"><div style="font-size:9px;color:var(--ac);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px;">Weaknesses</div><div style="font-size:11px;">' + esc(d.weaknesses) + '</div></div>';
-    var hookHtml = (d.best_hook_types || []).map(function(h) { return '<span class="tag tb">' + esc(h) + '</span>'; }).join('');
-    var timeHtml = (d.peak_post_times || []).map(function(t) { return '<span class="tag tg">' + esc(t) + '</span>'; }).join('');
-    if (hookHtml || timeHtml) html += '<div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:5px;">' + hookHtml + timeHtml + '</div>';
-    html += '<div style="font-size:10px;color:var(--t3);font-style:italic;margin-bottom:8px;">' + esc(d.verdict || '') + '</div>';
-    html += '<a href="https://www.tiktok.com/@' + esc(a.h) + '" target="_blank" class="btn bfull" style="color:var(--bl);border-color:rgba(0,149,255,.2);background:rgba(0,149,255,.05);font-size:10px;">View @' + esc(a.h) + ' on TikTok →</a>';
-    html += '</div>';
-  });
-  el.innerHTML = html;
-}
-
-// ---- STATS ----
-function isW(v) { return (+v.views || 0) >= 10000; }
-function logVid() {
-  var hook = document.getElementById('logHook').value.trim();
-  var views = document.getElementById('logViews').value;
-  if (!hook && !views) { alert('Add hook or views'); return; }
-  var e = { id: Date.now(), hook: hook, views: views, follows: document.getElementById('logFollows').value, likes: document.getElementById('logLikes').value, comments: document.getElementById('logComments').value, topic: document.getElementById('logTopic').value || curTopic, date: new Date().toLocaleDateString() };
-  var log = getLog(); log.unshift(e); setLog(log);
-  ['logHook','logViews','logFollows','logLikes','logComments','logTopic'].forEach(function(id) { var el = document.getElementById(id); if (el) el.value = ''; });
-  renderStats(); renderLogList();
-}
-function renderStats() {
-  var log = getLog(); var el = document.getElementById('statsSummary'); if (!log.length) { el.innerHTML = ''; return; }
-  var vws = log.filter(function(v) { return v.views; }).map(function(v) { return +v.views; });
-  var wins = log.filter(isW);
-  var avg = vws.length ? Math.round(vws.reduce(function(a, b) { return a + b; }, 0) / vws.length) : 0;
-  var wr = log.length ? Math.round(wins.length / log.length * 100) : 0;
-  var totFol = log.reduce(function(s, v) { return s + (+v.follows || 0); }, 0);
-  el.innerHTML = '<div class="sg4"><div class="sb"><div class="sv" style="color:var(--gn);">' + log.length + '</div><div class="sl">Logged</div></div><div class="sb"><div class="sv" style="color:var(--bl);">' + avg.toLocaleString() + '</div><div class="sl">Avg views</div></div><div class="sb"><div class="sv" style="color:var(--yl);">' + wr + '%</div><div class="sl">Win rate</div></div><div class="sb"><div class="sv" style="color:var(--pp);">+' + totFol.toLocaleString() + '</div><div class="sl">Follows</div></div></div>';
-}
-function renderLogList() {
-  var log = getLog(); var el = document.getElementById('logListWrap'); if (!log.length) { el.innerHTML = ''; return; }
-  var html = '<div class="card"><div class="cl">Recent videos</div>';
-  log.slice(0, 15).forEach(function(v) {
-    html += '<div style="padding:6px 0;border-bottom:1px solid var(--b1);display:flex;justify-content:space-between;align-items:center;gap:7px;"><div style="flex:1;min-width:0;"><div style="font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + esc(v.hook || '—') + '</div><div style="font-size:9px;color:var(--t3);">' + esc(v.topic || '') + ' · ' + v.date + '</div></div><div style="display:flex;gap:4px;flex-shrink:0;align-items:center;"><span style="font-size:11px;">' + (+v.views || 0).toLocaleString() + '</span><span class="tag ' + (isW(v) ? 'tg' : 'tr') + '" style="font-size:8px;">' + (isW(v) ? 'W' : 'L') + '</span></div></div>';
-  });
-  html += '</div>';
-  el.innerHTML = html;
-}
-function runPatterns() {
-  var log = getLog(); if (log.length < 3) { alert('Need at least 3 videos'); return; }
-  sb('patBtn', true, "Analyze what's working ↗");
-  document.getElementById('patOut').innerHTML = ld('Analyzing...');
-  var wins = log.filter(isW);
-  var sys = 'TikTok analyst. Return ONLY valid JSON object. Start with { end with }.';
-  var usr = log.length + ' videos, ' + wins.length + ' winners.\nWinners: ' + JSON.stringify(wins.slice(0, 8).map(function(v) { return { hook: v.hook, topic: v.topic, views: v.views }; })) + '\nReturn ONLY JSON:\n{"winning_formula":"2 sentences","avoid":"what to stop","next_test":"exact next video idea","patterns":[{"title":"...","desc":"...","impact":"high/medium"}]}';
-  aiCall(sys, usr, null, 900).then(function(raw) {
-    var d = parseJ(raw);
-    var html = '<div class="ins"><div class="il">Winning formula</div>' + esc(d.winning_formula) + '</div><div class="abox"><div style="font-size:9px;color:var(--ac);text-transform:uppercase;margin-bottom:2px;">Stop doing</div>' + esc(d.avoid) + '</div>';
-    (d.patterns || []).forEach(function(p) { html += '<div class="rc"><div class="bigt">' + esc(p.title) + '</div><div class="subt">' + esc(p.desc) + '</div></div>'; });
-    html += '<div style="background:rgba(0,214,143,.05);border:1px solid rgba(0,214,143,.18);border-radius:var(--rs);padding:9px 11px;margin-top:8px;"><div style="font-size:9px;color:var(--gn);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px;">Next video to test</div><div style="font-size:12px;">' + esc(d.next_test) + '</div></div>';
-    document.getElementById('patOut').innerHTML = html;
-  }).catch(function(e) { document.getElementById('patOut').innerHTML = '<div class="abox">Error: ' + esc(e.message) + '</div>'; })
-    .finally(function() { sb('patBtn', false, "Analyze what's working ↗"); });
-}
-
-// ---- OFFERS DATA ----
-var OFFERS_USA = [
-  {n:'Target',s:'target.com',cat:'ecommerce',e:'🎯',tik:95,tags:['student','trending'],d:'Huge US retail. Student, beauty, home. Very viral.'},
-  {n:'Walmart',s:'walmart.com',cat:'sweepstakes',e:'🟡',tik:94,tags:['sweepstakes','trending'],d:'Product reviewer bonuses. Massive reach.'},
-  {n:'Amazon',s:'amazon.com',cat:'ecommerce',e:'📦',tik:93,tags:['ecommerce','student'],d:'Gift cards, Prime Student, product reviews.'},
-  {n:'Starbucks',s:'starbucks.com',cat:'food',e:'☕',tik:98,tags:['food','viral'],d:'Secret menu, barista POV. Massive TikTok niche.'},
-  {n:'Chipotle',s:'chipotle.com',cat:'food',e:'🌯',tik:93,tags:['food','trending'],d:'Huge TikTok presence. Secret menu, BOGO deals.'},
-  {n:'Shein',s:'shein.com',cat:'fashion',e:'👗',tik:97,tags:['fashion','trending'],d:'Fashion haul content. Huge TikTok presence.'},
-  {n:'Aritzia',s:'aritzia.com',cat:'fashion',e:'🛍',tik:95,tags:['fashion','viral'],d:'Very viral. Employee discount angles perform extremely well.'},
-  {n:'Sephora',s:'sephora.com',cat:'beauty',e:'💄',tik:94,tags:['beauty','trending'],d:'Beauty Insider rewards. Huge TikTok beauty community.'},
-  {n:'Ulta Beauty',s:'ulta.com',cat:'beauty',e:'💅',tik:92,tags:['beauty','student'],d:'Rewards program. Very popular in TikTok beauty.'},
-  {n:'Rhode',s:'rhode.com',cat:'beauty',e:'✨',tik:93,tags:['beauty','viral'],d:'Hailey Bieber brand. Extremely viral on TikTok.'},
-  {n:'Rare Beauty',s:'rarebeauty.com',cat:'beauty',e:'💫',tik:95,tags:['beauty','viral'],d:'Selena Gomez brand. Massive TikTok community.'},
-  {n:'e.l.f. Cosmetics',s:'elfcosmetics.com',cat:'beauty',e:'🎭',tik:92,tags:['beauty','viral'],d:'Budget dupes. Very viral. Billions of views.'},
-  {n:'Crumbl Cookies',s:'crumbl.com',cat:'food',e:'🍪',tik:94,tags:['food','viral'],d:'Viral food brand. Weekly flavors. Huge TikTok.'},
-  {n:'Dutch Bros',s:'dutchbros.com',cat:'food',e:'☕',tik:90,tags:['food','viral'],d:'Secret menu. Employee POV viral.'},
-  {n:'Costco',s:'costco.com',cat:'ecommerce',e:'🏬',tik:91,tags:['ecommerce','viral'],d:'Bulk hauls. Massive TikTok trend.'},
-  {n:'Aldi US',s:'aldi.us',cat:'food',e:'🛒',tik:88,tags:['food','trending'],d:'Budget grocery finds. Viral TikTok content.'},
-  {n:'McDonald\'s',s:'mcdonalds.com',cat:'food',e:'🍟',tik:91,tags:['food','popular'],d:'Loyalty rewards, deals, secret menu hacks.'},
-  {n:'Nike',s:'nike.com',cat:'fashion',e:'✅',tik:88,tags:['fashion','student'],d:'Flash sales, employee discount, SNKRS app.'},
-  {n:'Adidas',s:'adidas.com',cat:'fashion',e:'⚫',tik:85,tags:['fashion','student'],d:'Sneaker drops, student deals, haul content.'},
-  {n:'Gymshark',s:'gymshark.com',cat:'fashion',e:'💪',tik:90,tags:['fashion','student'],d:'Fitness brand. Student discount. Very popular.'},
-  {n:'Lululemon',s:'lululemon.com',cat:'fashion',e:'🧘',tik:88,tags:['fashion','popular'],d:'Athletic wear. We Made Too Much sales.'},
-  {n:'Skims',s:'skims.com',cat:'fashion',e:'🩱',tik:90,tags:['fashion','viral'],d:'Kim K brand. Extremely viral TikTok content.'},
-  {n:'Urban Outfitters',s:'urbanoutfitters.com',cat:'fashion',e:'🏷',tik:90,tags:['fashion','student'],d:'Student discount 10%. Huge TikTok haul content.'},
-  {n:'ASOS US',s:'asos.com',cat:'fashion',e:'🛒',tik:87,tags:['fashion','student'],d:'Student discount. Major haul platform.'},
-  {n:'Zara',s:'zara.com',cat:'fashion',e:'🧥',tik:89,tags:['fashion','trending'],d:'New arrivals, style content. Very popular.'},
-  {n:'Stanley Cup',s:'stanley1913.com',cat:'ecommerce',e:'🥤',tik:94,tags:['ecommerce','viral'],d:'Viral tumbler brand. #StanleyCup is massive.'},
-  {n:'Bath & Body Works',s:'bathandbodyworks.com',cat:'beauty',e:'🕯',tik:86,tags:['beauty','trending'],d:'Candle hauls, sales events.'},
-  {n:'Spotify Student',s:'spotify.com',cat:'student',e:'🎵',tik:91,tags:['student','trending'],d:'$5.99/month student plan. Very relatable content.'},
-  {n:'Amazon Prime Student',s:'amazon.com',cat:'student',e:'📦',tik:90,tags:['student','trending'],d:'Free 6 months + discounts. Massively popular student content.'},
-  {n:'Adobe Student',s:'adobe.com',cat:'student',e:'📐',tik:83,tags:['student','tech'],d:'60% off Creative Cloud for students.'},
-  {n:'Rakuten',s:'rakuten.com',cat:'ecommerce',e:'💰',tik:88,tags:['ecommerce','trending'],d:'Cashback shopping. Very popular content angle.'},
-  {n:'Honey',s:'joinhoney.com',cat:'ecommerce',e:'🍯',tik:86,tags:['ecommerce','student'],d:'Browser coupon extension. Viral "found a deal" content.'},
-  {n:'Cash App',s:'cash.app',cat:'tech',e:'💸',tik:86,tags:['tech','trending'],d:'Boosts, referral bonuses.'},
-  {n:'Apple Pay $750',s:'sweepstakes',cat:'sweepstakes',e:'💳',tik:88,tags:['sweepstakes','trending'],d:'Apple Pay cashback sweepstakes. Very popular.'},
-  {n:'Cash $750',s:'sweepstakes',cat:'sweepstakes',e:'💵',tik:89,tags:['sweepstakes','trending'],d:'Cash bonus sweepstakes. Highest converting.'},
-  {n:'Walmart $750',s:'sweepstakes',cat:'sweepstakes',e:'🟡',tik:87,tags:['sweepstakes','trending'],d:'Walmart bonus sweepstakes.'},
-  {n:'Aerie',s:'ae.com',cat:'fashion',e:'💙',tik:84,tags:['fashion','student'],d:'Body positive brand. Strong TikTok community.'},
-  {n:'DoorDash',s:'doordash.com',cat:'food',e:'🚪',tik:88,tags:['food','student'],d:'DashPass deals, free delivery codes.'},
-  {n:'Uber Eats',s:'ubereats.com',cat:'food',e:'🍔',tik:88,tags:['food','student'],d:'First order deals, referral codes.'},
-  {n:'PlayStation',s:'playstation.com',cat:'gaming',e:'🎮',tik:86,tags:['gaming','tech'],d:'Game deals, PS Plus discounts.'},
-  {n:'Xbox',s:'xbox.com',cat:'gaming',e:'🟢',tik:83,tags:['gaming','student'],d:'Game Pass, student deals.'},
-  {n:'Best Buy',s:'bestbuy.com',cat:'tech',e:'💻',tik:80,tags:['tech','student'],d:'Tech deals. Employee discount angles.'},
-  {n:'Samsung',s:'samsung.com',cat:'tech',e:'📱',tik:84,tags:['tech','student'],d:'Phone comparison, student discount.'},
-  {n:'Disney+',s:'disneyplus.com',cat:'tech',e:'🏰',tik:85,tags:['tech','student'],d:'Bundle deals, student offers.'},
-  {n:'Celsius',s:'celsius.com',cat:'food',e:'⚡',tik:90,tags:['food','student'],d:'Energy drink. Huge college/student audience.'},
-  {n:'Olipop',s:'drinkolipop.com',cat:'food',e:'🥤',tik:87,tags:['food','viral'],d:'Healthy soda. Viral TikTok brand.'},
-  {n:'Poppi',s:'drinkpoppi.com',cat:'food',e:'🌸',tik:88,tags:['food','viral'],d:'Prebiotic soda. Gen Z favorite.'},
-  {n:'Airbnb',s:'airbnb.com',cat:'ecommerce',e:'🏠',tik:85,tags:['ecommerce','trending'],d:'Unique stays. Very popular TikTok travel content.'},
-  {n:'Gap',s:'gap.com',cat:'fashion',e:'🔵',tik:75,tags:['fashion','student'],d:'Student discount. Classic American brand.'},
-  {n:'H&M',s:'hm.com',cat:'fashion',e:'👔',tik:85,tags:['fashion','popular'],d:'Member discounts. Haul videos.'}
-];
-var OFFERS_UK = [
-  {n:'ASOS',s:'asos.com',cat:'fashion',e:'🛍',tik:94,tags:['fashion','student'],d:'Huge UK fashion platform. Student 10% discount.'},
-  {n:'Primark',s:'primark.com',cat:'fashion',e:'🏷',tik:96,tags:['fashion','viral'],d:'Haul content is massive on UK TikTok. Budget fashion king.'},
-  {n:'Gymshark',s:'gymshark.com',cat:'fashion',e:'💪',tik:92,tags:['fashion','student'],d:'UK-born brand. Student discount. Massively popular.'},
-  {n:'Boots',s:'boots.com',cat:'beauty',e:'💊',tik:88,tags:['beauty','trending'],d:'#1 UK pharmacy beauty. Advantage Card deals.'},
-  {n:'Superdrug',s:'superdrug.com',cat:'beauty',e:'💜',tik:87,tags:['beauty','student'],d:'UK beauty retailer. Student discount. Very TikTok popular.'},
-  {n:'Greggs',s:'greggs.co.uk',cat:'food',e:'🥐',tik:93,tags:['food','viral'],d:'UK institution. Vegan sausage roll viral content. Huge TikTok.'},
-  {n:'Aldi UK',s:'aldi.co.uk',cat:'food',e:'🛒',tik:91,tags:['food','viral'],d:'Aldi finds. #Aldi is massive on UK TikTok.'},
-  {n:'Lidl',s:'lidl.co.uk',cat:'food',e:'🛒',tik:89,tags:['food','trending'],d:'Middle aisle finds. Very viral on UK TikTok.'},
-  {n:'Student Beans',s:'studentbeans.com',cat:'student',e:'🎓',tik:88,tags:['student','trending'],d:'Hundreds of student discounts. Very popular.'},
-  {n:'Unidays',s:'myunidays.com',cat:'student',e:'🏫',tik:86,tags:['student','trending'],d:'Student discount platform. Very popular in UK.'},
-  {n:'TOTUM / NUS',s:'totum.com',cat:'student',e:'🆔',tik:84,tags:['student','popular'],d:'UK student discount card. Many retailers.'},
-  {n:'Revolution Beauty',s:'revolutionbeauty.com',cat:'beauty',e:'🔴',tik:89,tags:['beauty','student'],d:'Affordable UK dupes. Very TikTok popular.'},
-  {n:'Charlotte Tilbury',s:'charlottetilbury.com',cat:'beauty',e:'💋',tik:90,tags:['beauty','viral'],d:'UK luxury beauty brand. Viral on TikTok.'},
-  {n:'The Body Shop',s:'thebodyshop.com',cat:'beauty',e:'🌿',tik:83,tags:['beauty','student'],d:'Ethics-led beauty. Student 10% off.'},
-  {n:'Zara UK',s:'zara.com',cat:'fashion',e:'🧥',tik:90,tags:['fashion','trending'],d:'New arrivals hauls. Very popular in UK TikTok.'},
-  {n:'H&M UK',s:'hm.com',cat:'fashion',e:'👔',tik:85,tags:['fashion','student'],d:'Member discounts. Student content.'},
-  {n:'PrettyLittleThing',s:'prettylittlething.com',cat:'fashion',e:'🌷',tik:87,tags:['fashion','student'],d:'Student discount up to 40%. Popular haul content.'},
-  {n:'JD Sports',s:'jdsports.co.uk',cat:'fashion',e:'👟',tik:87,tags:['fashion','student'],d:'Trainer releases. Student discount with Student Beans.'},
-  {n:'Vinted',s:'vinted.co.uk',cat:'fashion',e:'👚',tik:89,tags:['fashion','student'],d:'UK secondhand fashion. Thrift hauls are massive TikTok content.'},
-  {n:'Depop',s:'depop.com',cat:'fashion',e:'🏷',tik:87,tags:['fashion','student'],d:'Resale fashion. Very Gen Z TikTok niche.'},
-  {n:'Tesco',s:'tesco.com',cat:'food',e:'🔵',tik:85,tags:['food','popular'],d:'Clubcard deals. Budget food hacks. Very relatable.'},
-  {n:'McDonald\'s UK',s:'mcdonalds.com',cat:'food',e:'🍟',tik:90,tags:['food','trending'],d:'MyMcD\'s rewards. Deals. Secret menu hacks.'},
-  {n:'KFC UK',s:'kfc.co.uk',cat:'food',e:'🍗',tik:87,tags:['food','trending'],d:'Colonel Club rewards. Secret menu.'},
-  {n:'Deliveroo',s:'deliveroo.co.uk',cat:'food',e:'🛵',tik:85,tags:['food','student'],d:'Plus subscription, free delivery.'},
-  {n:'Just Eat',s:'just-eat.co.uk',cat:'food',e:'🥡',tik:80,tags:['food','student'],d:'UK food delivery. Student codes.'},
-  {n:'John Lewis',s:'johnlewis.com',cat:'ecommerce',e:'🛍',tik:78,tags:['ecommerce','popular'],d:'UK retail giant. Gifting, home, fashion.'},
-  {n:'Apple UK',s:'apple.com/uk',cat:'tech',e:'🍎',tik:88,tags:['tech','student'],d:'Student Education pricing. AirPods, MacBook deals.'},
-  {n:'Currys',s:'currys.co.uk',cat:'tech',e:'💻',tik:78,tags:['tech','student'],d:'UK tech retailer. Student deals. Tech unboxing.'},
-  {n:'Spotify UK Student',s:'spotify.com',cat:'student',e:'🎵',tik:91,tags:['student','trending'],d:'Student plan. Very relatable content.'},
-  {n:'Amazon UK Prime Student',s:'amazon.co.uk',cat:'student',e:'📦',tik:90,tags:['student','trending'],d:'6 months free + 50% off. Huge student audience.'},
-  {n:'New Balance',s:'newbalance.com',cat:'fashion',e:'🔵',tik:88,tags:['fashion','viral'],d:'Trending sneakers. Huge UK TikTok popularity.'},
-  {n:'Lush',s:'lush.com',cat:'beauty',e:'🛁',tik:87,tags:['beauty','viral'],d:'UK bath bombs. Viral unboxing and ASMR.'},
-  {n:'Monzo',s:'monzo.com',cat:'student',e:'🔴',tik:84,tags:['student','trending'],d:'UK digital bank. Very Gen Z. Student account.'},
-  {n:'Revolut',s:'revolut.com',cat:'student',e:'⚡',tik:82,tags:['student','trending'],d:'Digital bank. Student cashback, travel.'},
-  {n:'Klarna UK',s:'klarna.com',cat:'student',e:'🩷',tik:86,tags:['student','trending'],d:'Buy now pay later. Very popular student content.'},
-  {n:'16-25 Railcard',s:'16-25railcard.co.uk',cat:'student',e:'🚂',tik:79,tags:['student','trending'],d:'30% off train tickets. Very relatable UK student content.'},
-  {n:'Skyscanner',s:'skyscanner.net',cat:'ecommerce',e:'✈',tik:83,tags:['ecommerce','student'],d:'Flight deals. Budget travel content.'},
-  {n:'EasyJet',s:'easyjet.com',cat:'ecommerce',e:'🟠',tik:80,tags:['ecommerce','student'],d:'Budget flights. FLEXI deal content.'},
-  {n:'Ryanair',s:'ryanair.com',cat:'ecommerce',e:'💙',tik:82,tags:['ecommerce','student'],d:'Cheap flights. Relatable travel content.'},
-  {n:'Pret a Manger',s:'pret.co.uk',cat:'food',e:'☕',tik:82,tags:['food','student'],d:'Coffee subscription deals. UK student favourite.'},
-  {n:'Costa Coffee',s:'costa.co.uk',cat:'food',e:'☕',tik:80,tags:['food','student'],d:'Coffee Club deals. Student offers.'},
-  {n:'Marks & Spencer',s:'marksandspencer.com',cat:'food',e:'🟢',tik:78,tags:['food','popular'],d:'UK classic. Food and fashion content.'},
-  {n:'Sainsbury\'s',s:'sainsburys.co.uk',cat:'food',e:'🟠',tik:82,tags:['food','popular'],d:'Nectar card deals. UK grocery.'},
-  {n:'Waterstones',s:'waterstones.com',cat:'student',e:'📚',tik:75,tags:['student','popular'],d:'UK bookshop. Student loyalty card.'},
-  {n:'Odeon',s:'odeon.co.uk',cat:'ecommerce',e:'🎬',tik:76,tags:['ecommerce','student'],d:'Student discount, unlimited card.'},
-  {n:'e.l.f. UK',s:'elfcosmetics.com',cat:'beauty',e:'🎭',tik:90,tags:['beauty','viral'],d:'Budget dupes. Viral on UK TikTok too.'},
-  {n:'NYX Cosmetics',s:'nyxcosmetics.com',cat:'beauty',e:'💜',tik:85,tags:['beauty','popular'],d:'Affordable beauty. Popular dupes.'},
-  {n:'Next',s:'next.co.uk',cat:'fashion',e:'👗',tik:78,tags:['fashion','popular'],d:'UK fashion. Next Credit deals.'},
-  {n:'Sports Direct',s:'sportsdirect.com',cat:'fashion',e:'⚽',tik:75,tags:['fashion','popular'],d:'UK sports. Budget activewear.'}
-];
-
-function offerBg(cat) { var m={fashion:'#1a0a1e',beauty:'#1e0a10',food:'#1a1200',tech:'#0a1020',gaming:'#0a1a0a',ecommerce:'#101018',student:'#0a180a',sweepstakes:'#1a0808'}; return m[cat]||'#111'; }
-function filterOffers(cat, el) {
-  curOffFilter = cat;
-  document.querySelectorAll('.fchip').forEach(function(c) { c.classList.remove('act'); });
-  el.classList.add('act');
-  renderOffers();
-}
-function renderOffers() {
-  var search = (document.getElementById('offSearch') ? document.getElementById('offSearch').value.toLowerCase() : '');
-  var data = curOffRegion === 'USA' ? OFFERS_USA : OFFERS_UK;
-  if (curOffFilter === 'trending') data = data.filter(function(o) { return o.tik >= 88; });
-  else if (curOffFilter !== 'all') data = data.filter(function(o) { return o.cat === curOffFilter || o.tags.includes(curOffFilter); });
-  if (search) data = data.filter(function(o) { return o.n.toLowerCase().includes(search) || o.s.toLowerCase().includes(search) || o.d.toLowerCase().includes(search) || o.tags.some(function(t) { return t.includes(search); }); });
-  data = data.slice().sort(function(a, b) { return b.tik - a.tik; });
-  filteredOffers = data;
-  var html = '<div style="font-size:10px;color:var(--t2);margin-bottom:6px;">' + data.length + ' offers · sorted by TikTok popularity</div><div class="og">';
-  data.forEach(function(o, i) {
-    html += '<div class="oc" onclick="openOffer(' + i + ')"><div class="oi" style="background:' + offerBg(o.cat) + ';">' + o.e + '</div><div class="ob"><div class="on">' + esc(o.n) + '</div><div class="os">' + esc(o.s) + '</div><div class="ot"><span class="tag ' + (o.tik >= 90 ? 'tr' : 'ty') + '" style="font-size:8px;">🔥' + o.tik + '%</span>' + (o.tags.includes('student') ? '<span class="tag tg" style="font-size:8px;">🎓</span>' : '') + (o.tags.includes('viral') ? '<span class="tag tp" style="font-size:8px;">viral</span>' : '') + '</div></div></div>';
-  });
-  html += '</div>';
-  document.getElementById('offersGrid').innerHTML = html;
-}
-function openOffer(idx) {
-  var o = filteredOffers[idx]; if (!o) return;
-  var html = '<button class="mcl" onclick="closeModal()">×</button>';
-  html += '<div style="text-align:center;font-size:48px;margin-bottom:10px;">' + o.e + '</div>';
-  html += '<div style="font-family:Syne,sans-serif;font-size:17px;font-weight:800;margin-bottom:3px;">' + esc(o.n) + '</div>';
-  html += '<div style="font-size:11px;color:var(--bl);margin-bottom:10px;">' + esc(o.s) + '</div>';
-  html += '<div style="font-size:12px;color:var(--t2);margin-bottom:12px;line-height:1.7;">' + esc(o.d) + '</div>';
-  html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;"><div class="sb"><div class="sv" style="color:var(--ac);">' + o.tik + '%</div><div class="sl">TikTok Score</div></div><div class="sb"><div class="sv" style="color:var(--gn);">' + o.tags.join(', ') + '</div><div class="sl">Tags</div></div></div>';
-  html += '<a href="https://' + o.s + '" target="_blank" class="btn bfull" style="color:var(--bl);border-color:rgba(0,149,255,.25);background:rgba(0,149,255,.06);margin-bottom:8px;">Visit ' + esc(o.s) + ' →</a>';
-  html += '<button class="btn bfull bac" onclick="genForOffer(\'' + esc(o.n).replace(/'/g,'&#39;') + '\',\'' + esc(o.s).replace(/'/g,'&#39;') + '\');closeModal()">Generate TikTok angles for ' + esc(o.n) + ' ↗</button>';
-  document.getElementById('offerModalContent').innerHTML = html;
-  document.getElementById('offerModal').classList.add('open');
-}
-function closeModal() { document.getElementById('offerModal').classList.remove('open'); }
-function genForOffer(name, site) {
-  document.getElementById('ctaInp').value = site;
-  document.getElementById('refInp').value = name + ' student discount, ' + name + ' deal angle';
-  go('angles');
-  setTimeout(function() { genAngles(4); }, 300);
-}
-
-// ---- FIND ----
-function renderWatches() {
-  var w = getWatches(); var el = document.getElementById('kwWatches');
-  if (!w.length) { el.innerHTML = ''; return; }
-  var html = '<div class="card"><div class="cl">Saved searches</div>';
-  w.forEach(function(kw, i) {
-    html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--b1);"><span class="tag tb">' + esc(kw.kw) + '</span><div style="display:flex;gap:5px;"><button class="btn bsm" onclick="document.getElementById(\'kwInp\').value=\'' + esc(kw.kw).replace(/'/g,'&#39;') + '\';findVids()">Search</button><button class="btn bsm bgh" onclick="rmWatch(' + i + ')">×</button></div></div>';
-  });
-  html += '</div>';
-  el.innerHTML = html;
-}
-function rmWatch(i) { var w = getWatches(); w.splice(i, 1); setWatches(w); renderWatches(); }
-
-function findVids() {
-  var kw = document.getElementById('kwInp').value.trim(); if (!kw) { alert('Enter keyword or domain'); return; }
-  var scope = document.getElementById('kwScope').value;
-  var sort = document.getElementById('kwSort').value;
-  var w = getWatches(); if (!w.find(function(x) { return x.kw === kw; })) { w.push({ kw: kw, added: new Date().toLocaleDateString() }); setWatches(w); renderWatches(); }
-  sb('kwBtn', true, 'Search ↗');
-  document.getElementById('kwOut').innerHTML = ld('Searching for "' + kw + '"...');
-  var isDomain = /\.[a-z]{2,}(\.[a-z]{2})?$/i.test(kw);
-  var sys = 'TikTok content researcher. Return ONLY valid JSON. Start with { end with }. No text before or after.';
-  var usr = 'Search: "' + kw + '"\nisDomain: ' + isDomain + '\nScope: ' + scope + '\nSort: ' + sort + '\n\nReturn ONLY this JSON object (nothing before or after):\n{\n  "trend": "rising",\n  "total_found": "100-500",\n  "best_approach": "2 sentence strategy",\n  "posting_window": "evenings 6-9pm EST",\n  "search_url": "https://www.tiktok.com/search?q=' + encodeURIComponent(kw) + '",\n  "results": [\n    {\n      "concept": "video concept",\n      "hook": "example opening line",\n      "creator_type": "type of creator",\n      "est_views": "10K-50K",\n      "where_mentioned": "caption",\n      "how_used": "how keyword appears naturally",\n      "angle": "core angle",\n      "tip": "how to replicate or beat this"\n    }\n  ]\n}';
-  aiCall(sys, usr, null, 1200).then(function(raw) {
-    var d = parseJ(raw);
-    var tc = { rising: 'tg', peaked: 'tr', stable: 'ty' };
-    var html = '<div class="card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;"><span class="tag ' + (tc[d.trend] || 'tb') + '">' + esc(d.trend || '—') + '</span><span style="font-size:10px;color:var(--t2);">~' + esc(d.total_found || '?') + ' videos</span><span style="font-size:10px;color:var(--t2);">Best: ' + esc(d.posting_window || '—') + '</span></div>';
-    html += '<div class="ins"><div class="il">Strategy</div>' + esc(d.best_approach || '—') + '</div>';
-    html += '<a href="' + (d.search_url || 'https://tiktok.com') + '" target="_blank" class="btn bfull" style="color:var(--bl);border-color:rgba(0,149,255,.25);background:rgba(0,149,255,.06);margin-bottom:10px;">Open TikTok search for "' + esc(kw) + '" →</a>';
-    (d.results || []).forEach(function(r) {
-      html += '<div class="rc"><div class="bigt">' + esc(r.concept) + '</div><div style="font-size:10px;color:var(--t2);margin-bottom:4px;">' + esc(r.creator_type) + ' · ~' + esc(r.est_views) + '</div>';
-      if (r.where_mentioned) html += '<div style="margin-bottom:4px;"><span class="tag tb">' + esc(r.where_mentioned) + '</span> <span style="font-size:10px;color:var(--t2);">' + esc(r.how_used || '') + '</span></div>';
-      html += '<div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Hook: "' + esc(r.hook || '') + '"</div><div style="font-size:10px;color:var(--yl);">💡 ' + esc(r.tip || '') + '</div><div class="mr"><span class="tag tp">' + esc(r.angle || '') + '</span></div></div>';
-    });
-    html += '</div>';
-    document.getElementById('kwOut').innerHTML = html;
-  }).catch(function(e) { document.getElementById('kwOut').innerHTML = '<div class="abox">Error: ' + esc(e.message) + '<br><small>Try again or use a simpler query</small></div>'; })
-    .finally(function() { sb('kwBtn', false, 'Search ↗'); });
-}
-
-function findTrending() {
-  var niche = document.getElementById('trendNiche').value.trim();
-  sb('trendBtn', true, 'Find trending keywords ↗');
-  document.getElementById('trendOut').innerHTML = ld('Finding trending keywords...');
-  var sys = 'TikTok trends researcher. Return ONLY valid JSON object. Start with { end with }.';
-  var usr = 'Find trending TikTok caption keywords/phrases for "' + (niche || 'general') + '" niche in 2025.\nReturn ONLY this JSON:\n{\n  "keywords": [\n    {"kw": "keyword phrase", "trend": "rising", "example_use": "how to use in caption", "search_url": "https://www.tiktok.com/search?q=ENCODED"}\n  ],\n  "tip": "advice on using these keywords"\n}';
-  aiCall(sys, usr, null, 900).then(function(raw) {
-    var d = parseJ(raw);
-    var html = '<div class="ins"><div class="il">Tip</div>' + esc(d.tip || '') + '</div><div style="display:flex;flex-direction:column;gap:7px;">';
-    (d.keywords || []).forEach(function(k) {
-      html += '<div class="rc"><div class="bigt">' + esc(k.kw) + '</div><div class="subt" style="margin-bottom:6px;">' + esc(k.example_use || '') + '</div><div class="mr"><span class="tag ' + (k.trend === 'viral' ? 'tr' : k.trend === 'rising' ? 'ty' : 'tg') + '">' + esc(k.trend) + '</span><a href="' + (k.search_url || '#') + '" target="_blank" class="btn bsm" style="color:var(--bl);border-color:rgba(0,149,255,.2);background:rgba(0,149,255,.06);font-size:9px;">Search TikTok →</a></div></div>';
-    });
-    html += '</div>';
-    document.getElementById('trendOut').innerHTML = html;
-  }).catch(function(e) { document.getElementById('trendOut').innerHTML = '<div class="abox">Error: ' + esc(e.message) + '</div>'; })
-    .finally(function() { sb('trendBtn', false, 'Find trending keywords ↗'); });
-}
-
-// ---- CREATIVE ----
-function handleCreativeFile(e) {
-  var file = e.target.files[0]; if (!file) return;
-  var r = new FileReader();
-  r.onload = function(ev) {
-    creativeImg = { base64: ev.target.result.split(',')[1], type: file.type };
-    var el = document.getElementById('crPrev');
-    el.innerHTML = '<img src="' + ev.target.result + '" style="width:100%;max-height:120px;object-fit:cover;border-radius:8px;border:1px solid var(--b1);">';
-    el.style.display = 'block';
-  };
-  r.readAsDataURL(file);
-}
-function runCreative() {
-  var inp = document.getElementById('crInp').value.trim(); if (!inp) { alert('Enter something'); return; }
-  sb('crBtn', true, 'Unleash ↗');
-  document.getElementById('crOut').innerHTML = ld('Thinking across every angle...');
-  var mode = document.getElementById('crMode').value;
-  var imgs = creativeImg ? [creativeImg] : [];
-  var modeMap = { angles: '8 wildly creative unique angles each completely different', hooks: '10 scroll-stopping hooks mixed formats', concepts: '6 full video concepts with hook + structure + virality reason', chaos: 'Total freedom: angles hooks concepts unexpected ideas surprise me' };
-  var sys = 'Most creative TikTok content AI for ' + curAngRegion + ' audience. Topic: "' + curTopic + '". Return ONLY valid JSON object. Start with { end with }. No text before or after.';
-  var usr = 'Input: "' + inp + '"\nMode: ' + mode + ' — ' + modeMap[mode] + '\nMemory: ' + (buildCtx() || 'fresh') + '\n\nReturn ONLY this JSON object:\n{\n  "main_insight": "what you noticed that others miss",\n  "ideas": [\n    {\n      "type": "angle",\n      "content": "the angle text",\n      "why_viral": "reason",\n      "score": 9,\n      "unexpected": "what makes it surprising",\n      "format": "talking head"\n    }\n  ]\n}';
-  aiCall(sys, usr, imgs, 1400).then(function(raw) {
-    var d = parseJ(raw);
-    var html = '<div class="card"><div class="ins"><div class="il">Main insight</div>' + esc(d.main_insight || '') + '</div>';
-    (d.ideas || []).forEach(function(idea) {
-      var safeAngle = JSON.stringify(idea.content || '').replace(/</g, '\\u003c');
-      var safeWhy = JSON.stringify(idea.why_viral || '').replace(/</g, '\\u003c');
-      html += '<div class="rc"><button class="savebtn" onclick=\'saveAngle({angle:' + safeAngle + ',emotion:"creative",competition:"low",why:' + safeWhy + '})\'>+ Save</button>';
-      html += '<div style="font-size:9px;color:var(--pp);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;">' + esc(idea.type || '') + '</div>';
-      html += '<div class="bigt">"' + esc(idea.content || '') + '"</div>';
-      html += '<div class="mr"><span class="tag tor">' + (idea.score || 7) + '/10</span><span class="tag tp">' + esc(idea.format || '') + '</span></div>';
-      html += '<div class="subt" style="margin-top:4px;"><b style="color:var(--yl);">Why viral:</b> ' + esc(idea.why_viral || '') + '<br><b style="color:var(--pp);">Unexpected:</b> ' + esc(idea.unexpected || '') + '</div></div>';
-    });
-    html += '</div>';
-    document.getElementById('crOut').innerHTML = html;
-  }).catch(function(e) { document.getElementById('crOut').innerHTML = '<div class="abox">Error: ' + esc(e.message) + '</div>'; })
-    .finally(function() { sb('crBtn', false, 'Unleash ↗'); });
-}
-
-// ---- SETTINGS ----
-function saveApiKey() {
-  var val = document.getElementById('apiKeyInp').value.trim();
-  if (!val) { alert('Enter your API key first'); return; }
-  if (!val.startsWith('sk-ant-')) { alert('Invalid key — must start with sk-ant-'); return; }
-  setApiKey(val);
-  document.getElementById('apiKeyStatus').innerHTML = '<span style="color:var(--gn);">✓ API key saved! All features are now active.</span>';
-  document.getElementById('apiKeyBanner').style.display = 'none';
-  document.getElementById('apiKeyInp').value = '••••••••••••••••••••••••••';
-}
-function checkKeyStatus() {
-  var v = document.getElementById('apiKeyInp').value;
-  var st = document.getElementById('apiKeyStatus');
-  if (!st) return;
-  if (v.startsWith('sk-ant-') && v.length > 20) {
-    st.innerHTML = '<span style="color:var(--yl);">Key looks valid — click Save</span>';
-  } else if (v.length > 5) {
-    st.innerHTML = '<span style="color:var(--ac);">Key should start with sk-ant-</span>';
+    regen.style.display = 'block';
+    if (state.patterns) { renderPatternData(state.patterns); }
+    else { analyzePatterns(); }
   }
 }
-function renderSettings() {
-  var s = getSettings();
-  document.getElementById('setAutosave').checked = s.autosave || false;
-  document.getElementById('setLearn').checked = s.learn !== false;
-  document.getElementById('setBG').checked = s.bg || false;
-  // show key status
-  var existingKey = getApiKey();
-  var apiInp = document.getElementById('apiKeyInp');
-  var apiSt = document.getElementById('apiKeyStatus');
-  if (existingKey && apiInp) {
-    apiInp.value = '••••••••••••••••••••••••••';
-    apiSt.innerHTML = '<span style="color:var(--gn);">✓ API key is set and active</span> <button onclick="clearApiKey()" style="background:none;border:none;color:var(--ac);cursor:pointer;font-size:10px;font-family:DM Mono,monospace;">Change key</button>';
-  } else if (apiSt) {
-    apiSt.innerHTML = '<span style="color:var(--ac);">⚠ No API key — enter it above to activate all features</span>';
-  }
-  renderSites();
-  var allS = Object.keys(dbGet()).filter(function(k) { return k.startsWith('saved_'); }).reduce(function(t, k) { return t + (dbGet()[k] || []).length; }, 0);
-  document.getElementById('memStats').innerHTML = '<div style="font-size:11px;color:var(--t2);">' + allS + ' angles saved · ' + getLog().length + ' videos · ' + getCTAEx().length + ' CTA examples</div>';
-}
-function addSite() {
-  var v = document.getElementById('siteInp').value.trim(); if (!v) return;
-  var s = getSites(); if (!s.includes(v)) s.push(v); setSites(s);
-  document.getElementById('siteInp').value = '';
-  renderSites();
-}
-function renderSites() {
-  var s = getSites(); var el = document.getElementById('sitesList');
-  if (!s.length) { el.innerHTML = '<div style="font-size:10px;color:var(--t3);">None added yet.</div>'; return; }
-  var html = '<div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;">';
-  s.forEach(function(site, i) {
-    html += '<span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;background:var(--s2);border:1px solid var(--b2);border-radius:20px;font-size:10px;">' + esc(site) + '<button onclick="rmSite(' + i + ')" style="background:none;border:none;color:var(--t3);cursor:pointer;font-size:9px;">×</button></span>';
-  });
-  html += '</div>';
-  el.innerHTML = html;
-}
-function rmSite(i) { var s = getSites(); s.splice(i, 1); setSites(s); renderSites(); }
-function clearApiKey() {
-  gs('api_key', '');
-  var apiInp = document.getElementById('apiKeyInp');
-  var apiSt = document.getElementById('apiKeyStatus');
-  if (apiInp) apiInp.value = '';
-  if (apiSt) apiSt.innerHTML = '<span style="color:var(--ac);">⚠ API key cleared — enter a new one</span>';
-}
-function exportAngles() {
-  var all = {};
-  Object.keys(dbGet()).filter(function(k) { return k.startsWith('saved_'); }).forEach(function(k) { all[k.replace('saved_', '')] = dbGet()[k]; });
-  var blob = new Blob([JSON.stringify(all, null, 2)], { type: 'application/json' });
-  var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'angles.json'; a.click();
-}
-function clearAll() { localStorage.removeItem(STORE); location.reload(); }
 
-// ---- INIT ----
-(function() {
-  renderSaved(); renderStats(); renderLogList(); renderAccts(); renderWatches(); renderSettings();
-  // show API key banner if not set
-  if (!getApiKey()) {
-    document.getElementById('apiKeyBanner').style.display = 'flex';
+// ============================================================
+// CONTENT LOG
+// ============================================================
+function renderLog() {
+  const list = document.getElementById('log-list');
+  if (!state.entries.length) {
+    list.innerHTML = `<div class="empty-state"><div class="empty-icon">≡</div><div class="empty-title">No videos tracked yet</div><div class="empty-sub">Add content to build your history</div></div>`;
+    return;
   }
-  var accts = getAccts();
-  accts.forEach(function(a) {
-    if (a.status === 'done' && a.lastUpdate) {
-      var h = (Date.now() - new Date(a.lastUpdate).getTime()) / 3600000;
-      if (h > 6) setTimeout(function() { analyzeAcct(a.h); }, 3000);
-    }
-  });
-})();
+  list.innerHTML = [...state.entries].reverse().map(e => {
+    const scoreColor = !e.score ? '' : e.score >= 70 ? 'style="color:var(--green)"' : e.score >= 50 ? 'style="color:var(--gold)"' : 'style="color:var(--accent)"';
+    const typeLabel = e.type === 'url' ? '🔗' : e.type === 'upload' ? '📹' : '✏️';
+    const title = e.hook || e.title || e.desc || 'Untitled';
+    return `<div class="log-item">
+      <div class="log-item-header">
+        <div style="flex:1;">
+          <div class="log-item-title">${typeLabel} ${title.slice(0,80)}${title.length>80?'…':''}</div>
+          <div class="log-item-meta">${e.date} · ${e.niche}</div>
+        </div>
+        ${e.score ? `<div style="font-family:var(--font-head);font-size:22px;font-weight:700;${scoreColor?scoreColor.slice(7,-1):''}">${e.score}</div>` : ''}
+      </div>
+      ${e.analysis && e.analysis.verdict ? `<div style="font-size:12px;color:var(--text3);margin-top:6px;">${e.analysis.verdict}</div>` : ''}
+      <div class="log-item-tags">
+        ${e.views ? `<span class="badge badge-gray">${e.views.toLocaleString()} views</span>` : ''}
+        ${e.perf ? `<span class="badge ${e.perf==='viral'?'badge-red':e.perf==='good'?'badge-green':'badge-gray'}">${e.perf}</span>` : ''}
+        ${e.format ? `<span class="badge badge-gray">${e.format}</span>` : ''}
+        <button class="btn btn-ghost btn-sm" onclick="deleteEntry(${e.id})" style="margin-left:auto;font-size:11px;color:var(--text3);">delete</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function deleteEntry(id) {
+  state.entries = state.entries.filter(e => e.id !== id);
+  state.patterns = null;
+  saveState(state);
+  renderLog();
+}
+
+function clearLog() {
+  if (!confirm('Delete all tracked content?')) return;
+  state = { entries: [], patterns: null };
+  saveState(state);
+  renderLog();
+}
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+function refreshDashboard() {
+  const total = state.entries.length;
+  document.getElementById('stat-total').textContent = total;
+  if (total) {
+    const withViews = state.entries.filter(e => e.views > 0);
+    const avgViews = withViews.length ? Math.round(withViews.reduce((s,e)=>s+e.views,0)/withViews.length) : 0;
+    const best = Math.max(...state.entries.map(e=>e.score||0));
+    document.getElementById('stat-avg').textContent = avgViews > 999 ? (avgViews/1000).toFixed(1)+'K' : avgViews || '—';
+    document.getElementById('stat-best').textContent = best || '—';
+  }
+  const alert = document.getElementById('dash-alert');
+  alert.innerHTML = total === 0 ? `<div class="alert alert-info">Welcome! Start by adding your first video in <strong>Add Content</strong>.</div>` :
+    total < 3 ? `<div class="alert alert-warn">Add ${3-total} more video${3-total!==1?'s':''} to unlock AI pattern analysis.</div>` :
+    `<div class="alert alert-success">Pattern engine active — ${total} videos tracked.</div>`;
+
+  const nicheMap = {};
+  state.entries.forEach(e => { nicheMap[e.niche] = (nicheMap[e.niche]||[]).concat(e.score||50); });
+  const nicheSorted = Object.entries(nicheMap).map(([n,scores])=>({ n, avg: Math.round(scores.reduce((a,b)=>a+b,0)/scores.length), cnt: scores.length })).sort((a,b)=>b.avg-a.avg);
+  const nicheEl = document.getElementById('dash-niches');
+  nicheEl.innerHTML = nicheSorted.length ? nicheSorted.map(n=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);">
+    <div><span style="font-size:13px;font-weight:500;">${n.n}</span><span style="font-size:11px;color:var(--text3);margin-left:8px;">${n.cnt} video${n.cnt!==1?'s':''}</span></div>
+    <span style="font-family:var(--font-head);font-size:16px;font-weight:700;color:${n.avg>=70?'var(--green)':n.avg>=50?'var(--gold)':'var(--accent)'};">${n.avg}</span>
+  </div>`).join('') : `<div class="empty-state" style="padding:24px;"><div class="empty-sub">No niche data yet</div></div>`;
+
+  const recentEl = document.getElementById('dash-recent');
+  recentEl.innerHTML = state.entries.length ? [...state.entries].reverse().slice(0,4).map(e=>`<div style="padding:8px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+    <div><div style="font-size:13px;">${(e.hook||e.title||e.desc||'Untitled').slice(0,40)}…</div><div style="font-size:11px;color:var(--text3);font-family:var(--font-mono);">${e.date} · ${e.niche}</div></div>
+    ${e.score?`<span style="font-family:var(--font-head);font-size:16px;font-weight:700;color:${e.score>=70?'var(--green)':e.score>=50?'var(--gold)':'var(--accent)'};">${e.score}</span>`:''}
+  </div>`).join('') : `<div class="empty-state" style="padding:24px;"><div class="empty-sub">No videos yet</div></div>`;
+
+  const insightsEl = document.getElementById('dash-insights');
+  if (state.patterns && state.entries.length >= 3) {
+    insightsEl.innerHTML = `
+      <div class="insight-card"><div class="insight-title">TOP PATTERN</div><div class="insight-body">${state.patterns.top_pattern}</div></div>
+      <div class="insight-card" style="border-color:var(--accent);background:rgba(254,44,85,0.04);">
+        <div class="insight-title" style="color:var(--accent)">NEXT VIDEO IDEA</div>
+        <div class="insight-body">${state.patterns.next_video_idea}</div>
+      </div>`;
+  } else if (state.entries.length >= 3) {
+    insightsEl.innerHTML = `<div style="text-align:center;padding:20px;"><button class="btn btn-primary" onclick="goTo('patterns')">Run Pattern Analysis ↗</button></div>`;
+  } else {
+    insightsEl.innerHTML = `<div class="empty-state" style="padding:20px;"><div class="empty-title" style="font-size:13px;">Track ${3-state.entries.length} more videos to unlock</div></div>`;
+  }
+}
+
+// Init
+refreshDashboard();
 </script>
 </body>
 </html>
